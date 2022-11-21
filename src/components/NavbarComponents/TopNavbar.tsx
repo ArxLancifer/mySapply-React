@@ -24,7 +24,7 @@ function TopNavbar() {
                     <Button color='inherit'>Category-4</Button>
                     <div>
                         <Button className={styles.sign} color='inherit'>
-                            <Link  to="/signup">
+                            <Link  to="/login">
                                 <PermIdentityIcon />
                             </Link>
                         </Button>

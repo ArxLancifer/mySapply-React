@@ -1,18 +1,17 @@
 import React, { Fragment } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import './App.css';
-import LogSign from './components/Login-Signup/LogSign';
 import Header from './components/NavbarComponents/Header';
-// import TopNavbar from "./components/NavbarComponents/TopNavbar"
+import Login from './components/Login-Signup/Login';
+import Signup from './components/Login-Signup/Signup';
 
 function App() {
   return (
     <Fragment>
         <Header />
     <Routes>
-        <Route path='/signup' element={<LogSign/>}>
-        
-        </Route>
+        <Route path='/login' element={<Login/>} />
+        <Route path='/signup' element={<Signup/>} />
     </Routes>
     </Fragment>
   );
