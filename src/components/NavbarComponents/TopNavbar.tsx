@@ -1,5 +1,6 @@
 import React from "react";
 import { AppBar, Button, IconButton, Stack, Toolbar, Typography } from "@mui/material";
+import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import styles from "./TopNavbar.module.css";
 
 function TopNavbar() {
@@ -21,7 +22,9 @@ function TopNavbar() {
                         <Button color='inherit'>Category-4</Button>
                         <div>
                         <Button className="sign" color='inherit'>Signup</Button>
-                        <Button className="myCart" color='inherit'>Cart</Button>
+                        <Button className="myCart" color='inherit'>
+                            <AddShoppingCartIcon style={{color:"FF5B00"}} />
+                        </Button>
                         </div>
                     </Stack>
                     </Toolbar>
