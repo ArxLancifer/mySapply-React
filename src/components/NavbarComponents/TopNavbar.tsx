@@ -8,7 +8,7 @@ function TopNavbar() {
                 <Toolbar>
                     <IconButton>
                     <div className={styles.logo}>
-                        <img src="./assets/sapply.png" />
+                        <img src="./assets/sapply.png" alt="Sapply logo"/>
                     </div>
                     </IconButton>
                     <Typography variant="h6" component='div' sx={{flexGrow :1}}>
