@@ -3,8 +3,10 @@
     width: 8rem;
 }
 
-/* .navLinks > li{
-    list-style: none;
-    display: block;
-    
-} */
+.sign a{
+   text-decoration: none;
+   display: block;
+   padding-top: 10px;
+   color:rgb(255, 127, 67); 
+   transform: scale(1.1);
+}

@@ -1,13 +1,20 @@
-import React from 'react';
+import React, { Fragment } from 'react';
+import { Route, Routes } from 'react-router-dom';
 import './App.css';
+import LogSign from './components/Login-Signup/LogSign';
 import Header from './components/NavbarComponents/Header';
 // import TopNavbar from "./components/NavbarComponents/TopNavbar"
 
 function App() {
   return (
-    <div className="App">
+    <Fragment>
         <Header />
-    </div>
+    <Routes>
+        <Route path='/signup' element={<LogSign/>}>
+        
+        </Route>
+    </Routes>
+    </Fragment>
   );
 }
 
