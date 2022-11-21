@@ -1,12 +1,13 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import TopNavbar from "./components/NavbarComponents/TopNavbar"
+import Header from './components/NavbarComponents/Header';
+// import TopNavbar from "./components/NavbarComponents/TopNavbar"
 
 function App() {
   return (
     <div className="App">
-        <TopNavbar />
+        <Header />
     </div>
   );
 }
