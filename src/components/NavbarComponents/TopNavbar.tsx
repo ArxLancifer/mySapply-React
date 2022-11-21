@@ -1,7 +1,6 @@
 import React from "react";
-import { AppBar, Button, Container, Grid, IconButton, ListItem, Stack, Toolbar, Typography } from "@mui/material";
+import { AppBar, Button, IconButton, Stack, Toolbar, Typography } from "@mui/material";
 import styles from "./TopNavbar.module.css";
-import { Box } from "@mui/system";
 
 function TopNavbar() {
     return (
