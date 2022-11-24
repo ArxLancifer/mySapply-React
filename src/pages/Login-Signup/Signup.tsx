@@ -6,6 +6,19 @@ import React from 'react'
 
 function Signup() {
     return (
+        <Box sx={{
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            px:4,
+            transform: "translate(-50%, -50%)",
+            width: "60vw",
+            height:"50vh",
+            // borderTop: 1,
+            borderRadius:1 , 
+            // borderColor: 'grey.300',
+            boxShadow: 3,
+        }}>
         <Container maxWidth="xs">
             <form>
                 <FormControl fullWidth>
@@ -44,6 +57,7 @@ function Signup() {
                 </Box>
             </form>
         </Container>
+        </Box>
     )
 }
 
