@@ -1,10 +1,21 @@
+import React, {useState} from 'react'
 import { Container, FormControl, TextField, Box, Button, InputAdornment } from '@mui/material'
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import LockOpenIcon from '@mui/icons-material/LockOpen';
 import PersonPinIcon from '@mui/icons-material/PersonPin';
-import React from 'react'
+
+
+
 
 function Signup() {
+
+    const [userInfo, setUserInfo] = useState("")
+
+
+    function signup(e: any){
+      console.log(e.target);
+    }
+
     return (
         <Box sx={{
             position: "absolute",
@@ -14,15 +25,13 @@ function Signup() {
             transform: "translate(-50%, -50%)",
             width: "60vw",
             height:"50vh",
-            // borderTop: 1,
             borderRadius:1 , 
-            // borderColor: 'grey.300',
             boxShadow: 3,
         }}>
         <Container maxWidth="xs">
             <form>
                 <FormControl fullWidth>
-                    <TextField sx={{ my: 1 }} id="email" label="E-mail" variant="standard" type="email" InputProps={{
+                    <TextField sx={{ my: 1 }} id="email" label="E-mail" name="email" variant="standard" type="email" InputProps={{
           endAdornment: (
             <InputAdornment position="start">
               <MailOutlineIcon />
@@ -48,9 +57,10 @@ function Signup() {
                     <Button
                         sx={{ mt: 1 }}
                         size="medium"
-                        type="submit"
+                        type="button"
                         variant="contained"
                         color="primary"
+                        onClick={signup}
                     >
                         Submit
                     </Button>
