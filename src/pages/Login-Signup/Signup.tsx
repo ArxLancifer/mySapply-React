@@ -11,8 +11,7 @@ interface IUserPost {
 }
 
 function Signup() {
-    const [userInput, setUserInput] = useState<any>({email:"", username:"", password:""})
-
+    const [userInput, setUserInput] = useState<IUserPost>({email:"", username:"", password:""})
 
     async function signup(e: any) {
         e.preventDefault();
@@ -62,7 +61,7 @@ function Signup() {
                                        ),
                                    }}/>
                         <TextField sx={{my: 1}} id="username" label="Username" variant="standard"
-                                   value={userInput.name} onChange={handleInput}
+                                   value={userInput.username} onChange={handleInput}
                                    InputProps={{
                                        endAdornment: (
                                            <InputAdornment position="start">
