@@ -10,9 +10,11 @@ function TopNavbar() {
         <AppBar position="static" style={{ background: '#6C4AB6' }}>
             <Toolbar>
                 <IconButton>
+                    <Link to="/">
                     <div className={styles.logo}>
                         <img src="./assets/sapply.png" alt="Sapply logo" />
                     </div>
+                    </Link>
                 </IconButton>
                 <Typography variant="h6" component='div' sx={{ flexGrow: 1 }}>
                     mySapply
