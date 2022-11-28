@@ -7,11 +7,7 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import LoginWithOneTap from "../../components/Login-Signup/LoginWithOneTap";
 
-const commonStyles = {
-   
-    border: 1,
-    borderRadius:1
-  };
+
 
 function Login() {
     return (
@@ -23,9 +19,7 @@ function Login() {
             transform: "translate(-50%, -50%)",
             width: "60vw",
             height:"50vh",
-            // borderTop: 1,
             borderRadius:1 , 
-            // borderColor: 'grey.300',
             boxShadow: 3
         }}>
             <Container maxWidth="xs">
