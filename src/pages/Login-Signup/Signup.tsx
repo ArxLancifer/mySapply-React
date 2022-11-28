@@ -11,15 +11,12 @@ interface IUserPost {
 }
 
 function Signup() {
-
-    const [email, setEmail] = useState<string>("");
-    const [username, setUsername] = useState<string>("");
-    const [password, setPassword] = useState<string>("");
+    const [userInput, setUserInput] = useState<any>({email:"", username:"", password:""})
 
 
     async function signup(e: any) {
         e.preventDefault();
-        const userInfo: IUserPost = {email, username, password};
+        const userInfo: IUserPost = {...userInput};
         try {
             const requestOptions = {
                 method: 'POST',
@@ -30,6 +27,14 @@ function Signup() {
         } catch (e) {
             console.log(e);
         }
+    }
+
+    function handleInput(e:any){
+        const inputField = e.target.id
+        setUserInput({
+            ...userInput,
+           [inputField]:e.target.value
+        })
     }
 
     return (
@@ -47,8 +52,8 @@ function Signup() {
             <Container maxWidth="xs">
                 <form onSubmit={signup}>
                     <FormControl fullWidth>
-                        <TextField sx={{my: 1}} id="email" label="E-mail" name="email" variant="standard" type="email"
-                                   value={email} onChange={(e) => setEmail(e.target.value)}
+                        <TextField sx={{my: 1}} id="email" label="E-mail" variant="standard" type="email"
+                                   value={userInput.email} onChange={handleInput}
                                    InputProps={{
                                        endAdornment: (
                                            <InputAdornment position="start">
@@ -57,7 +62,7 @@ function Signup() {
                                        ),
                                    }}/>
                         <TextField sx={{my: 1}} id="username" label="Username" variant="standard"
-                                   value={username} onChange={(e) => setUsername(e.target.value)}
+                                   value={userInput.name} onChange={handleInput}
                                    InputProps={{
                                        endAdornment: (
                                            <InputAdornment position="start">
@@ -66,7 +71,7 @@ function Signup() {
                                        ),
                                    }}/>
                         <TextField sx={{my: 1}} id="password" label="Password" variant="standard" type="password"
-                                   value={password} onChange={(e) => setPassword(e.target.value)}
+                                   value={userInput.password} onChange={handleInput}
                                    InputProps={{
                                        endAdornment: (
                                            <InputAdornment position="start">
