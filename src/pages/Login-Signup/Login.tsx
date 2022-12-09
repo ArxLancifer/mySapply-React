@@ -18,9 +18,10 @@ function Login() {
         password: string;
     }
         
+
     const navigate = useNavigate()
     const [userInput, setUserInput] = useState<IUserPost>({username:"", password:""})
-    const [user , setUser] = useState({username:""})
+    const [user , setUser] = useState<{username:string}>({username:"Not user yet"})
     
 
     function handleInput(e:any){
@@ -39,22 +40,22 @@ function Login() {
         const userAuthData = await fetch("http://localhost:5500/login",{
             method:"POST",
             headers:{'Content-Type': 'application/json'},
-            body:JSON.stringify(reqLoginData)
+            body:JSON.stringify(reqLoginData),
+            credentials: 'include'
         })
         
         const userData = await userAuthData.json();
-        if(typeof userData === "object"){
-            setUser(userData.username)
-        }else setUser(userData)
+        console.log(userData)
+       setUser(userData.username)
         
         
     }
 
-    useEffect(()=>{
-        if(user.username !== ""){
-            navigate("/")
-        }
-    }, [user])
+    // useEffect(()=>{
+    //     if(user.username !== "Not user yet"){
+    //         navigate("/")
+    //     }
+    // }, [user])
     
 
     return (
@@ -109,7 +110,7 @@ function Login() {
                 </Box>
                 <LoginWithOneTap/>
             </Container>
-            <p>{user.username}</p>
+            <p>{JSON.stringify(user)}</p>
         </Box>
     )
 }
