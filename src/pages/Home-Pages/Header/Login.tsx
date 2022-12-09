@@ -1,62 +1,21 @@
+import React, { useEffect, useState } from 'react';
 import {Box, Button, FormControl, InputAdornment, TextField} from '@mui/material'
 import './Login-Signup.module.css';
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import LockOpenIcon from '@mui/icons-material/LockOpen';
 import {Container} from '@mui/system';
 import {Link, useNavigate} from 'react-router-dom';
-import LoginWithOneTap from "../../components/Login-Signup/LoginWithOneTap";
-import {  useEffect, useState } from 'react';
+import LoginWithOneTap from '../../../components/Login-Signup/LoginWithOneTap';
+
+
 
 
 
 
 function Login() {
 
-  
-    interface IUserPost {
-        username: string;
-        password: string;
-    }
-        
-    const navigate = useNavigate()
-    const [userInput, setUserInput] = useState<IUserPost>({username:"", password:""})
-    const [user , setUser] = useState({username:""})
+    const navigate = useNavigate();
     
-
-    function handleInput(e:any){
-        const inputField = e.target.id
-        setUserInput({
-            ...userInput,
-           [inputField]:e.target.value
-        })
-    }
-    
-
-    async function logMeIn(e?:any){
-       
-        e.preventDefault()
-        const reqLoginData: IUserPost = userInput;
-        const userAuthData = await fetch("http://localhost:5500/login",{
-            method:"POST",
-            headers:{'Content-Type': 'application/json'},
-            body:JSON.stringify(reqLoginData)
-        })
-        
-        const userData = await userAuthData.json();
-        if(typeof userData === "object"){
-            setUser(userData.username)
-        }else setUser(userData)
-        
-        
-    }
-
-    useEffect(()=>{
-        if(user.username !== ""){
-            navigate("/")
-        }
-    }, [user])
-    
-
     return (
         <Box sx={{
             position: "absolute",
@@ -72,14 +31,14 @@ function Login() {
             <Container maxWidth="xs">
                 <form>
                     <FormControl fullWidth>
-                        <TextField sx={{my: 1}} id="username" label="Username" variant="filled" type="email" onChange={handleInput} InputProps={{
+                        <TextField sx={{my: 1}} id="username" label="Username" variant="filled" type="text" InputProps={{
                             endAdornment: (
                                 <InputAdornment position="start">
                                     <MailOutlineIcon/>
                                 </InputAdornment>
                             ),
                         }}/>
-                        <TextField sx={{my: 1}} id="password" label="Password" variant="filled" type="password" onChange={handleInput}
+                        <TextField sx={{my: 1}} id="password" label="Password" variant="filled" type="password"
                                    InputProps={{
                                        endAdornment: (
                                            <InputAdornment position="start">
@@ -90,7 +49,6 @@ function Login() {
                     </FormControl>
                     <Box sx={{textAlign: "end"}}>
                         <Button
-                            onClick={logMeIn}
                             sx={{mt: 1}}
                             size="medium"
                             type="submit"
@@ -109,7 +67,6 @@ function Login() {
                 </Box>
                 <LoginWithOneTap/>
             </Container>
-            <p>{user.username}</p>
         </Box>
     )
 }

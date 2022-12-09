@@ -10,7 +10,7 @@ import Signup from "./pages/Login-Signup/Signup";
 function App() {
     return (
         <Fragment>
-            <Header/>
+        <Header />
             <Routes>
                 <Route path='/' element={<HomePage />}/>
                 <Route path='/login' element={<Login/>}/>

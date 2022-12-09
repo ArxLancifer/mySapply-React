@@ -22,7 +22,7 @@ function Signup() {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(userInfo)
             };
-            await fetch(`http://localhost:5500/signup`, requestOptions);
+            await fetch(`http://localhost:5000/signup`, requestOptions);
         } catch (e) {
             console.log(e);
         }
