@@ -21,15 +21,17 @@ function DealsSlider() {
       <Swiper
         spaceBetween={30}
         centeredSlides={true}
+        loop={true}
         autoplay={{
           delay: 2500,
           disableOnInteraction: false,
         }}
+       
         pagination={{
           clickable: true,
         }}
-        // navigation={true}
-        modules={[Autoplay]}
+        navigation={true}
+        modules={[Autoplay, Navigation, Pagination]}
         className="mySwiper"
       >
         <SwiperSlide><img src='https://cdn2.justwineapp.com/assets/article/2019/08/different-types-of-beer-styles-guide-1800x946.jpg' /></SwiperSlide>

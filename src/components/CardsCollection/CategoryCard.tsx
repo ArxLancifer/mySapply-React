@@ -13,6 +13,8 @@ function CategoryCard() {
         <li>Αναψυκτικά</li>
         <li>Μπύρες</li>
       </ul>
+      
+      <div className='PNG'></div> {/*PNG icon*/}
     </div>
   )
 }

@@ -11,7 +11,7 @@ function HomePage() {
         <h1>Afou eixa</h1>
     </header>
     <DealsSlider />
-    <CardsContainer>
+    <CardsContainer heading={"Κατηγορίες προϊόντων"}>
       <CategoryCard />
       <CategoryCard />
       <CategoryCard />
