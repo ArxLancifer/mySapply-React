@@ -34,10 +34,11 @@ function DealsSlider() {
         modules={[Autoplay, Navigation, Pagination]}
         className="mySwiper"
       >
-        <SwiperSlide><img src='https://cdn2.justwineapp.com/assets/article/2019/08/different-types-of-beer-styles-guide-1800x946.jpg' /></SwiperSlide>
-        <SwiperSlide><img src='https://www.health.com/thmb/TY-NJLhjd098WbIh8nYix-Z0p4A=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/How-to-Wash-Fruits-and-Vegetables-According-to-a-Nutritionist-GettyImages-88307658-2000-5f47f95a0fc04e97b782efab5ea843b6.jpg'/></SwiperSlide>
-        <SwiperSlide><img src="https://www.thespruceeats.com/thmb/9I4Bp0z-sH05WJ2MdZ5NNCfzRCM=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/easy-honey-white-bread-recipe-428160-hero-01-22ed0bda55f643318b4c658a2c020647.jpg" alt="" /></SwiperSlide>
-        <SwiperSlide><img src="https://kavala.citypedia.gr/wp-content/uploads/2021/05/coffee-kavala-citypedia.jpg" alt="" /></SwiperSlide>
+        <SwiperSlide><img src='/slide1.jpg' /></SwiperSlide>
+        <SwiperSlide><img src='/slide2.jpg'/></SwiperSlide>
+        <SwiperSlide><img src="/slide3.jpg" alt="" /></SwiperSlide>
+        <SwiperSlide><img src="/slide4.jpg" alt="" /></SwiperSlide>
+        <SwiperSlide><img src="/slide5.jpg" alt="" /></SwiperSlide>
       </Swiper>
     </div>
   )
