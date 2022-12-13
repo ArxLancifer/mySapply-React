@@ -10,3 +10,20 @@
    color:rgb(255, 127, 67); 
    transform: scale(1.1);
 }
+
+.link a{
+   text-decoration: none;
+    color: #707070;
+}
+
+.slash {
+    color: #707070;
+    font-size: 0.8rem;
+}
+
+.slashBetween {
+    color: #bdbdbd;
+    font-size: 1.6rem;
+    font-weight: lighter;
+    margin-left: 7px;
+}
