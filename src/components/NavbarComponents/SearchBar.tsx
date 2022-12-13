@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Container } from "@mui/system";
-import {Box, TextField} from '@mui/material';
-import {inspect} from "util";
+import {Box, InputAdornment, TextField} from '@mui/material';
+import SearchIcon from '@mui/icons-material/Search';
 import styles from "./TopNavbar.module.css";
 
 function SearchBar() {
@@ -42,12 +42,21 @@ function SearchBar() {
                 {/*    onKeyDown={proceedEnterHandler}*/}
                 {/*    onChange={searchHandler}*/}
                 {/*/>*/}
-                <input
-                    className={styles.search}
+                <TextField
                     type="search"
                     placeholder="Βρές οτι ψάχνεις για το κατάστημα σου!"
+                    sx={{
+                        width:"100%",
+                        fieldset:{
+                            border:"1px solid #333333",
+                            borderRadius:"50px"
+                        }
+                    }}
                     onKeyDown={proceedEnterHandler}
                     onChange={searchHandler}
+                    InputProps={{
+                        endAdornment: <InputAdornment position="start"><SearchIcon /></InputAdornment>,
+                      }}
                 />
             </Container>
         </Box>
