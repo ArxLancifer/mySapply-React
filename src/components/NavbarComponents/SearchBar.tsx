@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Container } from "@mui/system";
-import { TextField } from '@mui/material';
+import {Box, TextField} from '@mui/material';
+import {inspect} from "util";
+import styles from "./TopNavbar.module.css";
 
 function SearchBar() {
 
@@ -28,20 +30,27 @@ function SearchBar() {
     }
 
     return (
-        <div>
+        <Box sx={{ mb: 10, mt: 5 }}>
             <Container maxWidth="md" sx={{ py: 4 }}>
-                <TextField
-                    id="standard-search"
-                    label="Αναζήτηση"
-                    placeholder="Βρές οτι ψάχνεις για το κατάστημα σου!"
+                {/*<TextField*/}
+                {/*    id="standard-search"*/}
+                {/*    label="Αναζήτηση"*/}
+                {/*    placeholder="Βρές οτι ψάχνεις για το κατάστημα σου!"*/}
+                {/*    type="search"*/}
+                {/*    variant="filled"*/}
+                {/*    style={{ width: '100%' }}*/}
+                {/*    onKeyDown={proceedEnterHandler}*/}
+                {/*    onChange={searchHandler}*/}
+                {/*/>*/}
+                <input
+                    className={styles.search}
                     type="search"
-                    variant="standard"
-                    style={{ width: '100%' }}
+                    placeholder="Βρές οτι ψάχνεις για το κατάστημα σου!"
                     onKeyDown={proceedEnterHandler}
                     onChange={searchHandler}
                 />
             </Container>
-        </div>
+        </Box>
     )
 }
 

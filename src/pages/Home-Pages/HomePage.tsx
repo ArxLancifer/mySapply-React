@@ -3,13 +3,12 @@ import React from 'react'
 import CardsContainer from '../../components/CardsCollection/CardsContainer'
 import CategoryCard from '../../components/CardsCollection/CategoryCard'
 import DealsSlider from './Main/DealsSlider'
+import SearchBar from "../../components/NavbarComponents/SearchBar";
 
 function HomePage() {
     return (
         <Container>
-            <header>
-                <h1>Afou eixa</h1>
-            </header>
+            <SearchBar />
             <DealsSlider/>
             <CardsContainer heading={"Κατηγορίες προϊόντων"}>
                 <CategoryCard/>

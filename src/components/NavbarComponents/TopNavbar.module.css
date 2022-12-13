@@ -27,3 +27,12 @@
     font-weight: lighter;
     margin-left: 7px;
 }
+
+.search {
+    width: 100%;
+    border-radius: 26px;
+    box-shadow: none;
+    padding: 16px 72px 16px 24px;
+    border: 1px solid #d0d0d0;
+    outline: none;
+}
