@@ -4,19 +4,16 @@ import CardsContainer from '../../components/CardsCollection/CardsContainer'
 import CategoryCard from '../../components/CardsCollection/CategoryCard'
 import DealsSlider from './Main/DealsSlider'
 import SearchBar from "../../components/NavbarComponents/SearchBar";
+import CategoriesSlider from './Main/CategoriesSlider'
 
 function HomePage() {
     return (
         <Container>
             <SearchBar />
             <DealsSlider/>
-            <CardsContainer heading={"Κατηγορίες προϊόντων"}>
-                <CategoryCard/>
-                <CategoryCard/>
-                <CategoryCard/>
-                <CategoryCard/>
-                <CategoryCard/>
-            </CardsContainer>
+            <CardsContainer heading={"Κατηγορίες προϊόντων"} />
+                <CategoriesSlider />
+            
         </Container>
     )
 }
