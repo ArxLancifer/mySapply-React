@@ -11,9 +11,9 @@ function HomePage() {
         <Container>
             <SearchBar />
             <DealsSlider/>
-            <CardsContainer heading={"Κατηγορίες προϊόντων"} />
+            <CardsContainer heading={"Κατηγορίες προϊόντων"}>
                 <CategoriesSlider />
-            
+            </CardsContainer>
         </Container>
     )
 }

@@ -55,7 +55,7 @@ function SearchBar() {
                     onKeyDown={proceedEnterHandler}
                     onChange={searchHandler}
                     InputProps={{
-                        endAdornment: <InputAdornment position="start"><SearchIcon /></InputAdornment>,
+                        endAdornment: <InputAdornment position="start"><SearchIcon style={{ fontSize: 30 }}/></InputAdornment>,
                       }}
                 />
             </Container>

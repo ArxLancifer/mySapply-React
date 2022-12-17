@@ -9,15 +9,14 @@
     overflow: hidden;
     text-align: start;
 }
-.cardStyles ul {
-    list-style: none;
-}
+
 .cardStyles > ul > li{
     margin:5% 0;
 }
 
 .cardStyles > ul , .cardStyles > h4{
-    padding: 0;
+    list-style: none;
+    padding-left: 10%;
 }
 
 

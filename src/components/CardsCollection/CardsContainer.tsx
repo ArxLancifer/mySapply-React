@@ -3,9 +3,9 @@ import React from 'react'
 
 function CardsContainer(props:any) {
   return (
+    <Box >
+        <h2>{props.heading}</h2>
     <Box sx={{py:5}}>
-        <h2 style={{}}>{props.heading}</h2>
-    <Box sx={{display:'flex', justifyContent: 'space-between', mt:5, mb:10}}>
         {props.children}
     </Box>
     </Box>
