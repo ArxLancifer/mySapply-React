@@ -1,22 +1,21 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Container } from "@mui/system";
 import { Box, InputAdornment, TextField } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import SearchDropdown from "./SearchDropdown";
-import DropDownCategories from "./DropDownCategories"
-
-
-
+import DropDownCategories from "./DropDownCategories";
+import HomeContext from "../store/home-context";
 
 function SearchBar() {
   const [searchInput, setSearchInput] = useState("");
   const [searchedProducts, setSearchedProducts] = useState("");
   const [open, setOpen] = React.useState(false);
-  
-  
-  function toggleModal(){
-    setOpen((open)=>!open)
-  } 
+  const testCont = useContext(HomeContext);
+  console.log(testCont);
+
+  function toggleModal() {
+    setOpen((open) => !open);
+  }
 
   async function fetchSearchProducts() {
     console.log("Search request triggered with value: ", searchInput);
@@ -65,7 +64,7 @@ function SearchBar() {
           }}
         />
       </Box>
-      {<DropDownCategories toggleModal={toggleModal} open={open}/>}
+      {<DropDownCategories toggleModal={toggleModal} open={open} />}
     </Container>
   );
 }

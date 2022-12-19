@@ -1,23 +1,25 @@
-import React, {Fragment} from 'react';
-import {Route, Routes} from 'react-router-dom';
-import './App.css';
+import React, { Fragment } from "react";
+import { Route, Routes } from "react-router-dom";
+import "./App.css";
 import Header from "./components/NavbarComponents/Header";
-import HomePage from './pages/Home-Pages/HomePage';
+import HomePage from "./pages/Home-Pages/HomePage";
 import Login from "./pages/Login-Signup/Login";
 import Signup from "./pages/Login-Signup/Signup";
-
+import HomeProvider from "./components/store/HomeProvider";
 
 function App() {
-    return (
-        <Fragment>
+  return (
+    <Fragment>
+      <HomeProvider>
         <Header />
-            <Routes>
-                <Route path='/' element={<HomePage />}/>
-                <Route path='/login' element={<Login/>}/>
-                <Route path='/signup' element={<Signup/>}/>
-            </Routes>
-        </Fragment>
-    );
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+        </Routes>
+      </HomeProvider>
+    </Fragment>
+  );
 }
 
 export default App;
