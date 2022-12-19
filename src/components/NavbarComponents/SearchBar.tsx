@@ -11,18 +11,12 @@ import DropDownCategories from "./DropDownCategories"
 function SearchBar() {
   const [searchInput, setSearchInput] = useState("");
   const [searchedProducts, setSearchedProducts] = useState("");
-  const [isShown, setIsShown] = useState(true)
   const [open, setOpen] = React.useState(false);
   
   
   function toggleModal(){
     setOpen((open)=>!open)
   } 
-//   const handleClose = () => setOpen(false);
-
-    function handleDropDown(){
-            setIsShown((prevState)=>!prevState)
-    }
 
   async function fetchSearchProducts() {
     console.log("Search request triggered with value: ", searchInput);
@@ -71,7 +65,7 @@ function SearchBar() {
           }}
         />
       </Box>
-      {isShown && <DropDownCategories toggleModal={toggleModal} open={open}/>}
+      {<DropDownCategories toggleModal={toggleModal} open={open}/>}
     </Container>
   );
 }
