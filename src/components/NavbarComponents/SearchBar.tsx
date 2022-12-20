@@ -10,8 +10,7 @@ function SearchBar() {
   const [searchInput, setSearchInput] = useState("");
   const [searchedProducts, setSearchedProducts] = useState("");
   const [open, setOpen] = React.useState(false);
-  const testCont = useContext(HomeContext);
-  console.log(testCont);
+
 
   function toggleModal() {
     setOpen((open) => !open);
@@ -27,9 +26,6 @@ function SearchBar() {
     console.log(productData);
   }
 
-  useEffect(() => {
-    console.log("useEffect triggered");
-  }, [searchedProducts]);
 
   function searchHandler(e: any) {
     setSearchInput(e.target.value);
