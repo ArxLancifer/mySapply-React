@@ -6,26 +6,10 @@ import {Container} from '@mui/system';
 import {Link, useNavigate} from 'react-router-dom';
 import LoginWithOneTap from "../../components/Login-Signup/LoginWithOneTap";
 import {useState} from 'react';
+import { IModel } from '../../interfaces/IModel';
+import { IUser, IUserPost } from '../../interfaces/IUser';
 
 function Login() {
-
-    interface IModel {
-        _id: string;
-        updatedAt: Date | any;
-        createdAt: Date | any;
-    }
-
-    interface IUserPost {
-        username: string;
-        password: string;
-    }
-
-    interface IUser extends IModel{
-        email: string;
-        username: string;
-        confirmedUsers: any[];
-    }
-
     const navigate = useNavigate();
     const [userInput, setUserInput] = useState<IUserPost>({username: "", password: ""});
     const [user, setUser] = useState<{username: string}>({username: "Not user yet"});

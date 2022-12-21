@@ -34,38 +34,6 @@ function TopNavbar() {
                 </Box>
             </Box>
         </Container>
-
-        // <AppBar position="static" style={{ background: '#6C4AB6' }}>
-        //     <Toolbar>
-        //         <IconButton>
-        //             <Link to="/">
-        //             <div className={styles.logo}>
-        //                 <img src="./assets/sapply.png" alt="Sapply logo" />
-        //             </div>
-        //             </Link>
-        //         </IconButton>
-        //         <Typography variant="h6" component='div' sx={{ flexGrow: 1 }}>
-        //             mySapply
-        //         </Typography>
-        //         <Stack direction='row' spacing={4}>
-        //             <Button color='inherit'>Category-1</Button>
-        //             <Button color='inherit'>Category-2</Button>
-        //             <Button color='inherit'>Category-3</Button>
-        //             <Button color='inherit'>Category-4</Button>
-        //             <div>
-        //                 <Button className={styles.sign} color='inherit'>
-        //                     <Link  to="/login">
-        //                         <PermIdentityIcon />
-        //                     </Link>
-        //                 </Button>
-        //                 <Button className="myCart" color='inherit'>
-        //                     <AddShoppingCartIcon style={{ color: "FF5B00" }} />
-        //                 </Button>
-        //             </div>
-        //         </Stack>
-        //     </Toolbar>
-        // </AppBar>
-
     );
 }
 
