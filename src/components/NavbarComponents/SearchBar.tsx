@@ -1,10 +1,10 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState} from "react";
 import { Container } from "@mui/system";
 import { Box, InputAdornment, TextField } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import SearchDropdown from "./SearchDropdown";
 import DropDownCategories from "./DropDownCategories";
-import HomeContext from "../store/home-context";
+
 
 function SearchBar() {
   const [searchInput, setSearchInput] = useState("");
@@ -17,13 +17,11 @@ function SearchBar() {
   }
 
   async function fetchSearchProducts() {
-    console.log("Search request triggered with value: ", searchInput);
     const fetchProductData = await fetch(
       `https://api.punkapi.com/v2/beers?beer_name=${searchInput}`
     );
     const productData = await fetchProductData.json();
     setSearchedProducts(productData);
-    console.log(productData);
   }
 
 
