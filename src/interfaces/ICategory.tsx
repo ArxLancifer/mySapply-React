@@ -10,5 +10,6 @@ export interface IProductCategory extends IModel {
 export interface IProductSubCategory extends IModel {
     title: string;
     slug: string;
+    imageUrl: string;
     category: IProductCategory | string;
 }
