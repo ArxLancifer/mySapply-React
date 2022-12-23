@@ -17,7 +17,7 @@ function App() {
                     <Route path="/" element={<HomePage/>}/>
                     <Route path="/login" element={<Login/>}/>
                     <Route path="/signup" element={<Signup/>}/>
-                    <Route path="/create-product-sub-category" element={<ProductSubCategories/>}/>
+                    <Route path="/products/sub-categories" element={<ProductSubCategories/>}/>
                 </Routes>
             </HomeProvider>
         </Fragment>
