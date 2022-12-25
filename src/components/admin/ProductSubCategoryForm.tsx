@@ -22,6 +22,7 @@ function ProductSubCategoryForm() {
     }
 
     const onInputChangeHandler = (value: any) => {
+        console.log(value);
         setFormValue((prevValue) => {
             return {
                 ...prevValue,
@@ -40,7 +41,7 @@ function ProductSubCategoryForm() {
                     type: "text",
                     notSelect: true
                 }}
-                value={onInputChangeHandler}
+                getValuesFromInputs={onInputChangeHandler}
             />
             <FormInputField 
                 form={{
@@ -50,7 +51,7 @@ function ProductSubCategoryForm() {
                     type:"text",
                     notSelect: true
                 }}
-                value={onInputChangeHandler}
+                getValuesFromInputs={onInputChangeHandler}
             />
             <FormInputField 
                 form={{
@@ -60,7 +61,7 @@ function ProductSubCategoryForm() {
                     type:"text",
                     notSelect: true
                 }}
-                value={onInputChangeHandler}
+                getValuesFromInputs={onInputChangeHandler}
             />
             <FormInputField 
                 form={{
@@ -71,7 +72,7 @@ function ProductSubCategoryForm() {
                     notSelect: false
                 }}
                 categories={ctx}
-                value={onInputChangeHandler}
+                getValuesFromInputs={onInputChangeHandler}
             />
             <Box sx={{ mt: 2, textAlign: "end" }}>
                 <Button

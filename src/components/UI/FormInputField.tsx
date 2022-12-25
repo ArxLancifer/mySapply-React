@@ -1,13 +1,12 @@
 import React, { FormEvent, useState } from 'react';
-import {Box, Button, FormControl, InputLabel, MenuItem, Select, TextField} from "@mui/material";
-import { IFormControl } from '../../interfaces/IFormControl';
-import { IProductCategory, IProductSubCategory } from '../../interfaces/ICategory';
+import { FormControl, MenuItem, TextField} from "@mui/material";
+import { IFormInputField } from '../../interfaces/IFormControl';
 
-function FormInputField(props: {form: IFormControl, categories?: IProductCategory[], value: any}) {
+function FormInputField(props: IFormInputField) {
     const [value, setValue] = useState<string>("");
     const handleValue = (value: string) => {
         setValue(value);
-        props?.value({[props.form.id]: value});
+        props?.getValuesFromInputs({[props.form.id]: value});
     };
 
     return (
