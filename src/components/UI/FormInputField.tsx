@@ -11,7 +11,7 @@ function FormInputField(props: IFormInputField) {
 
     return (
         <>
-            {props.form?.notSelect &&
+            {props.form?.notSelect ?
                 <FormControl fullWidth>
                     <TextField
                         sx={{my: 1}}
@@ -24,9 +24,7 @@ function FormInputField(props: IFormInputField) {
                         required
                     />
                 </FormControl>
-            }
-            {
-                !props.form.notSelect && 
+                : 
                 <FormControl fullWidth>
                     <TextField
                             select

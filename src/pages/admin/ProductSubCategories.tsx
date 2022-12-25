@@ -4,7 +4,7 @@ import ProductSubCategoryForm from "../../components/admin/ProductSubCategoryFor
 
 function ProductSubCategories() {
     return (
-        <Container maxWidth="xs">
+        <Container>
             <ProductSubCategoryForm />
         </Container>
     )
