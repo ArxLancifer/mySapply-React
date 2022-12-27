@@ -6,6 +6,7 @@ export interface IFormInputField {
     form: IFormControl;
     categories?: IProductCategory[];
     getValuesFromInputs: (value: {[key: string]: string}) => void;
+    subCategoryProp?: any;
 }
 
 export interface IFormControl {
