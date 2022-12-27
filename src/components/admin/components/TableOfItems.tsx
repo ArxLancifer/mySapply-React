@@ -6,10 +6,12 @@ import {Box, Button} from "@mui/material";
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import UpdateModal from "./UpdateModal";
+import CreateModal from "./CreateModal";
 
-function TableOfItems() {
+function TableOfItems(props: {createButtonText: string}) {
     const [subCategories, setSubCategories] = useState<IProductSubCategory[]>([]);
-    const [openModal, setOpenModal] = useState<boolean>(false);
+    const [openUpdateModal, setOpenUpdateModal] = useState<boolean>(false);
+    const [openCreateModal, setOpenCreateModal] = useState<boolean>(false);
     const [subCategory, setSubCategory] = useState<IProductSubCategory>({title: "", slug: "", imageUrl: "", category: ""});
     const getSubCategories = async () => {
         try {
@@ -38,8 +40,12 @@ function TableOfItems() {
     };
 
     const updateColumn = (subCategory: IProductSubCategory) => {
-        setOpenModal(true);
+        setOpenUpdateModal(true);
         setSubCategory(subCategory);
+    };
+
+    const createColumn = () => {
+        setOpenCreateModal(true);
     };
 
     const rows = subCategories.map(subCategory => {
@@ -78,17 +84,26 @@ function TableOfItems() {
 
     return (
         <>
-            <Box sx={{ height: 400, width: '100%', mt: 3 }}>
+            <Box sx={{ mt: 8 }}>
+                <Button
+                    variant="contained"
+                    color="success"
+                    onClick={createColumn}
+                >
+                    {props.createButtonText}
+                </Button>
+            </Box>
+            <Box sx={{ height: 665, width: '100%', mt: 3 }}>
                 <DataGrid
                     getRowId={(row: any) => row._id}
                     rows={rows}
                     columns={columns}
-                    pageSize={5}
-                    rowsPerPageOptions={[5]}
+                    pageSize={10}
                     components={{ Toolbar: GridToolbar }}
                 />
             </Box>
-            <UpdateModal value={openModal} subCategory={subCategory} setModal={setOpenModal}  />
+            <UpdateModal value={openUpdateModal} subCategory={subCategory} setModal={setOpenUpdateModal}  />
+            <CreateModal value={openCreateModal} setModal={setOpenCreateModal} />
         </>
     )
 }
