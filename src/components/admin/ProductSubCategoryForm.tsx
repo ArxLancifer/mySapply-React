@@ -1,5 +1,5 @@
 import {Box, Button, FormControl, InputLabel, MenuItem, Select, TextField} from "@mui/material";
-import React, {FormEvent, useContext, useState} from "react";
+import React, {FormEvent, useContext, useEffect, useState} from "react";
 import HomeContext from "../store/home-context";
 import {IProductCategory, IProductSubCategory} from "../../interfaces/ICategory";
 import FormInputField from "../UI/FormInputField";
@@ -21,8 +21,7 @@ function ProductSubCategoryForm() {
         }
     }
 
-    const onInputChangeHandler = (value: any) => {
-        console.log(value);
+    const onInputChangeHandler = (value: {[key: string]: string}) => {
         setFormValue((prevValue) => {
             return {
                 ...prevValue,
