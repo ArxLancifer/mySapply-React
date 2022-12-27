@@ -1,4 +1,4 @@
-import React, { FormEvent, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import { FormControl, MenuItem, TextField} from "@mui/material";
 import { IFormInputField } from '../../interfaces/IFormControl';
 
@@ -8,6 +8,13 @@ function FormInputField(props: IFormInputField) {
         setValue(value);
         props?.getValuesFromInputs({[props.form.id]: value});
     };
+
+    useEffect(() => {
+        if (props?.subCategoryProp) {
+            setValue(props?.subCategoryProp);
+            handleValue(props?.subCategoryProp);
+        }
+    }, [])
 
     return (
         <>
@@ -21,7 +28,6 @@ function FormInputField(props: IFormInputField) {
                         type={props.form?.type}
                         onChange={(event) => {handleValue(event.target.value)}}
                         value={value}
-                        required
                     />
                 </FormControl>
                 : 
