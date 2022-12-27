@@ -49,7 +49,7 @@ function TableOfItems() {
             slug: subCategory?.slug,
             imageUrl: subCategory?.imageUrl,
             categoryName: (subCategory?.category as IProductCategory)?.title,
-            category: (subCategory?.category as IProductCategory)?._id,
+            category: (subCategory?.category as IProductCategory)?._id
         }
     });
 
@@ -60,15 +60,15 @@ function TableOfItems() {
         { field: 'imageUrl', headerName: 'ImageUrl', width: 150 },
         { field: 'categoryName', headerName: 'Category name', width: 150 },
         { field: 'category', headerName: 'Category Id', width: 150, hide: true },
-        { field: 'action', headerName: 'Actions', width: 150, align: "right", renderCell: (params: GridRenderCellParams) =>
-                <>
-                    <Button onClick={() => updateColumn(params.row)}>
-                        <EditIcon color="primary" />
-                    </Button>
-                    <Button onClick={() => deleteColumn(params.row)}>
-                        <DeleteIcon color="error" />
-                    </Button>
-                </>
+        { field: 'action', headerName: 'Actions', width: 150, renderCell: (params: GridRenderCellParams) =>
+            <>
+                <Button onClick={() => updateColumn(params.row)}>
+                    <EditIcon color="primary" />
+                </Button>
+                <Button onClick={() => deleteColumn(params.row)}>
+                    <DeleteIcon color="error" />
+                </Button>
+            </>
         }
     ];
 

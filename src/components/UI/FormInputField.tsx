@@ -14,7 +14,7 @@ function FormInputField(props: IFormInputField) {
             setValue(props?.subCategoryProp);
             handleValue(props?.subCategoryProp);
         }
-    }, [])
+    }, []);
 
     return (
         <>
