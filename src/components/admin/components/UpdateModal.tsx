@@ -5,7 +5,7 @@ import FormInputField from "../../UI/FormInputField";
 import HomeContext from "../../store/home-context";
 import styles from "./modal.module.css";
 
-function UpdateModal(props: { value: boolean, subCategory: IProductSubCategory, setModal: any }) {
+function UpdateModal(props: { value: boolean, subCategory: IProductSubCategory, setModal: (boolean: boolean) => void }) {
     const ctx = useContext(HomeContext) as IProductCategory[];
     const [formValue, setFormValue] = useState<IProductSubCategory>({_id: "", title: "", slug: "", imageUrl: "", category: ""});
 

@@ -5,7 +5,7 @@ import FormInputField from "../../UI/FormInputField";
 import {Box, Button, Modal} from "@mui/material";
 import styles from "./modal.module.css";
 
-function CreateModal(props: { value: boolean, setModal: any }) {
+function CreateModal(props: { value: boolean, setModal: (boolean: boolean) => void }) {
     const ctx = useContext(HomeContext) as IProductCategory[];
     const [formValue, setFormValue] = useState<IProductSubCategory>({
         title: "",
