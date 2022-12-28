@@ -8,7 +8,7 @@ import styles from "./modal.module.css";
 function UpdateModal(props: { value: boolean, subCategory: IProductSubCategory, setModal: (boolean: boolean) => void }) {
     const ctx = useContext(HomeContext) as IProductCategory[];
     const [formValue, setFormValue] = useState<IProductSubCategory>({_id: "", title: "", slug: "", imageUrl: "", category: ""});
-
+    const baseUrl = "admin/products/sub-categories";
     const update = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         try {
@@ -17,7 +17,7 @@ function UpdateModal(props: { value: boolean, subCategory: IProductSubCategory, 
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(formValue)
             };
-            await fetch(`http://localhost:5500/products/sub-categories/${props.subCategory?._id}`, requestOptions);
+            await fetch(`http://localhost:5500/${baseUrl}/${props.subCategory?._id}`, requestOptions);
             handleClose();
         } catch (e) {
             console.log(e);

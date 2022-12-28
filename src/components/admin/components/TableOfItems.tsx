@@ -13,13 +13,14 @@ function TableOfItems(props: {createButtonText: string}) {
     const [openUpdateModal, setOpenUpdateModal] = useState<boolean>(false);
     const [openCreateModal, setOpenCreateModal] = useState<boolean>(false);
     const [subCategory, setSubCategory] = useState<IProductSubCategory>({title: "", slug: "", imageUrl: "", category: ""});
+    const baseUrl = "admin/products/sub-categories";
     const getSubCategories = async () => {
         try {
             const requestOptions = {
                 method: 'GET',
                 headers: { 'Content-Type': 'application/json' },
             };
-            const data = await fetch(`http://localhost:5500/products/sub-categories`, requestOptions);
+            const data = await fetch(`http://localhost:5500/${baseUrl}`, requestOptions);
             const subCategories: IProductSubCategory[] = await data.json();
             setSubCategories(subCategories);
         } catch (e) {
@@ -33,7 +34,7 @@ function TableOfItems(props: {createButtonText: string}) {
                 method: 'DELETE',
                 headers: { 'Content-Type': 'application/json' },
             };
-            await fetch(`http://localhost:5500/products/sub-categories/${subCategory._id}`, requestOptions);
+            await fetch(`http://localhost:5500/${baseUrl}/${subCategory._id}`, requestOptions);
         } catch (e) {
             console.log(e);
         }

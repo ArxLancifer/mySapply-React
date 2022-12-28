@@ -13,6 +13,7 @@ function CreateModal(props: { value: boolean, setModal: (boolean: boolean) => vo
         imageUrl: "",
         category: "6398e885e879cfad4454da59"
     });
+    const baseUrl = "admin/products/sub-categories";
     const createSubCategory = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         try {
@@ -21,7 +22,7 @@ function CreateModal(props: { value: boolean, setModal: (boolean: boolean) => vo
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify(formValue)
             };
-            await fetch(`http://localhost:5500/products/sub-categories`, requestOptions);
+            await fetch(`http://localhost:5500/${baseUrl}`, requestOptions);
         } catch (e) {
             console.log(e);
         }

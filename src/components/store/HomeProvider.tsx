@@ -7,7 +7,7 @@ function HomeProvider(props:any) {
 
 
     async function fetchHomeData(){
-        const data = await fetch("http://localhost:5500/products/categories");
+        const data = await fetch("http://localhost:5500/admin/products/categories");
         const finalData = await data.json();
         setHomeData(finalData)
     }
