@@ -60,12 +60,12 @@ function TableOfItems(props: {createButtonText: string}) {
     });
 
     const columns: GridColDef[] = [
-        { field: '_id', headerName: 'sub Category id', width: 150, hide: true },
+        { field: '_id', headerName: 'sub ProductCategories id', width: 150, hide: true },
         { field: 'title', headerName: 'Title', width: 150 },
         { field: 'slug', headerName: 'Slug', width: 150 },
         { field: 'imageUrl', headerName: 'ImageUrl', width: 150 },
-        { field: 'categoryName', headerName: 'Category name', width: 150 },
-        { field: 'category', headerName: 'Category Id', width: 150, hide: true },
+        { field: 'categoryName', headerName: 'ProductCategories name', width: 150 },
+        { field: 'category', headerName: 'ProductCategories Id', width: 150, hide: true },
         { field: 'action', headerName: 'Actions', width: 150, renderCell: (params: GridRenderCellParams) =>
             <>
                 <Button onClick={() => updateColumn(params.row)}>

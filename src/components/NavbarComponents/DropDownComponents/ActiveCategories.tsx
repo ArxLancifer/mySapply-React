@@ -1,7 +1,7 @@
-import React, {useContext} from 'react'
-import {Box} from '@mui/material'
-import HomeContext from '../../store/home-context'
-import {IProductCategory, IProductSubCategory} from '../../../interfaces/ICategory'
+import React, {useContext} from 'react';
+import {Box} from '@mui/material';
+import HomeContext from '../../store/home-context';
+import {IProductCategory, IProductSubCategory} from '../../../interfaces/ICategory';
 
 function ActiveCategories(props: { selectedCategory: string }) {
     const ctx = useContext(HomeContext) as IProductCategory[];

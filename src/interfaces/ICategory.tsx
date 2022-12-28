@@ -2,6 +2,7 @@ import { IModel } from "./IModel";
 
 export interface IProductCategory extends IModel {
     title: string;
+    slug: string;
     imageUrl: string;
     subCategories: IProductSubCategory[] | string[] | any;
 }

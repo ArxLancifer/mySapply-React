@@ -6,7 +6,9 @@ import HomePage from "./pages/Home-Pages/HomePage";
 import Login from "./pages/Login-Signup/Login";
 import Signup from "./pages/Login-Signup/Signup";
 import HomeProvider from "./components/store/HomeProvider";
-import ProductSubCategories from "./pages/admin/ProductSubCategories";
+import AdminProductSubCategories from "./pages/admin/AdminProductSubCategories";
+import ProductCategories from "./pages/ProductCategories/ProductCategories";
+import ProductSubCategories from "./pages/ProductSubCategories/ProductSubCategories";
 
 function App() {
     return (
@@ -18,7 +20,11 @@ function App() {
                     <Route path="/login" element={<Login/>}/>
                     <Route path="/signup" element={<Signup/>}/>
                     <Route path="/products">
-                        <Route path="sub-categories" element={<ProductSubCategories/>} />
+                        <Route path=":slug" element={<ProductCategories/>}/>
+                        <Route path=":slug/:slug" element={<ProductSubCategories/>}/>
+                    </Route>
+                    <Route path="/admin/products">
+                        <Route path="sub-categories" element={<AdminProductSubCategories/>}/>
                     </Route>
                 </Routes>
             </HomeProvider>
