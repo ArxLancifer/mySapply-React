@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {IProductCategory, IProductSubCategory} from "../../../interfaces/ICategory";
 // @ts-ignore
-import {DataGrid, GridColDef, GridRenderCellParams, GridRowsProp, GridToolbar, GridValueGetterParams} from '@mui/x-data-grid';
+import {DataGrid, GridColDef, GridRenderCellParams, GridToolbar} from '@mui/x-data-grid';
 import {Box, Button} from "@mui/material";
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';

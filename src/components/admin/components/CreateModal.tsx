@@ -3,6 +3,7 @@ import HomeContext from "../../store/home-context";
 import {IProductCategory, IProductSubCategory} from "../../../interfaces/ICategory";
 import FormInputField from "../../UI/FormInputField";
 import {Box, Button, Modal} from "@mui/material";
+import styles from "./modal.module.css";
 
 function CreateModal(props: { value: boolean, setModal: any }) {
     const ctx = useContext(HomeContext) as IProductCategory[];
@@ -35,18 +36,6 @@ function CreateModal(props: { value: boolean, setModal: any }) {
         });
     }
 
-    const style = {
-        position: 'absolute' as 'absolute',
-        top: '50%',
-        left: '50%',
-        transform: 'translate(-50%, -50%)',
-        width: 400,
-        borderRadius: "5px",
-        bgcolor: 'background.paper',
-        boxShadow: 24,
-        p: 4,
-    };
-
     const handleClose = () => props.setModal(false);
 
     return (
@@ -56,7 +45,7 @@ function CreateModal(props: { value: boolean, setModal: any }) {
             aria-labelledby="modal-modal-title"
             aria-describedby="modal-modal-description"
         >
-            <Box sx={style}>
+            <Box className={styles.modal}>
                 <form onSubmit={createSubCategory}>
                     <FormInputField
                         form={{
