@@ -8,11 +8,11 @@ function ActiveCategories(props: { selectedCategory: string }) {
 
     const categories: IProductCategory[] = ctx.filter((subCat: Pick<IProductCategory, "title">) => subCat.title === props.selectedCategory);
     return (
-        <Box sx={{display: 'flex', flexWrap: 'wrap'}}>
+        <Box>
             {categories[0].subCategories?.map((subCategory: IProductSubCategory) => {
                 return (
                     <div key={subCategory._id} style={{
-                        width: "200px",
+                        width: "100%",
                         height: "100px",
                         backgroundColor: "green",
                         margin: '2%'

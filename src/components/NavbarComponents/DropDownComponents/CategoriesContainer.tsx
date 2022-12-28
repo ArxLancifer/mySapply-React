@@ -1,5 +1,5 @@
 import React, {useContext, useState} from 'react'
-import {Grid} from '@mui/material'
+import {Container, Grid} from '@mui/material'
 import {Box} from '@mui/system'
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import ActiveCategories from './ActiveCategories';
@@ -29,7 +29,7 @@ function CategoriesContainer() {
                     borderRadius: "8px", "&:hover": {backgroundColor: "rgb(200, 200, 200, 0.5)"},
                     cursor: "pointer"
                 }}>
-                <div style={{width: "25px", height: "25px", borderRadius: "50%", backgroundColor: "purple"}}></div>
+                <div style={{width: "25px", height: "25px", borderRadius: "50%", backgroundColor: "purple", margin: 0}}></div>
                 <h4 style={{width: "75%", marginLeft: "10px"}}>{cat.title}</h4>
                 <ChevronRightIcon/>
             </Box>
@@ -37,14 +37,16 @@ function CategoriesContainer() {
     }
 
     return (
-        <Grid container spacing={1}>
-            <Grid item sx={{borderRight: 1, m: 2}} xs={3}>
-                {ctx.map(Category)}
+        <Container>
+            <Grid container spacing={1}>
+                <Grid item xs={6} sx={{borderRight: 1}}>
+                    {ctx.map(Category)}
+                </Grid>
+                <Grid item xs={6} md={3}>
+                    <ActiveCategories selectedCategory={selectedCategory}/>
+                </Grid>
             </Grid>
-            <Grid item sx={{borderRight: 1, m: 2}} xs={5}>
-                <ActiveCategories selectedCategory={selectedCategory}/>
-            </Grid>
-        </Grid>
+        </Container>
     )
 }
 
