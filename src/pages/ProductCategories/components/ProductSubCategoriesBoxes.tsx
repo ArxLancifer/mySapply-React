@@ -11,7 +11,7 @@ type Props = {
 function ProductSubCategoriesBoxes({subCategories}: Props) {
     const category = useParams<{ slug: string }>();
     const Item = styled(Paper)(({theme}) => ({
-        backgroundColor: "black",
+        backgroundColor: "#ccc",
         height: "180px",
     }));
 

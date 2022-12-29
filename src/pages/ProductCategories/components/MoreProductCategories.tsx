@@ -2,7 +2,7 @@ import React, {Fragment, useEffect} from "react";
 import {IProductCategory} from "../../../interfaces/ICategory";
 import {Box, Button, Container, Grid, Typography} from "@mui/material";
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import {Link} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 import styles from "./ProductCategories.module.css";
 
 type Props = {
@@ -12,6 +12,7 @@ type Props = {
 }
 
 function MoreProductCategories({title, categories, buttonText}: Props) {
+    const {slug} = useParams<{ slug: string }>();
     return (
         <Fragment>
             <Container>
@@ -26,7 +27,9 @@ function MoreProductCategories({title, categories, buttonText}: Props) {
                     }}
                     container
                 >
-                    {(categories?.map((category, index) => (
+                    {(categories
+                        ?.filter(category => category.slug !== slug)
+                        ?.map((category, index) => (
                         <Grid item sx={{my: {xs: 2}}} xs={4} lg={2} key={index}>
                             <Typography variant="subtitle2">
                                 <Link className={styles.link} to={`/products/${category?.slug}`}>
