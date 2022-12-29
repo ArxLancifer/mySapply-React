@@ -49,7 +49,10 @@ function ProductCategories() {
             <Box sx={{textAlign: "center", backgroundColor: "#1d84b0", color: "white", pt: 5, pb: 15, mt: 5}}>
                 <h2>{productCategory.title}</h2>
             </Box>
-            <ProductSubCategoriesBoxes subCategories={productCategory.subCategories}/>
+            <ProductSubCategoriesBoxes
+                subCategories={productCategory.subCategories}
+                categorySlug={productCategory.slug}
+            />
             <Box sx={{ mt: 8, mb: 8, backgroundColor: "#f1f1f1", py: 5 }}>
                 <MoreProductCategories
                     title="Περισσότερες κατηγορίες"
