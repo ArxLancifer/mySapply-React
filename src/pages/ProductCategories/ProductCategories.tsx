@@ -51,11 +51,10 @@ function ProductCategories() {
             </Box>
             <ProductSubCategoriesBoxes
                 subCategories={productCategory.subCategories}
-                categorySlug={productCategory.slug}
             />
             <Box sx={{ mt: 8, mb: 8, backgroundColor: "#f1f1f1", py: 5 }}>
                 <MoreProductCategories
-                    title="Περισσότερες κατηγορίες"
+                    title="Kατηγορίες"
                     categories={productCategories}
                     buttonText="Δες όλες τις κατηγορίες"
                 />
