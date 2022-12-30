@@ -1,9 +1,10 @@
 import React, {useEffect, useState} from "react";
-import {useParams} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 import {IProductSubCategory} from "../../interfaces/ICategory";
 import {IAlcoholDrink} from "../../interfaces/IAlcoholDrink";
-import {Container, Typography} from "@mui/material";
+import {Container, Grid, Typography} from "@mui/material";
 import AlcoholDrinks from "./components/AlcoholDrinks";
+import Filters from "./components/Filters";
 
 function ProductSubCategories() {
     const baseUrl = `products/sub-categories`;
@@ -56,14 +57,17 @@ function ProductSubCategories() {
                     {alcoholDrinks?.countOfDrinks} Προϊόντα
                 </Typography>
             }
-            {alcoholDrinks.drinks?.length ?
-                alcoholDrinks.drinks.map((drink, index) => (
-                    <AlcoholDrinks key={index} AlcoholDrink={drink}/>
-                )) :
-                <Typography>
-                    Δεν υπάρχουν προϊόντα
-                </Typography>
-            }
+            <Grid container sx={{mt: 3}} gap={2}>
+                {alcoholDrinks.drinks?.length ?
+                    alcoholDrinks.drinks.map((drink, index) => (
+                        <AlcoholDrinks key={index} alcoholDrink={drink}/>
+                    )) :
+                    <Typography>
+                        Δεν υπάρχουν προϊόντα
+                    </Typography>
+                }
+            </Grid>
+            <Filters />
         </Container>
     )
 }
