@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {IProductCategory, IProductSubCategory} from "../../../interfaces/ICategory";
 // @ts-ignore
-import {DataGrid, GridColDef, GridRenderCellParams, GridRowsProp, GridToolbar, GridValueGetterParams} from '@mui/x-data-grid';
+import {DataGrid, GridColDef, GridRenderCellParams, GridToolbar} from '@mui/x-data-grid';
 import {Box, Button} from "@mui/material";
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
@@ -13,13 +13,14 @@ function TableOfItems(props: {createButtonText: string}) {
     const [openUpdateModal, setOpenUpdateModal] = useState<boolean>(false);
     const [openCreateModal, setOpenCreateModal] = useState<boolean>(false);
     const [subCategory, setSubCategory] = useState<IProductSubCategory>({title: "", slug: "", imageUrl: "", category: ""});
+    const baseUrl = "admin/products/sub-categories";
     const getSubCategories = async () => {
         try {
             const requestOptions = {
                 method: 'GET',
                 headers: { 'Content-Type': 'application/json' },
             };
-            const data = await fetch(`http://localhost:5500/products/sub-categories`, requestOptions);
+            const data = await fetch(`http://localhost:5500/${baseUrl}`, requestOptions);
             const subCategories: IProductSubCategory[] = await data.json();
             setSubCategories(subCategories);
         } catch (e) {
@@ -33,7 +34,7 @@ function TableOfItems(props: {createButtonText: string}) {
                 method: 'DELETE',
                 headers: { 'Content-Type': 'application/json' },
             };
-            await fetch(`http://localhost:5500/products/sub-categories/${subCategory._id}`, requestOptions);
+            await fetch(`http://localhost:5500/${baseUrl}/${subCategory._id}`, requestOptions);
         } catch (e) {
             console.log(e);
         }
@@ -60,12 +61,12 @@ function TableOfItems(props: {createButtonText: string}) {
     });
 
     const columns: GridColDef[] = [
-        { field: '_id', headerName: 'sub Category id', width: 150, hide: true },
+        { field: '_id', headerName: 'sub ProductCategories id', width: 150, hide: true },
         { field: 'title', headerName: 'Title', width: 150 },
         { field: 'slug', headerName: 'Slug', width: 150 },
         { field: 'imageUrl', headerName: 'ImageUrl', width: 150 },
-        { field: 'categoryName', headerName: 'Category name', width: 150 },
-        { field: 'category', headerName: 'Category Id', width: 150, hide: true },
+        { field: 'categoryName', headerName: 'ProductCategories name', width: 150 },
+        { field: 'category', headerName: 'ProductCategories Id', width: 150, hide: true },
         { field: 'action', headerName: 'Actions', width: 150, renderCell: (params: GridRenderCellParams) =>
             <>
                 <Button onClick={() => updateColumn(params.row)}>
