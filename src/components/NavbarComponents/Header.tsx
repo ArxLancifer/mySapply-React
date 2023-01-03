@@ -1,11 +1,18 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import TopNavbar from './TopNavbar';
+import AuthContext from "../store/auth/AuthContext";
+import UserAvatar from "../profile/UserAvatar";
+
 function Header() {
-  return (
-    <div>
-      <TopNavbar />
-    </div>
-  )
+    const {isLoggedIn} = useContext(AuthContext);
+    return (
+        <div>
+            {!isLoggedIn
+                ? <TopNavbar/>
+                : <UserAvatar />
+            }
+        </div>
+    )
 }
 
 export default Header
