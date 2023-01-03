@@ -1,4 +1,4 @@
-import {Box, Button, FormControl, InputAdornment, TextField} from '@mui/material'
+import {Box, Button, FormControl, InputAdornment, TextField, Typography} from '@mui/material'
 import './Login-Signup.module.css';
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import LockOpenIcon from '@mui/icons-material/LockOpen';
@@ -6,13 +6,13 @@ import {Container} from '@mui/system';
 import {Link, useNavigate} from 'react-router-dom';
 import LoginWithOneTap from "../../components/Login-Signup/LoginWithOneTap";
 import {useState} from 'react';
-import { IModel } from '../../interfaces/IModel';
-import { IUser, IUserPost } from '../../interfaces/IUser';
+import {IModel} from '../../interfaces/IModel';
+import {IUser, IUserPost} from '../../interfaces/IUser';
 
 function Login() {
     const navigate = useNavigate();
     const [userInput, setUserInput] = useState<IUserPost>({username: "", password: ""});
-    const [user, setUser] = useState<{username: string}>({username: "Not user yet"});
+    const [user, setUser] = useState<{ username: string }>({username: "Not user yet"});
 
     function handleInput(e: any) {
         const inputField = e.target.id
@@ -43,18 +43,14 @@ function Login() {
     // }, [user])
 
     return (
-        <Box sx={{
-            position: "absolute",
-            top: "50%",
-            left: "50%",
-            p: 4,
-            transform: "translate(-50%, -50%)",
-            width: "60vw",
-            height: "50vh",
-            borderRadius: 1,
-            boxShadow: 3
-        }}>
-            <Container maxWidth="xs">
+        <Container maxWidth="sm">
+            <Box sx={{backgroundColor: "white", boxShadow: 1, mt: 5, px: {xs: 3, lg: 8}, py: {xs: 4, lg: 6}}}>
+                <Typography sx={{textAlign: "center", fontWeight: "bold"}} variant="body1">
+                    Συνέχεια με τον λογαριασμό σου
+                </Typography>
+                <Typography sx={{textAlign: "center", mt: 2, mb: 4, color: "#707070"}}  variant="body2">
+                    Κάνε σύνδεση ή εγγραφή με έναν από τους παρακάτω τρόπους.
+                </Typography>
                 <form>
                     <FormControl fullWidth>
                         <TextField sx={{my: 1}} id="username" label="Username" variant="filled" type="email"
@@ -95,9 +91,8 @@ function Login() {
                     </Link>
                 </Box>
                 <LoginWithOneTap/>
-            </Container>
-            <p>{user.username}</p>
-        </Box>
+            </Box>
+        </Container>
     )
 }
 
