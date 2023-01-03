@@ -9,25 +9,28 @@ import HomeProvider from "./components/store/HomeProvider";
 import AdminProductSubCategories from "./pages/admin/AdminProductSubCategories";
 import ProductCategories from "./pages/ProductCategories/ProductCategories";
 import ProductSubCategories from "./pages/ProductSubCategories/ProductSubCategories";
+import AuthProvider from "./components/store/auth/AuthProvider";
 
 function App() {
     return (
         <Fragment>
-            <HomeProvider>
-                <Header/>
-                <Routes>
-                    <Route path="/" element={<HomePage/>}/>
-                    <Route path="/login" element={<Login/>}/>
-                    <Route path="/signup" element={<Signup/>}/>
-                    <Route path="/products">
-                        <Route path=":slug" element={<ProductCategories/>}/>
-                        <Route path=":slug/:slug" element={<ProductSubCategories/>}/>
-                    </Route>
-                    <Route path="/admin/products">
-                        <Route path="sub-categories" element={<AdminProductSubCategories/>}/>
-                    </Route>
-                </Routes>
-            </HomeProvider>
+            <AuthProvider>
+                <HomeProvider>
+                    <Header/>
+                    <Routes>
+                        <Route path="/" element={<HomePage/>}/>
+                        <Route path="/login" element={<Login/>}/>
+                        <Route path="/signup" element={<Signup/>}/>
+                        <Route path="/products">
+                            <Route path=":slug" element={<ProductCategories/>}/>
+                            <Route path=":slug/:slug" element={<ProductSubCategories/>}/>
+                        </Route>
+                        <Route path="/admin/products">
+                            <Route path="sub-categories" element={<AdminProductSubCategories/>}/>
+                        </Route>
+                    </Routes>
+                </HomeProvider>
+            </AuthProvider>
         </Fragment>
     );
 }
