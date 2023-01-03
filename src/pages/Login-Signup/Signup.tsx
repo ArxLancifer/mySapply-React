@@ -13,36 +13,26 @@ interface IUserPost {
 
 function Signup() {
     const {signup} = useContext(AuthContext);
-    const [userInput, setUserInput] = useState<IUserPost>({email:"", username:"", password:""})
+    const [userInput, setUserInput] = useState<IUserPost>({email: "", username: "", password: ""})
 
-    function handleInput(e:any){
+    function handleInput(e: any) {
         const inputField = e.target.id
         setUserInput({
             ...userInput,
-           [inputField]:e.target.value
+            [inputField]: e.target.value
         })
     }
 
     return (
-        <Box sx={{
-            position: "absolute",
-            top: "50%",
-            left: "50%",
-            px: 4,
-            transform: "translate(-50%, -50%)",
-            width: "60vw",
-            height: "50vh",
-            borderRadius: 1,
-            boxShadow: 3,
-        }}>
-            <Container maxWidth="xs">
+        <Container maxWidth="sm">
+            <Box sx={{borderRadius: 1, boxShadow: 3, mt: 5, px: {xs: 3, lg: 8}, py: {xs: 4, lg: 6}}}>
                 <form onSubmit={(event) => signup(event, {
                     email: userInput.email,
                     username: userInput.username,
                     password: userInput.password,
                 })}>
                     <FormControl fullWidth>
-                        <TextField sx={{my: 1}} id="email" label="E-mail" variant="standard" type="email"
+                        <TextField sx={{my: 1}} id="email" label="E-mail" variant="filled" type="email"
                                    value={userInput.email} onChange={handleInput}
                                    InputProps={{
                                        endAdornment: (
@@ -51,7 +41,7 @@ function Signup() {
                                            </InputAdornment>
                                        ),
                                    }}/>
-                        <TextField sx={{my: 1}} id="username" label="Username" variant="standard"
+                        <TextField sx={{my: 1}} id="username" label="Username" variant="filled"
                                    value={userInput.username} onChange={handleInput}
                                    InputProps={{
                                        endAdornment: (
@@ -60,7 +50,7 @@ function Signup() {
                                            </InputAdornment>
                                        ),
                                    }}/>
-                        <TextField sx={{my: 1}} id="password" label="Password" variant="standard" type="password"
+                        <TextField sx={{my: 1}} id="password" label="Password" variant="filled" type="password"
                                    value={userInput.password} onChange={handleInput}
                                    InputProps={{
                                        endAdornment: (
@@ -78,12 +68,12 @@ function Signup() {
                             variant="contained"
                             color="primary"
                         >
-                            Submit
+                            Εγγραφή
                         </Button>
                     </Box>
                 </form>
-            </Container>
-        </Box>
+            </Box>
+        </Container>
     )
 }
 
