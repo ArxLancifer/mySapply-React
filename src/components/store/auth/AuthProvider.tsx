@@ -1,4 +1,4 @@
-import {ReactNode, useState} from "react";
+import {FormEvent, ReactNode, useState} from "react";
 import {IUser, IUserPost} from "../../../interfaces/IUser";
 import AuthContext from "./AuthContext";
 import {useNavigate} from "react-router-dom";
@@ -12,7 +12,22 @@ function AuthProvider({children}: AuthProviderProps) {
     const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
     const [user, setUser] = useState<Partial<IUser>>({});
 
-    async function login(event: any, username: string, password: string) {
+    async function signup(event: FormEvent<HTMLFormElement>, payload: {email: string, username: string, password: string}) {
+        event.preventDefault();
+        const userInfo: IUserPost = {...payload};
+        try {
+            const requestOptions = {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(userInfo)
+            };
+            await fetch(`http://localhost:5500/signup`, requestOptions);
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
+    async function login(event: FormEvent<HTMLFormElement>, username: string, password: string) {
         event.preventDefault();
         const reqLoginData: IUserPost = {
             username,
@@ -34,7 +49,7 @@ function AuthProvider({children}: AuthProviderProps) {
     }
 
     return (
-        <AuthContext.Provider value={{isLoggedIn, user, login}}>
+        <AuthContext.Provider value={{isLoggedIn, user, login, signup}}>
             {children}
         </AuthContext.Provider>
     )

@@ -1,8 +1,9 @@
-import React, {useState} from 'react'
+import React, {useContext, useState} from 'react'
 import {Container, FormControl, TextField, Box, Button, InputAdornment} from '@mui/material'
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import LockOpenIcon from '@mui/icons-material/LockOpen';
 import PersonPinIcon from '@mui/icons-material/PersonPin';
+import AuthContext from "../../components/store/auth/AuthContext";
 
 interface IUserPost {
     email: string;
@@ -11,22 +12,8 @@ interface IUserPost {
 }
 
 function Signup() {
+    const {signup} = useContext(AuthContext);
     const [userInput, setUserInput] = useState<IUserPost>({email:"", username:"", password:""})
-
-    async function signup(e: any) {
-        e.preventDefault();
-        const userInfo: IUserPost = {...userInput};
-        try {
-            const requestOptions = {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(userInfo)
-            };
-            await fetch(`http://localhost:5500/signup`, requestOptions);
-        } catch (e) {
-            console.log(e);
-        }
-    }
 
     function handleInput(e:any){
         const inputField = e.target.id
@@ -49,7 +36,11 @@ function Signup() {
             boxShadow: 3,
         }}>
             <Container maxWidth="xs">
-                <form onSubmit={signup}>
+                <form onSubmit={(event) => signup(event, {
+                    email: userInput.email,
+                    username: userInput.username,
+                    password: userInput.password,
+                })}>
                     <FormControl fullWidth>
                         <TextField sx={{my: 1}} id="email" label="E-mail" variant="standard" type="email"
                                    value={userInput.email} onChange={handleInput}
