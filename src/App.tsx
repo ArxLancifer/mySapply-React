@@ -10,6 +10,7 @@ import AdminProductSubCategories from "./pages/admin/AdminProductSubCategories";
 import ProductCategories from "./pages/ProductCategories/ProductCategories";
 import ProductSubCategories from "./pages/ProductSubCategories/ProductSubCategories";
 import AuthProvider from "./components/store/auth/AuthProvider";
+import Profile from "./pages/profile/profile";
 
 function App() {
     return (
@@ -21,10 +22,12 @@ function App() {
                         <Route path="/" element={<HomePage/>}/>
                         <Route path="/login" element={<Login/>}/>
                         <Route path="/signup" element={<Signup/>}/>
+                        <Route path="/profile" element={<Profile/>}/>
                         <Route path="/products">
                             <Route path=":slug" element={<ProductCategories/>}/>
                             <Route path=":slug/:slug" element={<ProductSubCategories/>}/>
                         </Route>
+
                         <Route path="/admin/products">
                             <Route path="sub-categories" element={<AdminProductSubCategories/>}/>
                         </Route>
