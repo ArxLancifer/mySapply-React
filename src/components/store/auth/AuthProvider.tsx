@@ -40,10 +40,10 @@ function AuthProvider({children}: AuthProviderProps) {
             credentials: 'include'
         });
 
-        const userData: IUser = await userAuthData.json();
-        if (!userData) { return; }
+        const userData: IUser | string = await userAuthData.json();
+        if ((userData as string) === "Invalid user") { return; }
 
-        setUser(userData);
+        setUser((userData as IUser));
         setIsLoggedIn(true);
         navigate("/");
     }
