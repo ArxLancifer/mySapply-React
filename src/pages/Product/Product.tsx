@@ -4,6 +4,7 @@ import axios from "axios";
 import {useParams} from "react-router-dom";
 import {IProduct} from "../../interfaces/IAlcoholDrink";
 import AddToCart from "./components/AddToCart";
+import SearchProduct from "./components/SearchProduct";
 
 function Product() {
     const {slug} = useParams<{ slug: string }>();
@@ -19,6 +20,7 @@ function Product() {
 
     return (
         <Fragment>
+            <SearchProduct />
             <Container>
                 <Typography variant="h5">
                     {product?.brandName}
