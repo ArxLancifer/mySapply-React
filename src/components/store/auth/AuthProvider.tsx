@@ -2,6 +2,7 @@ import {FormEvent, ReactNode, useState} from "react";
 import {IUser, IUserPost} from "../../../interfaces/IUser";
 import AuthContext from "./AuthContext";
 import {useNavigate} from "react-router-dom";
+import axios from "axios";
 
 type AuthProviderProps = {
     children: ReactNode
@@ -54,8 +55,18 @@ function AuthProvider({children}: AuthProviderProps) {
         navigate("/");
     }
 
+    const logout = async (event: any) => {
+        try {
+            await axios({method: "DELETE", url: "http://localhost:5500/logout", withCredentials: true});
+            setIsLoggedIn(false);
+            navigate("/login");
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
     return (
-        <AuthContext.Provider value={{isLoggedIn, user, login, signup}}>
+        <AuthContext.Provider value={{isLoggedIn, user, login, signup, logout}}>
             {children}
         </AuthContext.Provider>
     )
