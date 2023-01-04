@@ -21,7 +21,13 @@ function AuthProvider({children}: AuthProviderProps) {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(userInfo)
             };
-            await fetch(`http://localhost:5500/signup`, requestOptions);
+            const response = await fetch(`http://localhost:5500/signup`, requestOptions);
+            const data = await response.json();
+
+            if (data === "Invalid email, or username or password") {
+                return;
+            }
+            navigate("/login");
         } catch (e) {
             console.log(e);
         }

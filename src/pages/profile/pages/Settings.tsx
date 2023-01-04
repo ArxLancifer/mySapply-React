@@ -5,12 +5,12 @@ import {IUser} from "../../../interfaces/IUser";
 
 function Settings() {
     let {user} = useContext(AuthContext);
-    const [value, setValue] = useState<Partial<IUser>>({});
+    const [value, setValue] = useState<Partial<IUser>>({...user});
 
     const handleValue = (event: ChangeEvent<HTMLInputElement>) => {
-        const inputFields = event.target.id
+        const inputFields: string = event.target.id;
         setValue({
-            ...user,
+            ...value,
             [inputFields]: event.target.value
         });
     };
@@ -19,10 +19,7 @@ function Settings() {
         event.preventDefault();
         try {
             const userInfo: {dataToUpdate: Partial<IUser>, _id: any} = {
-                dataToUpdate: {
-                    username: value.username ? value?.username : user?.username,
-                    email: value.email ? value?.email : user?.email,
-                },
+                dataToUpdate: {...value},
                 _id: user._id
             };
             const requestOptions = {
@@ -31,15 +28,15 @@ function Settings() {
                 body: JSON.stringify(userInfo)
             };
             await fetch(`http://localhost:5500/profile/settings`, requestOptions);
+            user.username = value.username;
+            user.email = value?.email;
+            user.postalCode = value?.postalCode;
+            user.phone = value?.phone;
+            user.address = value?.address;
         } catch (e) {
             console.log(e);
         }
     };
-
-    useEffect(() => {
-        user.username = value.username;
-        user.email = value.email;
-    }, [value]);
 
     return (
         <Container maxWidth="sm">
@@ -52,7 +49,7 @@ function Settings() {
                         variant="filled"
                         type="text"
                         onChange={handleValue}
-                        value={value.username ? value.username : user?.username}
+                        value={value?.username}
                     />
                 </FormControl>
                 <FormControl fullWidth>
@@ -63,7 +60,7 @@ function Settings() {
                         variant="filled"
                         type="email"
                         onChange={handleValue}
-                        value={value.email ? value.email : user?.email}
+                        value={value?.email}
                     />
                 </FormControl>
                 {/*<FormControl fullWidth>*/}
@@ -84,8 +81,8 @@ function Settings() {
                         label="Phone"
                         variant="filled"
                         type="number"
-                        // onChange={(event) => {handleValue(event.target.value)}}
-                        value={user?.phone}
+                        onChange={handleValue}
+                        value={value?.phone}
                     />
                 </FormControl>
                 <FormControl fullWidth>
@@ -95,8 +92,8 @@ function Settings() {
                         label="Address"
                         variant="filled"
                         type="text"
-                        // onChange={(event) => {handleValue(event.target.value)}}
-                        value={user?.address}
+                        onChange={handleValue}
+                        value={value?.address}
                     />
                 </FormControl>
                 <FormControl fullWidth>
@@ -106,8 +103,8 @@ function Settings() {
                         label="Postal code"
                         variant="filled"
                         type="number"
-                        // onChange={(event) => {handleValue(event.target.value)}}
-                        value={user?.postalCode}
+                        onChange={handleValue}
+                        value={value?.postalCode}
                     />
                 </FormControl>
                 <Box sx={{ mt: 2, textAlign: "end" }}>
