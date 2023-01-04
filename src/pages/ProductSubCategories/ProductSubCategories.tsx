@@ -1,10 +1,11 @@
 import React, {useEffect, useState} from "react";
 import {Link, useParams} from "react-router-dom";
-import {IProductSubCategory} from "../../interfaces/ICategory";
+import {IProductCategory, IProductSubCategory} from "../../interfaces/ICategory";
 import {IAlcoholDrink} from "../../interfaces/IAlcoholDrink";
 import {Container, Grid, Typography} from "@mui/material";
 import AlcoholDrinks from "./components/AlcoholDrinks";
 import Filters from "./components/Filters";
+import "../../index.css";
 
 function ProductSubCategories() {
     const baseUrl = `products/sub-categories`;
@@ -60,14 +61,14 @@ function ProductSubCategories() {
             <Grid container sx={{mt: 3}} gap={2}>
                 {alcoholDrinks.drinks?.length ?
                     alcoholDrinks.drinks.map((drink, index) => (
-                        <AlcoholDrinks key={index} alcoholDrink={drink}/>
+                        <AlcoholDrinks key={index} productSubCategory={(productSubCategory as IProductSubCategory)} alcoholDrink={drink}/>
                     )) :
                     <Typography>
                         Δεν υπάρχουν προϊόντα
                     </Typography>
                 }
             </Grid>
-            <Filters />
+            <Filters/>
         </Container>
     )
 }

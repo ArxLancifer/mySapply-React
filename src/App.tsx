@@ -13,6 +13,8 @@ import AuthProvider from "./components/store/auth/AuthProvider";
 import Profile from "./pages/profile/Profile";
 import Settings from "./pages/profile/pages/Settings";
 import PageNotFound from "./pages/NotFound/PageNotFound";
+import Cart from "./pages/Cart/Cart";
+import Product from "./pages/Product/Product";
 
 function App() {
     return (
@@ -26,9 +28,11 @@ function App() {
                         <Route path="/signup" element={<Signup/>}/>
                         <Route path="/profile" element={<Profile/>}/>
                         <Route path="/profile/settings" element={<Settings/>}/>
+                        <Route path="/cart" element={<Cart/>}/>
                         <Route path="/products">
                             <Route path=":slug" element={<ProductCategories/>}/>
                             <Route path=":slug/:slug" element={<ProductSubCategories/>}/>
+                            <Route path=":slug/:slug/:slug" element={<Product/>}/>
                         </Route>
 
                         <Route path="/admin/products">
