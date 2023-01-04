@@ -1,5 +1,5 @@
 import {Box, Button, Container, FormControl, TextField} from "@mui/material";
-import React, {ChangeEvent, FormEvent, useContext, useState} from "react";
+import React, {ChangeEvent, FormEvent, useContext, useEffect, useState} from "react";
 import AuthContext from "../../../components/store/auth/AuthContext";
 import {IUser} from "../../../interfaces/IUser";
 
@@ -17,12 +17,11 @@ function Settings() {
 
     const updateUser = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        // return console.log(value);
         try {
             const userInfo: {dataToUpdate: Partial<IUser>, _id: any} = {
                 dataToUpdate: {
-                    username: value.username,
-                    email: value.email,
+                    username: value.username ? value?.username : user?.username,
+                    email: value.email ? value?.email : user?.email,
                 },
                 _id: user._id
             };
@@ -36,6 +35,11 @@ function Settings() {
             console.log(e);
         }
     };
+
+    useEffect(() => {
+        user.username = value.username;
+        user.email = value.email;
+    }, [value]);
 
     return (
         <Container maxWidth="sm">
