@@ -59,6 +59,7 @@ function AuthProvider({children}: AuthProviderProps) {
         try {
             await axios({method: "DELETE", url: "http://localhost:5500/logout", withCredentials: true});
             setIsLoggedIn(false);
+            setUser({});
             navigate("/login");
         } catch (error) {
             console.log(error);
