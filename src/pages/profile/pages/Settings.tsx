@@ -1,5 +1,5 @@
 import {Box, Button, Container, FormControl, TextField} from "@mui/material";
-import React, {ChangeEvent, FormEvent, useContext, useEffect, useState} from "react";
+import React, {ChangeEvent, FormEvent, useContext, useState} from "react";
 import AuthContext from "../../../components/store/auth/AuthContext";
 import {IUser} from "../../../interfaces/IUser";
 
@@ -49,7 +49,7 @@ function Settings() {
                         variant="filled"
                         type="text"
                         onChange={handleValue}
-                        value={value?.username}
+                        value={value?.username || ""}
                     />
                 </FormControl>
                 <FormControl fullWidth>
@@ -60,7 +60,7 @@ function Settings() {
                         variant="filled"
                         type="email"
                         onChange={handleValue}
-                        value={value?.email}
+                        value={value?.email || ""}
                     />
                 </FormControl>
                 {/*<FormControl fullWidth>*/}
@@ -82,7 +82,7 @@ function Settings() {
                         variant="filled"
                         type="number"
                         onChange={handleValue}
-                        value={value?.phone}
+                        value={value?.phone || ""}
                     />
                 </FormControl>
                 <FormControl fullWidth>
@@ -93,7 +93,7 @@ function Settings() {
                         variant="filled"
                         type="text"
                         onChange={handleValue}
-                        value={value?.address}
+                        value={value?.address || ""}
                     />
                 </FormControl>
                 <FormControl fullWidth>
@@ -104,7 +104,7 @@ function Settings() {
                         variant="filled"
                         type="number"
                         onChange={handleValue}
-                        value={value?.postalCode}
+                        value={value?.postalCode || ""}
                     />
                 </FormControl>
                 <Box sx={{ mt: 2, textAlign: "end" }}>
