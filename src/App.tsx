@@ -12,6 +12,7 @@ import ProductSubCategories from "./pages/ProductSubCategories/ProductSubCategor
 import AuthProvider from "./components/store/auth/AuthProvider";
 import Profile from "./pages/profile/Profile";
 import Settings from "./pages/profile/pages/Settings";
+import PageNotFound from "./pages/NotFound/PageNotFound";
 
 function App() {
     return (
@@ -33,6 +34,7 @@ function App() {
                         <Route path="/admin/products">
                             <Route path="sub-categories" element={<AdminProductSubCategories/>}/>
                         </Route>
+                        <Route path="*" element={<PageNotFound />} />
                     </Routes>
                 </HomeProvider>
             </AuthProvider>
