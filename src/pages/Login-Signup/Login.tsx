@@ -1,18 +1,18 @@
-import {Box, Button, FormControl, InputAdornment, TextField} from '@mui/material'
+import {Box, Button, FormControl, InputAdornment, TextField, Typography} from '@mui/material'
 import './Login-Signup.module.css';
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import LockOpenIcon from '@mui/icons-material/LockOpen';
 import {Container} from '@mui/system';
 import {Link, useNavigate} from 'react-router-dom';
 import LoginWithOneTap from "../../components/Login-Signup/LoginWithOneTap";
-import {useState} from 'react';
-import { IModel } from '../../interfaces/IModel';
-import { IUser, IUserPost } from '../../interfaces/IUser';
+import {useContext, useState} from 'react';
+import {IUserPost} from '../../interfaces/IUser';
+import AuthContext from "../../components/store/auth/AuthContext";
 
 function Login() {
-    const navigate = useNavigate();
+    const {login} = useContext(AuthContext);
+
     const [userInput, setUserInput] = useState<IUserPost>({username: "", password: ""});
-    const [user, setUser] = useState<{username: string}>({username: "Not user yet"});
 
     function handleInput(e: any) {
         const inputField = e.target.id
@@ -22,42 +22,18 @@ function Login() {
         });
     }
 
-    async function logMeIn(e?: any) {
-        e.preventDefault()
-        const reqLoginData: IUserPost = userInput;
-        const userAuthData = await fetch("http://localhost:5500/login", {
-            method: "POST",
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(reqLoginData),
-            credentials: 'include'
-        });
-
-        const userData: Pick<IUser, "username"> = await userAuthData.json();
-        setUser({username: userData.username});
-    }
-
-    // useEffect(()=>{
-    //     if(user.username !== "Not user yet"){
-    //         navigate("/")
-    //     }
-    // }, [user])
-
     return (
-        <Box sx={{
-            position: "absolute",
-            top: "50%",
-            left: "50%",
-            p: 4,
-            transform: "translate(-50%, -50%)",
-            width: "60vw",
-            height: "50vh",
-            borderRadius: 1,
-            boxShadow: 3
-        }}>
-            <Container maxWidth="xs">
-                <form>
+        <Container maxWidth="sm">
+            <Box sx={{backgroundColor: "white", boxShadow: 1, mt: 5, px: {xs: 3, lg: 8}, py: {xs: 4, lg: 6}}}>
+                <Typography sx={{textAlign: "center", fontWeight: "bold"}} variant="body1">
+                    Συνέχεια με τον λογαριασμό σου
+                </Typography>
+                <Typography sx={{textAlign: "center", mt: 2, mb: 4, color: "#707070"}}  variant="body2">
+                    Κάνε σύνδεση ή εγγραφή με έναν από τους παρακάτω τρόπους.
+                </Typography>
+                <form onSubmit={(event) => login(event, userInput.username, userInput.password)}>
                     <FormControl fullWidth>
-                        <TextField sx={{my: 1}} id="username" label="Username" variant="filled" type="email"
+                        <TextField sx={{my: 1}} id="username" label="Username" variant="filled" type="text"
                                    onChange={handleInput} InputProps={{
                             endAdornment: (
                                 <InputAdornment position="start">
@@ -77,7 +53,6 @@ function Login() {
                     </FormControl>
                     <Box sx={{textAlign: "end"}}>
                         <Button
-                            onClick={logMeIn}
                             sx={{mt: 1}}
                             size="medium"
                             type="submit"
@@ -95,9 +70,8 @@ function Login() {
                     </Link>
                 </Box>
                 <LoginWithOneTap/>
-            </Container>
-            <p>{user.username}</p>
-        </Box>
+            </Box>
+        </Container>
     )
 }
 
