@@ -1,4 +1,4 @@
-import {FormEvent, ReactNode, useState} from "react";
+import {FormEvent, ReactNode, useEffect, useState} from "react";
 import {IUser, IUserPost} from "../../../interfaces/IUser";
 import AuthContext from "./AuthContext";
 import {useNavigate} from "react-router-dom";
@@ -12,6 +12,23 @@ function AuthProvider({children}: AuthProviderProps) {
     const navigate = useNavigate();
     const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
     const [user, setUser] = useState<Partial<IUser>>({});
+
+    async function fetchAuth(){
+        const userData = await axios.get('http://localhost:5500/', {
+            withCredentials:true,
+        })
+        if(userData.data._id){
+            setUser(userData.data);
+            setIsLoggedIn(true);
+        }
+        else{
+            console.log(userData.data);
+        }
+    }
+
+    useEffect(()=>{
+        fetchAuth();
+    }, [])
 
     async function signup(event: FormEvent<HTMLFormElement>, payload: {email: string, username: string, password: string}) {
         event.preventDefault();

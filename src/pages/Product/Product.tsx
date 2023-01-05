@@ -14,17 +14,14 @@ function Product() {
         setProduct((response.data || {}));
     };
 
-    const getValueFromSearch = (product: Object) => {
-        setProduct(product);
-    }
-
+   
     useEffect(() => {
         getProductBySlug();
     }, []);
 
     return (
         <Fragment>
-            <SearchProduct changeProduct={getValueFromSearch} />
+            <SearchProduct changeProduct={setProduct} />
             <Container>
                 <Typography variant="h5">
                     {product?.brandName}

@@ -1,15 +1,18 @@
 import {Autocomplete, AutocompleteValue, Container, FormControl, TextField} from "@mui/material";
-import {ChangeEvent, SyntheticEvent, useEffect, useState} from "react";
+import {SyntheticEvent, useEffect, useState} from "react";
 import axios from "axios";
 import {IProduct} from "../../../interfaces/IAlcoholDrink";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 type Props = {
     changeProduct: (product: IProduct) => void
 }
 
 function SearchProduct({changeProduct}: Props) {
-    const [options, setOptions] = useState<any[]>([]);
+    const [empty, products, category, subcategory] = useLocation().pathname.split("/");
+    const navigate = useNavigate();
 
+    const [options, setOptions] = useState<any[]>([]);
     const getProducts = async () => {
         const response = await axios.get("http://localhost:5500/products");
         const productsTitles = (response.data as IProduct[]).map(p => {
@@ -20,11 +23,13 @@ function SearchProduct({changeProduct}: Props) {
         });
         setOptions(productsTitles);
     };
-
     const handleSearch = async (event: SyntheticEvent, value: AutocompleteValue<any, any, any, any>) => {
-        const response = await axios.post("http://localhost:5500/products/search", {value});
+        navigate(`/${products}/${category}/${subcategory}/${value?.slug}`);
+        const response = await axios.post("http://localhost:5500/products/search", {slug:value?.slug});
         changeProduct(response.data);
     };
+
+    
 
     useEffect(() => {
         getProducts();
