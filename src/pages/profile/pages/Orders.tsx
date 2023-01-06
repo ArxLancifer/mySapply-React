@@ -1,56 +1,47 @@
-import React, { useEffect, useState } from 'react'
+import React, {useEffect, useState} from 'react'
 import OrderCard from '../../Product/components/OrderCard';
-import { Card, CardContent, Typography } from '@mui/material'
-import { Box, Container } from '@mui/system'
+import {Card, CardContent, Typography} from '@mui/material'
+import {Box, Container} from '@mui/system'
 import ReportProblemIcon from '@mui/icons-material/ReportProblem';
-import { IOrder } from '../../../interfaces/IOrder';
+import {IOrder} from '../../../interfaces/IOrder';
 import axios from 'axios';
+
 function Orders() {
 
-    const [orders, setOrders] = useState(null);
+    const [orders, setOrders] = useState<IOrder[]>([]);
 
-    async function fetchOrders(){
+    async function fetchOrders() {
         const ordersData = await axios.get("http://localhost:5500/order");
-        // setOrders(orders.data)
-        function timeStampReadable(timestampe:string){
-            let createdDate = Date.parse(timestampe);
-            const readableDate = new Date(createdDate).toLocaleDateString()
-            return readableDate;
+        function timeStampReadable(timestamp: string) {
+            let createdDate = Date.parse(timestamp);
+            return new Date(createdDate).toLocaleDateString();
         }
-        const formatedData = ordersData.data.map((order:IOrder)=>{
-          return {
-            title:order.title,
-            totalAmount:order.totalAmount,
-            date:timeStampReadable(order.createdAt)
-          }
-        })
-        setOrders(formatedData)
-        console.log("Fetch ran")
+
+        const formatedData = ordersData.data.map((order: IOrder) => {
+            return {
+                title: order.title,
+                totalAmount: order.totalAmount,
+                date: timeStampReadable(order.createdAt)
+            }
+        });
+        setOrders(formatedData);
     }
 
-    useEffect(()=>{
-       fetchOrders()
+    useEffect(() => {
+        fetchOrders();
     }, [])
 
-
-    function OrderList(props:any){
-        return(
-            <Card>
-            {props.cardData.map((order:IOrder)=>{
-                // return <OrderCard cardData={order} />
-                <p>asdsad</p>
-            })}
-            </Card>
-        )
-    }
-
-  return (
-    <Container sx={{my:10}} maxWidth="md">
-        
-        {orders && <OrderList cardData={orders}/>}
-        
-    </Container>
-  )
+    return (
+        <Container sx={{my: 10}} maxWidth="md">
+            {orders.length &&
+                orders.map((order: IOrder, index: number) => (
+                    <Typography key={index} variant="body1">
+                        {order.title}
+                    </Typography>
+                ))
+            }
+        </Container>
+    )
 }
 
 export default Orders
