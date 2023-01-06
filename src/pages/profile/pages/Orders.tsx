@@ -9,35 +9,40 @@ import AuthContext from '../../../components/store/auth/AuthContext';
 
 function Orders() {
 
-    const [orders, setOrders] = useState<IOrder[]>([]);
-    const ctx = useContext(AuthContext)
+    const [orders, setOrders] = useState<IOrder[] | null>(null);
+    const ctx = useContext(AuthContext);
+
     async function fetchOrders() {
-        const ordersData = await axios.post("http://localhost:5500/userorders", {user:ctx.user._id});
+        const userId = localStorage.getItem("userId");
+        const ordersData = await axios.post("http://localhost:5500/userorders", {user: ctx.user._id || userId}, {withCredentials: true});
         function timeStampReadable(timestamp: string) {
             let createdDate = Date.parse(timestamp);
             return new Date(createdDate).toLocaleDateString();
         }
+        if (ordersData.data.message) {return console.log(ordersData.data.message)}
 
-        const formatedData = ordersData.data.map((order: IOrder) => {
+        const formatedData: IOrder[] = (ordersData.data || []).map((order: IOrder) => {
             return {
+                _id: order._id,
                 title: order.title,
                 totalAmount: order.totalAmount,
                 date: timeStampReadable(order.createdAt)
             }
         });
-        console.log(formatedData)
         setOrders(formatedData);
     }
 
     useEffect(() => {
-        fetchOrders();
+        if (ctx.user) {
+            fetchOrders();
+        }
     }, [])
 
     return (
         <Container sx={{my: 10}} maxWidth="md">
-            {orders.length &&
-                orders.map((order: IOrder, index: number) => (
-                    <OrderCard order={order} />
+            {orders &&
+                orders.map((order: IOrder) => (
+                    <OrderCard key={order._id} order={order}/>
                 ))
             }
         </Container>

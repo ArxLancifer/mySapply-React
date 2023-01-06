@@ -4,17 +4,20 @@ import { Box, Container } from '@mui/system'
 import ReportProblemIcon from '@mui/icons-material/ReportProblem';
 import { IOrder } from '../../../interfaces/IOrder';
 
-function OrderCard(props:any) {
+type Props = {
+    order: IOrder
+}
+function OrderCard({order}: Props) {
   return (
         <Card sx={{my:"2%"}}>
             <CardContent>
                 <Typography variant='h4' component="div">
-                    {props.order.title}
+                    {order.title}
                 </Typography>
                 <Typography variant='subtitle1' component="div">
-                    <i>{props.order.date}</i>
+                    <i>{order.date}</i>
                 </Typography>
-                <span>Amount: {props.order.totalAmount}</span>
+                <span>Amount: {order.totalAmount}</span>
                 <Box>
                 <ReportProblemIcon />
                 </Box>

@@ -13,30 +13,29 @@ function AuthProvider({children}: AuthProviderProps) {
     const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
     const [user, setUser] = useState<Partial<IUser>>({});
 
-    async function fetchAuth(){
+    async function fetchAuth() {
         const userData = await axios.get('http://localhost:5500/', {
-            withCredentials:true,
-        })
-        if(userData.data._id){
+            withCredentials: true,
+        });
+        if (userData.data._id) {
             setUser(userData.data);
             setIsLoggedIn(true);
-        }
-        else{
+        } else {
             console.log(userData.data);
         }
     }
 
-    useEffect(()=>{
+    useEffect(() => {
         fetchAuth();
     }, [])
 
-    async function signup(event: FormEvent<HTMLFormElement>, payload: {email: string, username: string, password: string}) {
+    async function signup(event: FormEvent<HTMLFormElement>, payload: { email: string, username: string, password: string }) {
         event.preventDefault();
         const userInfo: IUserPost = {...payload};
         try {
             const requestOptions = {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify(userInfo)
             };
             const response = await fetch(`http://localhost:5500/signup`, requestOptions);
@@ -65,7 +64,14 @@ function AuthProvider({children}: AuthProviderProps) {
         });
 
         const userData: IUser | string = await userAuthData.json();
-        if ((userData as string) === "Invalid user") { return; }
+        if ((userData as string) === "Invalid user") {
+            return;
+        }
+
+        const userId = (userData as IUser)._id;
+        if (userId) {
+            localStorage.setItem("userId", userId);
+        }
 
         setUser((userData as IUser));
         setIsLoggedIn(true);
@@ -75,6 +81,7 @@ function AuthProvider({children}: AuthProviderProps) {
     const logout = async (event: any) => {
         try {
             await axios({method: "DELETE", url: "http://localhost:5500/logout", withCredentials: true});
+            localStorage.removeItem("userId");
             setIsLoggedIn(false);
             setUser({});
             navigate("/login");

@@ -1,5 +1,8 @@
-export interface IOrder  {
+import {IModel} from "./IModel";
+
+export interface IOrder extends IModel {
     title:string,
     totalAmount:string | number,
-    createdAt:string
+    createdAt:string;
+    date?: string;
 }
