@@ -19,6 +19,7 @@ function Profile() {
             <Typography sx={{mt: 4}} variant="h5">
                 Γεια σου {user.username}
             </Typography>
+            <Link to={"/profile/orders"}>
             <Box
                 sx={{backgroundColor: "#e3e3e3", display: "flex", alignItems: "center", py: 1, mt: 3, borderRadius: 2}}>
                 <ReceiptIcon sx={{ml: 2, mr: 1}}/>
@@ -28,6 +29,7 @@ function Profile() {
                 <Box sx={{flexGrow: 1}}></Box>
                 <ArrowForwardIosIcon sx={{mr: 1}}/>
             </Box>
+            </Link>
             <Link style={linkStyle} to="/profile/settings">
                 <Box sx={{
                     backgroundColor: "#e3e3e3",
