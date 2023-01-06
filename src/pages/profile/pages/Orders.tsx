@@ -12,7 +12,7 @@ function Orders() {
     const [orders, setOrders] = useState<IOrder[]>([]);
     const ctx = useContext(AuthContext)
     async function fetchOrders() {
-        const ordersData = await axios.post("http://localhost:5500/asd", {user:ctx.user._id});
+        const ordersData = await axios.post("http://localhost:5500/userorders", {user:ctx.user._id});
         function timeStampReadable(timestamp: string) {
             let createdDate = Date.parse(timestamp);
             return new Date(createdDate).toLocaleDateString();
