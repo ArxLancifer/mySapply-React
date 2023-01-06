@@ -15,6 +15,7 @@ import Settings from "./pages/profile/pages/Settings";
 import PageNotFound from "./pages/NotFound/PageNotFound";
 import Cart from "./pages/Cart/Cart";
 import Product from "./pages/Product/Product";
+import Orders from "./pages/profile/pages/Orders";
 
 function App() {
     return (
@@ -28,6 +29,7 @@ function App() {
                         <Route path="/signup" element={<Signup/>}/>
                         <Route path="/profile" element={<Profile/>}/>
                         <Route path="/profile/settings" element={<Settings/>}/>
+                        <Route path="/profile/orders" element={<Orders/>}/>
                         <Route path="/cart" element={<Cart/>}/>
                         <Route path="/products">
                             <Route path=":slug" element={<ProductCategories/>}/>
