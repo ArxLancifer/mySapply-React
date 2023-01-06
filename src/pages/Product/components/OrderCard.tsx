@@ -6,15 +6,15 @@ import { IOrder } from '../../../interfaces/IOrder';
 
 function OrderCard(props:any) {
   return (
-        <Card>
+        <Card sx={{my:"2%"}}>
             <CardContent>
                 <Typography variant='h4' component="div">
-                    {props.cardData.title}
+                    {props.order.title}
                 </Typography>
-                <Typography variant='subtitle1' component="span">
-                    <i>{props.cardData.createdAt}</i>
-                    <span>{props.cardData.totalAmount}</span>
+                <Typography variant='subtitle1' component="div">
+                    <i>{props.order.date}</i>
                 </Typography>
+                <span>Amount: {props.order.totalAmount}</span>
                 <Box>
                 <ReportProblemIcon />
                 </Box>

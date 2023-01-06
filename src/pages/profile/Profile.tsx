@@ -19,7 +19,7 @@ function Profile() {
             <Typography sx={{mt: 4}} variant="h5">
                 Γεια σου {user.username}
             </Typography>
-            <Link to={"/profile/orders"}>
+            <Link to={"/profile/myorders"}>
             <Box
                 sx={{backgroundColor: "#e3e3e3", display: "flex", alignItems: "center", py: 1, mt: 3, borderRadius: 2}}>
                 <ReceiptIcon sx={{ml: 2, mr: 1}}/>
