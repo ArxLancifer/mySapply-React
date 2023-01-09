@@ -1,56 +1,67 @@
 import {Box, Button, Container, Typography} from "@mui/material";
 import {IProduct} from "../../../interfaces/IAlcoholDrink";
 import {useState} from "react";
+import {IOrderItem} from "../../../interfaces/IOrder";
 
 type Props = {
     product: Partial<IProduct>
 }
 
 function AddToCart({product}: Props) {
-    // const [itemsList, setItemsList] = useState<IProduct[] | null>(null);
-    let itemsList: IProduct[] = [];
+    let itemsList: IOrderItem[] = [];
     const addToCart = (product: Partial<IProduct>) => {
         // return localStorage.removeItem("myCart");
 
+        const productMap: IOrderItem = {
+            productEntity: "AlcoholDrink",
+            quantity: 1,
+            order: ({...product as IProduct}),
+            price: (product?.price as unknown as string)
+        }
+
         let quantity = 1;
-        let obj = {};
+        let updatedProduct: Partial<IOrderItem> = {};
         const localStorageCart = localStorage.getItem('myCart');
         if (localStorageCart) {
-            const myCart: IProduct[] = JSON.parse(localStorageCart);
+            const myCart: IOrderItem[] = JSON.parse(localStorageCart);
             if (myCart.length) {
-                let productFound = myCart.find(c => c._id === product._id);
-                const cartItem = localStorage.getItem('myCart');
+                let productFound = myCart.find(c => (c.order as IProduct)._id === product._id);
+                const cartItems = localStorage.getItem('myCart');
+
                 if (!productFound) {
-                    if (cartItem) {
-                        itemsList = JSON.parse(cartItem);
+                    if (cartItems) {
+                        itemsList = JSON.parse(cartItems);
                     }
-                    itemsList.push(product as IProduct);
+                    itemsList.push(productMap);
                     localStorage.setItem('myCart', JSON.stringify(itemsList));
                 } else {
-                    let arrUpdated: IProduct[] = [];
-                    productFound = {
-                        ...productFound,
-                        // @ts-ignore
-                        quantity: productFound.quantity ? productFound.quantity + 1 : quantity + 1
+                    let arrUpdated: IOrderItem[] = [];
+                    updatedProduct = {
+                        order: ({...product as IProduct}),
+                        quantity: productFound.quantity ? productFound.quantity + 1 : quantity + 1,
+                        price: productFound.price,
+                        productEntity: "AlcoholDrink"
                     };
-                    if (cartItem) {
-                        arrUpdated = JSON.parse(cartItem);
+
+                    if (cartItems) {
+                        arrUpdated = JSON.parse(cartItems);
                     }
-                    itemsList = arrUpdated.filter(c => c._id !== productFound?._id);
+
+                    itemsList = arrUpdated.filter(c => (c.order as IProduct)._id !== (updatedProduct?.order as IProduct)._id);
                     localStorage.removeItem("myCart");
+
                     if (productFound) {
-                        itemsList.push(productFound);
+                        itemsList.push(updatedProduct as IOrderItem);
                     }
                     localStorage.setItem('myCart', JSON.stringify(itemsList));
                 }
             }
         } else {
-            itemsList.push(product as IProduct);
+            itemsList.push(productMap);
             localStorage.setItem('myCart', JSON.stringify(itemsList));
         }
 
-        // console.log("itemsList", itemsList);
-        // console.log("obj", obj);
+        console.log("itemsList", itemsList);
     };
 
     return (

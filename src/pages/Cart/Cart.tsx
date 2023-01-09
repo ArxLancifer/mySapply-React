@@ -1,9 +1,10 @@
 import {Box, Container, Typography} from "@mui/material";
 import {useEffect, useState} from "react";
+import {IOrderItem} from "../../interfaces/IOrder";
 import {IProduct} from "../../interfaces/IAlcoholDrink";
 
 function Cart() {
-    const [cartItems, setCartItems] = useState<IProduct[] | null>(null);
+    const [cartItems, setCartItems] = useState<IOrderItem[] | null>(null);
     const getCartItems = () => {
         const cartItem = localStorage.getItem("myCart")
         if (cartItem) {
@@ -22,13 +23,16 @@ function Cart() {
             {cartItems?.length
                 ?
                 cartItems.map(cartItem => (
-                    <Box sx={{backgroundColor: "white", borderRadius: 1, boxShadow: 2, mt: 4}}>
+                    <Box key={(cartItem.order as IProduct)._id} sx={{backgroundColor: "white", borderRadius: 1, boxShadow: 2, mt: 4}}>
                         <Box sx={{display: "flex", justifyContent: "space-between", p: 2}}>
                             <Typography>
-                                {cartItem?.title}
+                                {(cartItem.order as IProduct).title}
                             </Typography>
                             <Typography>
                                 {cartItem?.price}
+                            </Typography>
+                            <Typography>
+                                {cartItem?.quantity}
                             </Typography>
                         </Box>
                     </Box>
