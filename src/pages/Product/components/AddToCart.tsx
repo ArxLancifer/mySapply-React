@@ -44,41 +44,16 @@ function AddToCart({product}: Props) {
                         productEntity: "AlcoholDrink"
                     };
 
+                    if (cartItems) {
+                        arrUpdated = JSON.parse(cartItems);
+                    }
+
                     itemsList = arrUpdated.filter(c => (c.order as IProduct)._id !== (updatedProduct?.order as IProduct)._id);
                     localStorage.removeItem("myCart");
 
                     itemsList.push(updatedProduct as IOrderItem);
                     localStorage.setItem('myCart', JSON.stringify(itemsList));
                 }
-
-
-                // if (!productFound) {
-                //     if (cartItems) {
-                //         itemsList = JSON.parse(cartItems);
-                //     }
-                //     itemsList.push(productMap);
-                //     localStorage.setItem('myCart', JSON.stringify(itemsList));
-                // } else {
-                //     let arrUpdated: IOrderItem[] = [];
-                //     updatedProduct = {
-                //         order: ({...product as IProduct}),
-                //         quantity: productFound.quantity ? productFound.quantity + 1 : quantity + 1,
-                //         price: productFound.price,
-                //         productEntity: "AlcoholDrink"
-                //     };
-                //
-                //     if (cartItems) {
-                //         arrUpdated = JSON.parse(cartItems);
-                //     }
-                //
-                //     itemsList = arrUpdated.filter(c => (c.order as IProduct)._id !== (updatedProduct?.order as IProduct)._id);
-                //     localStorage.removeItem("myCart");
-                //
-                //     if (productFound) {
-                //         itemsList.push(updatedProduct as IOrderItem);
-                //     }
-                //     localStorage.setItem('myCart', JSON.stringify(itemsList));
-                // }
             }
         } else {
             itemsList.push(productMap);

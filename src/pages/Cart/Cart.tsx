@@ -1,7 +1,8 @@
-import {Box, Container, Typography} from "@mui/material";
+import {Box, Button, Container, Typography} from "@mui/material";
 import {useEffect, useState} from "react";
 import {IOrderItem} from "../../interfaces/IOrder";
 import {IProduct} from "../../interfaces/IAlcoholDrink";
+import axios from "axios";
 
 function Cart() {
     const [cartItems, setCartItems] = useState<IOrderItem[] | null>(null);
@@ -11,6 +12,11 @@ function Cart() {
             setCartItems(JSON.parse(cartItem));
         }
     }
+
+    const createOrder = async () => {
+        const response = await axios.post(`http://localhost:5500/cart/order`, cartItems, {withCredentials: true});
+        console.log(response.data);
+    };
 
     useEffect(() => {
         getCartItems()
@@ -42,6 +48,11 @@ function Cart() {
                     Το καλάθι είναι άδειο
                 </Typography>
             }
+            <Box sx={{mt: 2, textAlign: "end"}}>
+                <Button onClick={createOrder} variant="contained" color="success">
+                    Παραγγελία
+                </Button>
+            </Box>
         </Container>
     )
 }
