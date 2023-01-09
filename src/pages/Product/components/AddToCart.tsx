@@ -28,10 +28,11 @@ function AddToCart({product}: Props) {
                 let productFound = myCart.find(c => (c.order as IProduct)._id === product._id);
                 const cartItems = localStorage.getItem('myCart');
 
+                if (cartItems) {
+                    itemsList = JSON.parse(cartItems);
+                }
+
                 if (!productFound) {
-                    if (cartItems) {
-                        itemsList = JSON.parse(cartItems);
-                    }
                     itemsList.push(productMap);
                     localStorage.setItem('myCart', JSON.stringify(itemsList));
                 } else {
@@ -43,16 +44,10 @@ function AddToCart({product}: Props) {
                         productEntity: "AlcoholDrink"
                     };
 
-                    if (cartItems) {
-                        arrUpdated = JSON.parse(cartItems);
-                    }
-
                     itemsList = arrUpdated.filter(c => (c.order as IProduct)._id !== (updatedProduct?.order as IProduct)._id);
                     localStorage.removeItem("myCart");
 
-                    if (productFound) {
-                        itemsList.push(updatedProduct as IOrderItem);
-                    }
+                    itemsList.push(updatedProduct as IOrderItem);
                     localStorage.setItem('myCart', JSON.stringify(itemsList));
                 }
             }
