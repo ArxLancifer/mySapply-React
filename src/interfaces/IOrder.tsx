@@ -5,4 +5,5 @@ export interface IOrder extends IModel {
     totalAmount:string | number,
     createdAt:string;
     date?: string;
+    status:string,
 }

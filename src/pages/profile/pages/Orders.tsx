@@ -1,11 +1,13 @@
 import React, {useContext, useEffect, useState} from 'react'
 import OrderCard from '../../Product/components/OrderCard';
-import {Card, CardContent, Typography} from '@mui/material'
-import {Box, Container} from '@mui/system'
-import ReportProblemIcon from '@mui/icons-material/ReportProblem';
+import {Container} from '@mui/system'
 import {IOrder} from '../../../interfaces/IOrder';
 import axios from 'axios';
 import AuthContext from '../../../components/store/auth/AuthContext';
+import { DataGrid, GridColDef, GridRenderCellParams } from '@mui/x-data-grid';
+import ReportProblemIcon from '@mui/icons-material/ReportProblem';
+import { Box } from '@mui/material';
+import { red } from '@mui/material/colors';
 
 function Orders() {
 
@@ -26,7 +28,8 @@ function Orders() {
                 _id: order._id,
                 title: order.title,
                 totalAmount: order.totalAmount,
-                date: timeStampReadable(order.createdAt)
+                date: timeStampReadable(order.createdAt),
+                status:order.status
             }
         });
         setOrders(formatedData);
@@ -38,13 +41,54 @@ function Orders() {
         }
     }, [])
 
+    function statusIcon(params:GridRenderCellParams){
+        let statusColor = "red";
+        if(params.value === "pending"){
+            statusColor = "orange";
+        }else if (params.value === "delivered"){
+            statusColor = "green"
+        }
+        return(
+            <Box sx={{display:"flex",justifyContent:"space-around", alignContent:"center"}}>
+            <Box sx={{}}>
+            <ReportProblemIcon style={{color:statusColor}} />
+            </Box>
+            <div>{params.value}</div>
+            </Box>
+        )
+    }
+
+    const ordersDataRows = orders?.map((orderData:IOrder)=>{
+        return {id:orderData._id ,title:orderData.title, status:orderData.status, date:orderData.date}
+    });
+
+    const orderTableColumns: GridColDef[] = [
+        {field:"title", headerName:"Title", width:240},
+        {field:"status", headerName:"Status", renderCell:statusIcon, width:250},
+        {field:"date", headerName:"Date", width:120, sortable: true},
+    ]
+
+    
+        
+        
+    const rows = ordersDataRows || [];
+
     return (
         <Container sx={{my: 10}} maxWidth="md">
-            {orders &&
+            {/* Cardtype list */}
+            {/* {orders &&
                 orders.map((order: IOrder) => (
                     <OrderCard key={order._id} order={order}/>
                 ))
-            }
+            } */}
+            
+            <Box sx={{ height: 400, width: '100%' }}>
+           {orders && <DataGrid 
+            rows={rows}
+            columns={orderTableColumns}
+            />}
+            </Box>
+            
         </Container>
     )
 }
