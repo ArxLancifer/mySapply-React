@@ -1,4 +1,5 @@
 import { IModel } from "./IModel";
+import {IOrderItem} from "./IOrder";
 
 export interface IUserPost {
     username: string;
@@ -12,4 +13,5 @@ export interface IUser extends IModel {
     phone: number;
     address: string;
     postalCode: string;
+    orders: IOrderItem[];
 }

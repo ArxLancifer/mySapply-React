@@ -15,7 +15,7 @@ function AddToCart({product}: Props) {
         const productMap: IOrderItem = {
             productEntity: "AlcoholDrink",
             quantity: 1,
-            order: ({...product as IProduct}),
+            productForOrderEntity: ({...product as IProduct}),
             price: (product?.price as unknown as string)
         }
 
@@ -25,7 +25,7 @@ function AddToCart({product}: Props) {
         if (localStorageCart) {
             const myCart: IOrderItem[] = JSON.parse(localStorageCart);
             if (myCart.length) {
-                let productFound = myCart.find(c => (c.order as IProduct)._id === product._id);
+                let productFound = myCart.find(c => (c.productForOrderEntity as IProduct)._id === product._id);
                 const cartItems = localStorage.getItem('myCart');
 
                 if (cartItems) {
@@ -38,7 +38,7 @@ function AddToCart({product}: Props) {
                 } else {
                     let arrUpdated: IOrderItem[] = [];
                     updatedProduct = {
-                        order: ({...product as IProduct}),
+                        productForOrderEntity: ({...product as IProduct}),
                         quantity: productFound.quantity ? productFound.quantity + 1 : quantity + 1,
                         price: productFound.price,
                         productEntity: "AlcoholDrink"
@@ -48,7 +48,7 @@ function AddToCart({product}: Props) {
                         arrUpdated = JSON.parse(cartItems);
                     }
 
-                    itemsList = arrUpdated.filter(c => (c.order as IProduct)._id !== (updatedProduct?.order as IProduct)._id);
+                    itemsList = arrUpdated.filter(c => (c.productForOrderEntity as IProduct)._id !== (updatedProduct?.productForOrderEntity as IProduct)._id);
                     localStorage.removeItem("myCart");
 
                     itemsList.push(updatedProduct as IOrderItem);

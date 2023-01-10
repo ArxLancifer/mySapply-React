@@ -35,10 +35,10 @@ function Cart() {
             {cartItems?.length
                 ?
                 cartItems.map(cartItem => (
-                    <Box key={(cartItem.order as IProduct)._id} sx={{backgroundColor: "white", borderRadius: 1, boxShadow: 2, mt: 4}}>
+                    <Box key={(cartItem.productForOrderEntity as IProduct)._id} sx={{backgroundColor: "white", borderRadius: 1, boxShadow: 2, mt: 4}}>
                         <Box sx={{display: "flex", justifyContent: "space-between", p: 2}}>
                             <Typography>
-                                {(cartItem.order as IProduct).title}
+                                {(cartItem.productForOrderEntity as IProduct).title}
                             </Typography>
                             <Typography>
                                 {cartItem?.price}
