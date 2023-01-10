@@ -14,8 +14,14 @@ function Cart() {
     }
 
     const createOrder = async () => {
+        if (!cartItems?.length) {
+            return console.log("Το καλάθι σου είναι άδειο");
+        }
+
         const response = await axios.post(`http://localhost:5500/cart/order`, cartItems, {withCredentials: true});
-        console.log(response.data);
+        if (response.status === 200) {
+            localStorage.removeItem("myCart");
+        }
     };
 
     useEffect(() => {
