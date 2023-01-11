@@ -1,32 +1,25 @@
-import React, {useContext, useEffect, useState} from 'react'
-import OrderCard from '../../Product/components/OrderCard';
+import React, {Fragment, useContext, useEffect, useState} from 'react'
 import {Container} from '@mui/system'
-import {IFormatedOrderData, IOrder, IOrderItem} from '../../../interfaces/IOrder';
+import {IFormatedOrderData} from '../../../interfaces/IOrder';
 import axios from 'axios';
 import AuthContext from '../../../components/store/auth/AuthContext';
 import {DataGrid, GridColDef, GridRenderCellParams} from '@mui/x-data-grid';
 import ReportProblemIcon from '@mui/icons-material/ReportProblem';
-import {Box} from '@mui/material';
-import {red} from '@mui/material/colors';
-import {IUser} from "../../../interfaces/IUser";
-import {IProduct} from "../../../interfaces/IAlcoholDrink";
+import {Box, IconButton, Snackbar} from '@mui/material';
+
 
 function Orders() {
-
-    const [orders, setOrders] = useState<IFormatedOrderData[] | null>(null);
+    const [open, setOpen] = useState<boolean>(false);
+    const [orders, setOrders] = useState<IFormatedOrderData[] | string | null>(null);
     const ctx = useContext(AuthContext);
 
     async function fetchOrders() {
         const userId = localStorage.getItem("userId");
         const ordersData = await axios.post("http://localhost:5500/userorders", {user: ctx.user._id || userId}, {withCredentials: true});
 
-        function timeStampReadable(timestamp: string) {
-            let createdDate = Date.parse(timestamp);
-            return new Date(createdDate).toLocaleDateString();
+        if (!Array.isArray(ordersData.data)) {
+            setOpen(true);
         }
-
-        if (ordersData.data.message) {return console.log(ordersData.data.message)}
-
         setOrders(ordersData.data);
     }
 
@@ -53,40 +46,50 @@ function Orders() {
         )
     }
 
-    const ordersDataRows = orders?.map((orderData: IFormatedOrderData) => {
-        return {
-            id: orderData?._id,
-            title: orderData?.title,
-            status: orderData?.status,
-            date: orderData?.date
-        }
-    });
-
     const orderTableColumns: GridColDef[] = [
         {field: "title", headerName: "Title", width: 240},
         {field: "status", headerName: "Status", renderCell: statusIcon, width: 250},
         {field: "date", headerName: "Date", width: 120, sortable: true},
     ]
 
+    const rows = (orders as IFormatedOrderData[]) || [];
 
-    const rows = ordersDataRows || [];
+    const action = (
+        <Fragment>
+            <IconButton
+                size="large"
+                aria-label="close"
+            />
+        </Fragment>
+    );
+
+    const handleClose = (event: React.SyntheticEvent | Event, reason?: string) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+
+        setOpen(false);
+    };
 
     return (
         <Container sx={{my: 10}} maxWidth="md">
-            {/* Cardtype list */}
-            {/* {orders &&
-                orders.map((order: IOrder) => (
-                    <OrderCard key={order._id} order={order}/>
-                ))
-            } */}
-
-            <Box sx={{height: 400, width: '100%'}}>
-                {orders && <DataGrid
-                    rows={rows}
-                    columns={orderTableColumns}
-                />}
-            </Box>
-
+            {!Array.isArray(orders) ?
+                <Snackbar
+                    open={open}
+                    autoHideDuration={3000}
+                    onClose={handleClose}
+                    message={(orders as string)}
+                    action={action}
+                />
+                :
+                <Box sx={{height: 400, width: '100%'}}>
+                    <DataGrid
+                        rows={rows}
+                        columns={orderTableColumns}
+                        getRowId={(row: any) => row._id}
+                    />
+                </Box>
+            }
         </Container>
     )
 }
