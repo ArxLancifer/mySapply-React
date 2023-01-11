@@ -21,6 +21,7 @@ function Cart() {
         const response = await axios.post(`http://localhost:5500/cart/order`, cartItems, {withCredentials: true});
         if (response.status === 200) {
             localStorage.removeItem("myCart");
+            setCartItems(null);
         }
     };
 

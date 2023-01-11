@@ -59,8 +59,6 @@ function AddToCart({product}: Props) {
             itemsList.push(productMap);
             localStorage.setItem('myCart', JSON.stringify(itemsList));
         }
-
-        console.log("itemsList", itemsList);
     };
 
     return (
