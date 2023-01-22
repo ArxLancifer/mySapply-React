@@ -1,10 +1,17 @@
-import {Box, Button, Container, Typography} from "@mui/material";
-import {useEffect, useState} from "react";
+import {Box, Button, Container, Modal, TextField, Typography} from "@mui/material";
+import {useEffect, useRef, useState} from "react";
 import {IOrderItem} from "../../interfaces/IOrder";
 import {IProduct} from "../../interfaces/IAlcoholDrink";
 import axios from "axios";
 
 function Cart() {
+    const [open, setOpen] = useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
+    
+    
+
+    const modalInputRef = useRef<{value:string}>({value:""});
     const [cartItems, setCartItems] = useState<IOrderItem[] | null>(null);
     const getCartItems = () => {
         const cartItem = localStorage.getItem("myCart")
@@ -17,12 +24,16 @@ function Cart() {
         if (!cartItems?.length) {
             return console.log("Το καλάθι σου είναι άδειο");
         }
-
-        const response = await axios.post(`http://localhost:5500/cart/order`, cartItems, {withCredentials: true});
+        const orderTitle = modalInputRef.current.value;
+        // if (orderTitle.length < 1) return;  // Xreiazetai validation meta
+        
+        const response = await axios.post(`http://localhost:5500/cart/order`, {orderTitle,cartItems}, {withCredentials: true});
         if (response.status === 200) {
             localStorage.removeItem("myCart");
             setCartItems(null);
+            handleClose();
         }
+        // console.log(modalInputRef.current.value);
     };
 
     useEffect(() => {
@@ -56,10 +67,40 @@ function Cart() {
                 </Typography>
             }
             <Box sx={{mt: 2, textAlign: "end"}}>
-                <Button onClick={createOrder} variant="contained" color="success">
+                <Button onClick={handleOpen} variant="contained" color="success">
                     Παραγγελία
                 </Button>
             </Box>
+            {/* Modal  */}
+        <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={{position: 'absolute' as 'absolute',
+                    top: '50%',
+                    left: '50%',
+                    transform: 'translate(-50%, -50%)',
+                    width: 400,
+                    bgcolor: 'background.paper',
+                    border: '2px solid #000',
+                    boxShadow: 24,
+                    p: 4,}}>
+          <Typography id="modal-modal-title" variant="h6" component="h2">
+            Τίτλος Παραγγελίας
+          </Typography>
+          <TextField 
+          inputRef={modalInputRef}
+          sx={{width:"100%",
+                my:"8px",
+                "& .MuiInputBase-root": {
+                    height:36
+                }
+           }} />
+           <Button onClick={createOrder} variant="contained">Επιβεβαίωση</Button>
+        </Box>
+      </Modal>
         </Container>
     )
 }
