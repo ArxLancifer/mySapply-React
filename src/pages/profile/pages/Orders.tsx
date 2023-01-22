@@ -1,6 +1,6 @@
 import React, {Fragment, useContext, useEffect, useState} from 'react'
 import {Container} from '@mui/system'
-import {IFormatedOrderData} from '../../../interfaces/IOrder';
+import {IFormatedOrderData, IOrder} from '../../../interfaces/IOrder';
 import axios from 'axios';
 import AuthContext from '../../../components/store/auth/AuthContext';
 import {DataGrid, GridColDef, GridRenderCellParams} from '@mui/x-data-grid';
@@ -10,16 +10,15 @@ import {Box, IconButton, Snackbar} from '@mui/material';
 
 function Orders() {
     const [open, setOpen] = useState<boolean>(false);
-    const [orders, setOrders] = useState<IFormatedOrderData[] | string | null>(null);
+    const [orders, setOrders] = useState<IFormatedOrderData[] | null>(null);
     const ctx = useContext(AuthContext);
 
     async function fetchOrders() {
         const userId = localStorage.getItem("userId");
         const ordersData = await axios.post("http://localhost:5500/userorders", {user: ctx.user._id || userId}, {withCredentials: true});
-
-        if (!Array.isArray(ordersData.data)) {
-            setOpen(true);
-        }
+        // if (!Array.isArray(ordersData.data)) {
+        //     setOpen(true);
+        // }
         setOrders(ordersData.data);
     }
 
@@ -27,7 +26,7 @@ function Orders() {
         if (ctx.user) {
             fetchOrders();
         }
-    }, [])
+    }, []);
 
     function statusIcon(params: GridRenderCellParams) {
         let statusColor = "red";
@@ -48,8 +47,9 @@ function Orders() {
 
     const orderTableColumns: GridColDef[] = [
         {field: "title", headerName: "Title", width: 240},
-        {field: "status", headerName: "Status", renderCell: statusIcon, width: 250},
-        {field: "date", headerName: "Date", width: 120, sortable: true},
+        {field: "totalAmount", headerName: "Total Amount", width: 240, sortable: true},
+        {field: "status", headerName: "Status", renderCell: statusIcon, width: 240},
+        {field: "date", headerName: "Date", width: 240, sortable: true},
     ]
 
     const rows = (orders as IFormatedOrderData[]) || [];
@@ -73,23 +73,31 @@ function Orders() {
 
     return (
         <Container sx={{my: 10}} maxWidth="md">
-            {!Array.isArray(orders) ?
-                <Snackbar
-                    open={open}
-                    autoHideDuration={3000}
-                    onClose={handleClose}
-                    message={(orders as string)}
-                    action={action}
+            {/*{!Array.isArray(orders) ?*/}
+            {/*    <Snackbar*/}
+            {/*        open={open}*/}
+            {/*        autoHideDuration={3000}*/}
+            {/*        onClose={handleClose}*/}
+            {/*        message={(orders as string)}*/}
+            {/*        action={action}*/}
+            {/*    />*/}
+            {/*    :*/}
+            {/*    <Box sx={{height: 400, width: '100%'}}>*/}
+            {/*        <DataGrid*/}
+            {/*            rows={rows}*/}
+            {/*            columns={orderTableColumns}*/}
+            {/*            getRowId={(row: any) => row._id}*/}
+            {/*        />*/}
+            {/*    </Box>*/}
+            {/*}*/}
+
+            <Box sx={{height: 400, width: '100%'}}>
+                <DataGrid
+                    rows={rows}
+                    columns={orderTableColumns}
+                    getRowId={(row: any) => row._id}
                 />
-                :
-                <Box sx={{height: 400, width: '100%'}}>
-                    <DataGrid
-                        rows={rows}
-                        columns={orderTableColumns}
-                        getRowId={(row: any) => row._id}
-                    />
-                </Box>
-            }
+            </Box>
         </Container>
     )
 }
