@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {Box, Button, Container} from "@mui/material";
 import {DataGrid, GridColDef, GridRenderCellParams, GridToolbar} from "@mui/x-data-grid";
 import UpdateModal from "../components/UpdateModal";
@@ -9,9 +9,13 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import {IProduct} from "../../../interfaces/IAlcoholDrink";
 import axios from "axios";
 import CreateProductModal from "./components/CreateProductModal";
+import HomeContext from "../../store/home-context";
 
 function AdminProductsTable() {
+    const categoriesCtx = useContext(HomeContext) as IProductCategory[];
     const [products, setProducts] = useState<IProduct[]>([]);
+    const [product, setProduct] = useState<Partial<IProduct>>({});
+    const [openUpdateModal, setOpenUpdateModal] = useState<boolean>(false);
     const [openCreateModal, setOpenCreateModal] = useState<boolean>(false);
     const baseUrl = "http://localhost:5500/admin/products";
     const getProducts = async () => {
@@ -19,17 +23,17 @@ function AdminProductsTable() {
         setProducts(productsData.data);
     };
 
-    const deleteColumn = async (subCategory: IProductSubCategory) => {
+    const deleteColumn = async (product: IProduct) => {
         try {
-            // await fetch(`http://localhost:5500/${baseUrl}/${subCategory._id}`, requestOptions);
+            await axios.delete(`${baseUrl}/${product?._id}`);
         } catch (e) {
             console.log(e);
         }
     };
 
-    const updateColumn = (subCategory: IProductSubCategory) => {
-        // setOpenUpdateModal(true);
-        // setSubCategory(subCategory);
+    const updateColumn = (product: IProduct) => {
+        setOpenUpdateModal(true);
+        setProduct(product);
     };
 
     const createColumn = () => {
@@ -69,7 +73,7 @@ function AdminProductsTable() {
         }
     ];
 
-    // useEffect(() => {getProducts()}, []);
+    useEffect(() => {getProducts()}, []);
 
     return (
         <Container>
@@ -92,7 +96,7 @@ function AdminProductsTable() {
                 />
             </Box>
             {/*<UpdateModal value={openUpdateModal} subCategory={subCategory} setModal={setOpenUpdateModal}  />*/}
-            <CreateProductModal value={openCreateModal} setModal={setOpenCreateModal} />
+            <CreateProductModal value={openCreateModal} setModal={setOpenCreateModal} categories={categoriesCtx} />
         </Container>
     )
 }

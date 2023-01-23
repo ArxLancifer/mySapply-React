@@ -5,6 +5,7 @@ export interface IProductCategory extends IModel {
     slug: string;
     imageUrl: string;
     subCategories: IProductSubCategory[] | string[] | any;
+    modelRef: string;
 }
 
 export interface IProductSubCategory extends IModel {

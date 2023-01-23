@@ -4,8 +4,9 @@ import styles from "../../components/modal.module.css";
 import FormInputField from "../../../UI/FormInputField";
 import {IProduct} from "../../../../interfaces/IAlcoholDrink";
 import axios from "axios";
+import {IProductCategory} from "../../../../interfaces/ICategory";
 
-function CreateProductModal(props: { value: boolean, setModal: (boolean: boolean) => void }) {
+function CreateProductModal(props: { value: boolean, setModal: (boolean: boolean) => void, categories: IProductCategory[] }) {
     const [formValue, setFormValue] = useState<Partial<IProduct>>({});
     const baseUrl = "http://localhost:5500/admin/products";
     const createProduct = async (event: FormEvent<HTMLFormElement>) => {
@@ -37,6 +38,17 @@ function CreateProductModal(props: { value: boolean, setModal: (boolean: boolean
         >
             <Box className={styles.modal}>
                 <form onSubmit={createProduct}>
+                    <FormInputField
+                        form={{
+                            id: "category",
+                            label: "Category",
+                            variant: "filled",
+                            type: "text",
+                            notSelect: false
+                        }}
+                        categories={props.categories}
+                        getValuesFromInputs={onInputChangeHandler}
+                    />
                     <FormInputField
                         form={{
                             id: "subCategory",
