@@ -16,6 +16,7 @@ import PageNotFound from "./pages/NotFound/PageNotFound";
 import Cart from "./pages/Cart/Cart";
 import Product from "./pages/Product/Product";
 import Orders from "./pages/profile/pages/Orders";
+import OrderItems from "./pages/profile/pages/OrderItems";
 
 function App() {
     return (
@@ -30,6 +31,7 @@ function App() {
                         <Route path="/profile" element={<Profile/>}/>
                         <Route path="/profile/settings" element={<Settings/>}/>
                         <Route path="/profile/myorders" element={<Orders/>}/>
+                        <Route path="/profile/myorders/:_id" element={<OrderItems/>}/>
                         <Route path="/cart" element={<Cart/>}/>
                         <Route path="/products">
                             <Route path=":slug" element={<ProductCategories/>}/>

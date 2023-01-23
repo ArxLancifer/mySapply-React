@@ -6,9 +6,11 @@ import AuthContext from '../../../components/store/auth/AuthContext';
 import {DataGrid, GridColDef, GridRenderCellParams} from '@mui/x-data-grid';
 import ReportProblemIcon from '@mui/icons-material/ReportProblem';
 import {Box, IconButton, Snackbar} from '@mui/material';
+import {useNavigate} from "react-router-dom";
 
 
 function Orders() {
+    const navigate = useNavigate();
     const [open, setOpen] = useState<boolean>(false);
     const [orders, setOrders] = useState<IFormatedOrderData[] | null>(null);
     const ctx = useContext(AuthContext);
@@ -71,6 +73,11 @@ function Orders() {
         setOpen(false);
     };
 
+    const onCell = (cell: any) => {
+        const row: IFormatedOrderData = cell.row;
+        navigate({pathname: `/profile/myorders/${row._id}`});
+    };
+
     return (
         <Container sx={{my: 10}} maxWidth="md">
             {/*{!Array.isArray(orders) ?*/}
@@ -96,6 +103,7 @@ function Orders() {
                     rows={rows}
                     columns={orderTableColumns}
                     getRowId={(row: any) => row._id}
+                    onCellClick={onCell}
                 />
             </Box>
         </Container>
