@@ -21,4 +21,5 @@ export interface IProduct extends IModel{
     alcoholVol: number;
     weightML: string;
     title: string;
+    collectionType: string;
 }

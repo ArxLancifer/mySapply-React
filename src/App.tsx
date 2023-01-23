@@ -17,6 +17,7 @@ import Cart from "./pages/Cart/Cart";
 import Product from "./pages/Product/Product";
 import Orders from "./pages/profile/pages/Orders";
 import OrderItems from "./pages/profile/pages/OrderItems";
+import AdminProductsTable from "./components/admin/Products/AdminProductsTable";
 
 function App() {
     return (
@@ -42,6 +43,7 @@ function App() {
                         <Route path="/admin/products">
                             <Route path="sub-categories" element={<AdminProductSubCategories/>}/>
                         </Route>
+                        <Route path="/admin/manage/products" element={<AdminProductsTable/>}/>
                         <Route path="*" element={<PageNotFound />} />
                     </Routes>
                 </HomeProvider>

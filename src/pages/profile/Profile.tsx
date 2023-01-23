@@ -7,6 +7,7 @@ import BuildIcon from '@mui/icons-material/Build';
 import CategoryIcon from '@mui/icons-material/Category';
 import {Link} from "react-router-dom";
 import styles from "./Profile.module.css";
+import ProductionQuantityLimitsIcon from '@mui/icons-material/ProductionQuantityLimits';
 
 function Profile() {
     const {user, logout} = useContext(AuthContext);
@@ -46,6 +47,16 @@ function Profile() {
                     <CategoryIcon sx={{ml: 2, mr: 1}}/>
                     <Typography variant="h6">
                         Υποκατηγορίες
+                    </Typography>
+                    <Box sx={{flexGrow: 1}}></Box>
+                    <ArrowForwardIosIcon sx={{mr: 1}}/>
+                </Box>
+            </Link>
+            <Link style={linkStyle} to="/admin/manage/products">
+                <Box className={styles.tabs}>
+                    <ProductionQuantityLimitsIcon sx={{ml: 2, mr: 1}}/>
+                    <Typography variant="h6">
+                        Προϊόντα
                     </Typography>
                     <Box sx={{flexGrow: 1}}></Box>
                     <ArrowForwardIosIcon sx={{mr: 1}}/>
