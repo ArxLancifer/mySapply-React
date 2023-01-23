@@ -73,7 +73,7 @@ function CreateProductModal(props: { value: boolean, setModal: (boolean: boolean
                             label: "WeightML",
                             variant: "filled",
                             type: "text",
-                            notSelect: false
+                            notSelect: true
                         }}
                         getValuesFromInputs={onInputChangeHandler}
                     />
@@ -93,7 +93,7 @@ function CreateProductModal(props: { value: boolean, setModal: (boolean: boolean
                             label: "Price",
                             variant: "filled",
                             type: "number",
-                            notSelect: false
+                            notSelect: true
                         }}
                         getValuesFromInputs={onInputChangeHandler}
                     />
@@ -103,7 +103,7 @@ function CreateProductModal(props: { value: boolean, setModal: (boolean: boolean
                             label: "Slug",
                             variant: "filled",
                             type: "text",
-                            notSelect: false
+                            notSelect: true
                         }}
                         getValuesFromInputs={onInputChangeHandler}
                     />
