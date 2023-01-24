@@ -82,17 +82,17 @@ function AdminProductsTable() {
             }
             <SearchToFindSubCategory<IProduct> getProductsFromSubCategory={setProducts} loading={setLoading}/>
             <Container>
+                <Box>
+                    <Button
+                        variant="contained"
+                        color="success"
+                        onClick={createColumn}
+                    >
+                        Δημιουργία προϊόντος
+                    </Button>
+                </Box>
                 {products.length > 0 &&
                     <>
-                        <Box sx={{mt: 2}}>
-                            <Button
-                                variant="contained"
-                                color="success"
-                                onClick={createColumn}
-                            >
-                                Δημιουργία προϊόντος
-                            </Button>
-                        </Box>
                         <Box sx={{height: 665, width: '100%', mt: 3}}>
                             <DataGrid
                                 getRowId={(row: any) => row._id}
@@ -103,9 +103,9 @@ function AdminProductsTable() {
                             />
                         </Box>
                         {/*<UpdateModal value={openUpdateModal} subCategory={subCategory} setModal={setOpenUpdateModal}  />*/}
-                        <CreateProductModal value={openCreateModal} setModal={setOpenCreateModal} categories={categoriesCtx}/>
                     </>
                 }
+                {openCreateModal && <CreateProductModal value={openCreateModal} setModal={setOpenCreateModal} categories={categoriesCtx}/>}
             </Container>
         </Fragment>
     )

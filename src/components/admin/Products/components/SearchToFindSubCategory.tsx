@@ -17,8 +17,8 @@ function SearchToFindSubCategory<T>(props: {getProductsFromSubCategory: (data: T
     };
 
     const handleSearch = async (event: SyntheticEvent, value: AutocompleteValue<any, any, any, any>) => {
-        if (!value.slug) {
-            return;
+        if (!value) {
+            return props.getProductsFromSubCategory([]);
         }
         props.loading(true);
         const productsData = await axios.get(`http://localhost:5500/admin/products/${value?.slug}`, {withCredentials: true});
