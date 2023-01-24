@@ -1,13 +1,20 @@
+import {Container} from '@mui/material'
 import React from 'react'
+import CardsContainer from '../../components/CardsCollection/CardsContainer'
+import DealsSlider from './Main/DealsSlider'
+import SearchBar from "../../components/NavbarComponents/SearchBar";
+import CategoriesSlider from './Main/CategoriesSlider'
 
 function HomePage() {
-  return (
-    <div>
-      <main>
-        <h1 style={{textAlign:"center",color:"lightgreen"}}>Some layouts</h1>
-      </main>
-    </div>
-  )
+    return (
+        <Container>
+            <SearchBar />
+            <DealsSlider/>
+            <CardsContainer heading={"Κατηγορίες προϊόντων"}>
+                <CategoriesSlider />
+            </CardsContainer>
+        </Container>
+    )
 }
 
 export default HomePage

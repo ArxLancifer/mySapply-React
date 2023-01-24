@@ -1,9 +1,8 @@
-import React, {useContext, useState} from 'react'
+import React, {useState} from 'react'
 import {Container, FormControl, TextField, Box, Button, InputAdornment} from '@mui/material'
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import LockOpenIcon from '@mui/icons-material/LockOpen';
 import PersonPinIcon from '@mui/icons-material/PersonPin';
-import AuthContext from "../../components/store/auth/AuthContext";
 
 interface IUserPost {
     email: string;
@@ -12,27 +11,47 @@ interface IUserPost {
 }
 
 function Signup() {
-    const {signup} = useContext(AuthContext);
-    const [userInput, setUserInput] = useState<IUserPost>({email: "", username: "", password: ""})
+    const [userInput, setUserInput] = useState<IUserPost>({email:"", username:"", password:""})
 
-    function handleInput(e: any) {
+    async function signup(e: any) {
+        e.preventDefault();
+        const userInfo: IUserPost = {...userInput};
+        try {
+            const requestOptions = {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(userInfo)
+            };
+            await fetch(`http://localhost:5000/signup`, requestOptions);
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
+    function handleInput(e:any){
         const inputField = e.target.id
         setUserInput({
             ...userInput,
-            [inputField]: e.target.value
+           [inputField]:e.target.value
         })
     }
 
     return (
-        <Container maxWidth="sm">
-            <Box sx={{borderRadius: 1, boxShadow: 3, mt: 5, px: {xs: 3, lg: 8}, py: {xs: 4, lg: 6}}}>
-                <form onSubmit={(event) => signup(event, {
-                    email: userInput.email,
-                    username: userInput.username,
-                    password: userInput.password,
-                })}>
+        <Box sx={{
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            px: 4,
+            transform: "translate(-50%, -50%)",
+            width: "60vw",
+            height: "50vh",
+            borderRadius: 1,
+            boxShadow: 3,
+        }}>
+            <Container maxWidth="xs">
+                <form onSubmit={signup}>
                     <FormControl fullWidth>
-                        <TextField sx={{my: 1}} id="email" label="E-mail" variant="filled" type="email"
+                        <TextField sx={{my: 1}} id="email" label="E-mail" variant="standard" type="email"
                                    value={userInput.email} onChange={handleInput}
                                    InputProps={{
                                        endAdornment: (
@@ -41,7 +60,7 @@ function Signup() {
                                            </InputAdornment>
                                        ),
                                    }}/>
-                        <TextField sx={{my: 1}} id="username" label="Username" variant="filled"
+                        <TextField sx={{my: 1}} id="username" label="Username" variant="standard"
                                    value={userInput.username} onChange={handleInput}
                                    InputProps={{
                                        endAdornment: (
@@ -50,7 +69,7 @@ function Signup() {
                                            </InputAdornment>
                                        ),
                                    }}/>
-                        <TextField sx={{my: 1}} id="password" label="Password" variant="filled" type="password"
+                        <TextField sx={{my: 1}} id="password" label="Password" variant="standard" type="password"
                                    value={userInput.password} onChange={handleInput}
                                    InputProps={{
                                        endAdornment: (
@@ -68,12 +87,12 @@ function Signup() {
                             variant="contained"
                             color="primary"
                         >
-                            Εγγραφή
+                            Submit
                         </Button>
                     </Box>
                 </form>
-            </Box>
-        </Container>
+            </Container>
+        </Box>
     )
 }
 

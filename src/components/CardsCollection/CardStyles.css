@@ -1,0 +1,46 @@
+
+.cardStyles{
+    position: relative;
+    border-radius: 12px; 
+    background-color: rgb(81, 0, 156);
+    width: 14rem;
+    height: 16rem;
+    color: #fff;
+    overflow: hidden;
+    text-align: start;
+}
+
+.cardStyles > ul > li{
+    margin:5% 0;
+}
+
+.cardStyles > ul , .cardStyles > h4{
+    list-style: none;
+    padding-left: 10%;
+}
+
+
+.cardStyles > .PNG {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    background-color: blueviolet;
+    bottom: 0;
+    left: 0;
+    transform: translateX(100%) scale(1);
+    transition: transform 200ms linear;
+}
+
+.cardStyles:hover .PNG{
+    transform: translateX(100%) scale(1.2);
+}
+
+button.dropDownCategories{
+    background: none;
+	color: #000;
+	border: none;
+	padding: 0;
+	font: inherit;
+	cursor: pointer;
+	outline: none;   
+}

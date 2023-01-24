@@ -1,40 +1,37 @@
-import {Box, Button, FormControl, InputAdornment, TextField, Typography} from '@mui/material'
+import React, { useEffect, useState } from 'react';
+import {Box, Button, FormControl, InputAdornment, TextField} from '@mui/material'
 import './Login-Signup.module.css';
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import LockOpenIcon from '@mui/icons-material/LockOpen';
 import {Container} from '@mui/system';
 import {Link, useNavigate} from 'react-router-dom';
-import LoginWithOneTap from "../../components/Login-Signup/LoginWithOneTap";
-import {useContext, useState} from 'react';
-import {IUserPost} from '../../interfaces/IUser';
-import AuthContext from "../../components/store/auth/AuthContext";
+import LoginWithOneTap from '../../../components/Login-Signup/LoginWithOneTap';
+
+
+
+
+
 
 function Login() {
-    const {login} = useContext(AuthContext);
 
-    const [userInput, setUserInput] = useState<IUserPost>({username: "", password: ""});
-
-    function handleInput(e: any) {
-        const inputField = e.target.id
-        setUserInput({
-            ...userInput,
-            [inputField]: e.target.value
-        });
-    }
-
+    const navigate = useNavigate();
+    
     return (
-        <Container maxWidth="sm">
-            <Box sx={{backgroundColor: "white", boxShadow: 1, mt: 5, px: {xs: 3, lg: 8}, py: {xs: 4, lg: 6}}}>
-                <Typography sx={{textAlign: "center", fontWeight: "bold"}} variant="body1">
-                    Συνέχεια με τον λογαριασμό σου
-                </Typography>
-                <Typography sx={{textAlign: "center", mt: 2, mb: 4, color: "#707070"}}  variant="body2">
-                    Κάνε σύνδεση ή εγγραφή με έναν από τους παρακάτω τρόπους.
-                </Typography>
-                <form onSubmit={(event) => login(event, userInput.username, userInput.password)}>
+        <Box sx={{
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            p:4,
+            transform: "translate(-50%, -50%)",
+            width: "60vw",
+            height:"50vh",
+            borderRadius:1 , 
+            boxShadow: 3
+        }}>
+            <Container maxWidth="xs">
+                <form>
                     <FormControl fullWidth>
-                        <TextField sx={{my: 1}} id="username" label="Username" variant="filled" type="text"
-                                   onChange={handleInput} InputProps={{
+                        <TextField sx={{my: 1}} id="username" label="Username" variant="filled" type="text" InputProps={{
                             endAdornment: (
                                 <InputAdornment position="start">
                                     <MailOutlineIcon/>
@@ -42,7 +39,6 @@ function Login() {
                             ),
                         }}/>
                         <TextField sx={{my: 1}} id="password" label="Password" variant="filled" type="password"
-                                   onChange={handleInput}
                                    InputProps={{
                                        endAdornment: (
                                            <InputAdornment position="start">
@@ -70,8 +66,8 @@ function Login() {
                     </Link>
                 </Box>
                 <LoginWithOneTap/>
-            </Box>
-        </Container>
+            </Container>
+        </Box>
     )
 }
 

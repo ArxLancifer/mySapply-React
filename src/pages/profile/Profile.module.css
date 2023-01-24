@@ -1,0 +1,9 @@
+.tabs {
+    background-color: #e3e3e3;
+    display: flex;
+    align-items: center;
+    padding: 10px 0;
+    margin-top: 1rem;
+    border-radius: 10px;
+}
+
