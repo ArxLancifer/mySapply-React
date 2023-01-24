@@ -42,6 +42,16 @@ function Profile() {
                     <ArrowForwardIosIcon sx={{mr: 1}}/>
                 </Box>
             </Link>
+            <Link style={linkStyle} to="/admin/products/categories">
+                <Box className={styles.tabs}>
+                    <CategoryIcon sx={{ml: 2, mr: 1}}/>
+                    <Typography variant="h6">
+                        Κατηγορίες
+                    </Typography>
+                    <Box sx={{flexGrow: 1}}></Box>
+                    <ArrowForwardIosIcon sx={{mr: 1}}/>
+                </Box>
+            </Link>
             <Link style={linkStyle} to="/admin/products/sub-categories">
                 <Box className={styles.tabs}>
                     <CategoryIcon sx={{ml: 2, mr: 1}}/>
