@@ -1,10 +1,10 @@
-import { IProductCategory } from "./ICategory";
+import {IProductCategory, IProductSubCategory} from "./ICategory";
 
 export type VariantType = "filled" | "outlined" | "standard";
 
 export interface IFormInputField {
     form: IFormControl;
-    categories?: IProductCategory[];
+    categories?: IProductCategory[] | IProductSubCategory[] | any[];
     getValuesFromInputs: (value: {[key: string]: string}) => void;
     subCategoryProp?: any;
 }

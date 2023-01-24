@@ -3,7 +3,11 @@ import React, {SyntheticEvent, useEffect, useState} from "react";
 import {IProductSubCategory} from "../../../../interfaces/ICategory";
 import axios from "axios";
 
-function SearchToFindSubCategory<T>(props: {getProductsFromSubCategory: (data: T[]) => void, loading: (data: boolean) => void}) {
+function SearchToFindSubCategory<T>(props: {
+    getProductsFromSubCategory: (data: T[]) => void,
+    loading: (data: boolean) => void,
+    getSubCategory: (data: IProductSubCategory) => void
+}) {
     const [options, setOptions] = useState<any[]>([]);
     const getSubCategories = async () => {
         const subCategoriesData = await axios.get(`http://localhost:5500/admin/products/sub-categories`);
@@ -23,7 +27,8 @@ function SearchToFindSubCategory<T>(props: {getProductsFromSubCategory: (data: T
         props.loading(true);
         const productsData = await axios.get(`http://localhost:5500/admin/products/${value?.slug}`, {withCredentials: true});
         if (productsData.status === 200) {
-            props.getProductsFromSubCategory(productsData.data);
+            props.getProductsFromSubCategory(productsData.data.allProducts);
+            props.getSubCategory(productsData.data.subCategory);
         }
         props.loading(false);
     };

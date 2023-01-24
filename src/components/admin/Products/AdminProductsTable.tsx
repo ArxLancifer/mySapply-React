@@ -16,6 +16,7 @@ function AdminProductsTable() {
     const [product, setProduct] = useState<Partial<IProduct>>({});
     const [openUpdateModal, setOpenUpdateModal] = useState<boolean>(false);
     const [openCreateModal, setOpenCreateModal] = useState<boolean>(false);
+    const [subCategory, setSubCategory] = useState<Partial<IProductSubCategory>>({});
     const [loading, setLoading] = useState<boolean>(false);
     const baseUrl = "http://localhost:5500/admin/products";
 
@@ -80,7 +81,8 @@ function AdminProductsTable() {
                     <CircularProgress/>
                 </Box>
             }
-            <SearchToFindSubCategory<IProduct> getProductsFromSubCategory={setProducts} loading={setLoading}/>
+            <SearchToFindSubCategory<IProduct> getProductsFromSubCategory={setProducts} loading={setLoading}
+                                               getSubCategory={setSubCategory}/>
             <Container>
                 <Box>
                     <Button
@@ -105,7 +107,9 @@ function AdminProductsTable() {
                         {/*<UpdateModal value={openUpdateModal} subCategory={subCategory} setModal={setOpenUpdateModal}  />*/}
                     </>
                 }
-                {openCreateModal && <CreateProductModal value={openCreateModal} setModal={setOpenCreateModal} categories={categoriesCtx}/>}
+                {openCreateModal &&
+                    <CreateProductModal value={openCreateModal} setModal={setOpenCreateModal} categories={categoriesCtx}
+                                        subCategory={subCategory}/>}
             </Container>
         </Fragment>
     )
