@@ -30,6 +30,7 @@ function Header() {
             {!isLoggedIn
                 ? <TopNavbar/>
                 : <Container>
+                    
                     <Box sx={{display: "flex", justifyContent: "end", alignItems: "center", mt: 2}}>
                         <Box sx={{flexGrow:1}}>
                         <Link to="/">
