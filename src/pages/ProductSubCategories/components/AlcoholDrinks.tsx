@@ -13,7 +13,6 @@ function AlcoholDrinks({alcoholDrink, productSubCategory}: Props) {
     return (
         <Grid item xs={12} lg={4} sx={{
             borderRadius: "10px",
-            height: "120px",
             backgroundColor: "white",
             boxShadow: "0px 0px 10px -1px rgba(219,219,219,0.6)",
             display: "flex",
@@ -27,17 +26,16 @@ function AlcoholDrinks({alcoholDrink, productSubCategory}: Props) {
                     display: "inline-flex"
                 }}>
                     <Box sx={{
-                        background: "#ccc",
-                        borderRadius: "50%",
-                        height: "100px",
-                        width: "100px",
-                        color: "#ccc",
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                        mx: 4,
+                        background: "red",
+                        width:"100px",
+                        height:"100px",
+                        // borderRadius: "50%",
+                        // color: "#ccc",
+                        // display: "flex",
+                        // justifyContent: "center",
+                        // alignItems: "center",
+                        // mx: 4,
                     }}>
-                        image
                     </Box>
                     <Box>
                         <Typography>
