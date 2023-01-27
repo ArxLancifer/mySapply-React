@@ -11,7 +11,7 @@ function CategoryCard(props: {category: IProductCategory}) {
     };
 
     return (
-        <Box key={props.category?._id} className="cardStyles">
+        <Box key={props.category?._id} className={`cardStyles bg-${props.category._id}`}>
             <h4>
                 <Link to={`products/${props.category?.slug}`} style={linkStyle}>
                     {props.category?.title}
@@ -26,9 +26,10 @@ function CategoryCard(props: {category: IProductCategory}) {
                     </li>
                 ))}
             </ul>
-
-            <div className='PNG'></div>
-            {/*PNG icon*/}
+            {/*<div className='PNG'></div>*/}
+            {props.category.imageUrl &&
+                <img style={{width: "100%"}} src={props.category.imageUrl} alt={props.category.title}/>
+            }
         </Box>
     )
 }

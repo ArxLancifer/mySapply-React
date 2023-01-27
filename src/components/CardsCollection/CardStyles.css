@@ -1,8 +1,7 @@
-
 .cardStyles{
     position: relative;
-    border-radius: 12px; 
-    background-color: rgb(81, 0, 156);
+    border-radius: 12px;
+    /*background-color: rgb(81, 0, 156);*/
     width: 14rem;
     height: 16rem;
     color: #fff;
@@ -42,5 +41,30 @@ button.dropDownCategories{
 	padding: 0;
 	font: inherit;
 	cursor: pointer;
-	outline: none;   
+	outline: none;
+}
+
+ul {
+    height: 70px;
+    overflow: hidden;
+}
+
+.bg-6398e885e879cfad4454da59 {
+    background: #1d84b0;
+}
+
+.bg-63a0a217cbdf84c5099a2691 {
+    background: #dd6c75;
+}
+
+.bg-63a0a567cbdf84c5099a2693 {
+    background: #6f69ad;
+}
+
+.bg-63a0baceae38794ad4142038 {
+    background: #20a8a6;
+}
+
+.bg-63a0bb98ae38794ad414203a {
+    background: #bca580;
 }
