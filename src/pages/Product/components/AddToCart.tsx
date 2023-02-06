@@ -63,7 +63,7 @@ function AddToCart({product}: Props) {
 
     return (
         <Box sx={{
-            display: {sm: "block", lg: "none"},
+            display: {sm: "block"},
             backgroundColor: "white",
             boxShadow: 3,
             position: "absolute",
@@ -74,7 +74,7 @@ function AddToCart({product}: Props) {
         }}>
             <Container sx={{display: "flex", justifyContent: "space-between", alignItems: "center"}}>
                 <Typography variant="body1">
-                    {product?.price}
+                    {product?.price} €
                 </Typography>
                 <Box>
                     <Button onClick={() => addToCart(product)} sx={{px: 5, backgroundColor: "#43993e"}}

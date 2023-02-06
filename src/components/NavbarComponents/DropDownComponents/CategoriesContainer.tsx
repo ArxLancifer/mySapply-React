@@ -29,7 +29,11 @@ function CategoriesContainer() {
                     borderRadius: "8px", "&:hover": {backgroundColor: "rgb(200, 200, 200, 0.5)"},
                     cursor: "pointer"
                 }}>
-                <div style={{width: "25px", height: "25px", borderRadius: "50%", backgroundColor: "purple", margin: 0}}></div>
+                {cat?.imageUrl &&
+                    <div>
+                        <img style={{width: "40px", height: "40px", borderRadius: "50%", margin: 0}} src={cat?.imageUrl} alt={cat.title}/>
+                    </div>
+                }
                 <h4 style={{width: "75%", marginLeft: "10px"}}>{cat.title}</h4>
                 <ChevronRightIcon/>
             </Box>

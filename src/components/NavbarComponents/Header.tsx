@@ -30,7 +30,14 @@ function Header() {
             {!isLoggedIn
                 ? <TopNavbar/>
                 : <Container>
+                    
                     <Box sx={{display: "flex", justifyContent: "end", alignItems: "center", mt: 2}}>
+                        <Box sx={{flexGrow:1}}>
+                        <Link to="/">
+                        <img style={{width:"170px"}} src={process.env.PUBLIC_URL + '/assets/sapply.png'} alt="" />
+                        </Link>
+                        </Box>
+                        
                         <UserAvatar/>
                         <Link to="/cart">
                             <Box sx={{position: "relative"}}>
