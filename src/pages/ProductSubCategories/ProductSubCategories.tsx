@@ -6,6 +6,7 @@ import {Container, Grid, Typography} from "@mui/material";
 import AlcoholDrinks from "./components/AlcoholDrinks";
 import Filters from "./components/Filters";
 import "../../index.css";
+import { Box, flexbox } from "@mui/system";
 
 function ProductSubCategories() {
     const baseUrl = `products/sub-categories`;
@@ -58,7 +59,11 @@ function ProductSubCategories() {
                     {alcoholDrinks?.countOfDrinks} Προϊόντα
                 </Typography>
             }
-            <Grid container sx={{mt: 3}} gap={2}>
+            <Grid container>
+            <Grid item xs={3}>
+            <h1>Filters</h1>
+            </Grid>
+            <Grid item container justifyContent="center" xs={9} sx={{mt: 3}} gap={2}>
                 {alcoholDrinks.drinks?.length ?
                     alcoholDrinks.drinks.map((drink, index) => (
                         <AlcoholDrinks key={index} productSubCategory={(productSubCategory as IProductSubCategory)} alcoholDrink={drink}/>
@@ -67,6 +72,7 @@ function ProductSubCategories() {
                         Δεν υπάρχουν προϊόντα
                     </Typography>
                 }
+            </Grid>
             </Grid>
             <Filters/>
         </Container>

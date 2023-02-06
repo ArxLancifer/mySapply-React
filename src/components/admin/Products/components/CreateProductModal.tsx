@@ -17,7 +17,10 @@ function CreateProductModal(props: {
     const createProduct = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         try {
-            await axios.post(`${baseUrl}`, formValue);
+           const response = await axios.post(`${baseUrl}`, formValue);
+           if(response.status === 200) {
+            handleClose();
+           }
         } catch (e) {
             console.log(e);
         }

@@ -11,7 +11,7 @@ type Props = {
 
 function AlcoholDrinks({alcoholDrink, productSubCategory}: Props) {
     return (
-        <Grid item xs={12} lg={4} sx={{
+        <Grid item xs={4} sx={{
             borderRadius: "10px",
             backgroundColor: "white",
             boxShadow: "0px 0px 10px -1px rgba(219,219,219,0.6)",
