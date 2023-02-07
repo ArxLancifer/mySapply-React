@@ -1,14 +1,15 @@
-import React, {useEffect, useState} from "react";
-import {Link, useParams} from "react-router-dom";
-import {IProductCategory, IProductSubCategory} from "../../interfaces/ICategory";
-import {IAlcoholDrink} from "../../interfaces/IAlcoholDrink";
-import {Container, Grid, Typography} from "@mui/material";
+import React, { useEffect, useState } from "react";
+import {useParams } from "react-router-dom";
+import {IProductSubCategory } from "../../interfaces/ICategory";
+import { IAlcoholDrink } from "../../interfaces/IAlcoholDrink";
+import { Container,Typography } from "@mui/material";
 import AlcoholDrinks from "./components/AlcoholDrinks";
 import Filters from "./components/Filters";
 import "../../index.css";
-import { shadows } from '@mui/system';
-import { Box, flexbox } from "@mui/system";
+import { Box } from "@mui/system";
 import FilterProducts from "../../components/admin/Products/components/FilterProducts";
+
+const productLayout = { width: "76%", display: { xs: "grid" }, gridTemplateColumns: { md: "repeat(1, 1fr)", lg: "repeat(4, 1fr)" }, gridAutoRows: {xs:"20vh", lg:"40vh"}, gap: 3 }
 
 function ProductSubCategories() {
     const baseUrl = `products/sub-categories`;
@@ -22,7 +23,7 @@ function ProductSubCategories() {
         try {
             const requestOptions = {
                 method: 'GET',
-                headers: {'Content-Type': 'application/json'},
+                headers: { 'Content-Type': 'application/json' },
             };
             const data = await fetch(`http://localhost:5500/${baseUrl}/${subCategorySlug.slug}`, requestOptions);
             const productSubCategory: IProductSubCategory = await data.json();
@@ -35,7 +36,7 @@ function ProductSubCategories() {
         try {
             const requestOptions = {
                 method: 'GET',
-                headers: {'Content-Type': 'application/json'},
+                headers: { 'Content-Type': 'application/json' },
             };
             const data = await fetch(`http://localhost:5500/products/${subCategorySlug?.slug}/alcohol-drinks`, requestOptions);
             const alcoholDrinks: { drinks: IAlcoholDrink[], countOfDrinks: number } = await data.json();
@@ -51,32 +52,32 @@ function ProductSubCategories() {
     }, []);
 
     return (
-        <Container maxWidth="xl">
-            <Typography sx={{mt: 3, mb: 1, fontSize: "2rem"}} variant="h3">
+        <Container maxWidth="xl" sx={{ p: 2 }}>
+            <Typography sx={{ mt: 3, mb: 1, fontSize: "2rem" }} variant="h3">
                 {productSubCategory.title}
             </Typography>
             {
                 alcoholDrinks.countOfDrinks > 0 &&
-                <Typography sx={{color: "#363636"}} variant="body2">
+                <Typography sx={{ color: "#363636" }} variant="body2">
                     {alcoholDrinks?.countOfDrinks} Προϊόντα
                 </Typography>
             }
-            <Box sx={{display:"flex"}}>
-            <Box sx={{width:"24%", boxShadow: "0px 0px 10px -1px rgba(219,219,219,0.6)", mr:2, p:2}}>
-            <FilterProducts />
+            <Box sx={{ display: "flex" }}>
+                <Box sx={{ width: "24%", boxShadow: "0px 0px 10px -1px rgba(219,219,219,0.6)", mr: 2, p: 2 }}>
+                    <FilterProducts />
+                </Box>
+                <Box sx={productLayout}>
+                    {alcoholDrinks.drinks?.length ?
+                        alcoholDrinks.drinks.map((drink, index) => (
+                            <AlcoholDrinks key={index} productSubCategory={(productSubCategory as IProductSubCategory)} alcoholDrink={drink} />
+                        )) :
+                        <Typography>
+                            Δεν υπάρχουν προϊόντα
+                        </Typography>
+                    }
+                </Box>
             </Box>
-            <Box sx={{width:"76%", display:"grid", gridTemplateColumns:"repeat(3, 1fr)", gridAutoRows:"10vh", gap:3}}>
-                {alcoholDrinks.drinks?.length ?
-                    alcoholDrinks.drinks.map((drink, index) => (
-                        <AlcoholDrinks key={index} productSubCategory={(productSubCategory as IProductSubCategory)} alcoholDrink={drink}/>
-                    )) :
-                    <Typography>
-                        Δεν υπάρχουν προϊόντα
-                    </Typography>
-                }
-            </Box>
-            </Box>
-            <Filters/>
+            <Filters />
         </Container>
     )
 }

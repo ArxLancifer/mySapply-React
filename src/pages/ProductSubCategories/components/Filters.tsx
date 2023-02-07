@@ -1,4 +1,4 @@
-import {Box, Button, Modal, Slider} from "@mui/material";
+import {Box, Button, Modal} from "@mui/material";
 import {Fragment, useState} from "react";
 import modalStyles from "../../../components/admin/components/modal.module.css";
 import FilterSlider from "./filters/FilterSlider";
