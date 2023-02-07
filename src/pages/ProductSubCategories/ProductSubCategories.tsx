@@ -62,7 +62,7 @@ function ProductSubCategories() {
                     {alcoholDrinks?.countOfDrinks} Προϊόντα
                 </Typography>
             }
-            <Box sx={{ display: "flex" }}>
+            <Box sx={{ display: "flex", mt: 4 }}>
                 <Box sx={{ width: "24%", boxShadow: "0px 0px 10px -1px rgba(219,219,219,0.6)", mr: 2, p: 2 }}>
                     <FilterProducts />
                 </Box>
