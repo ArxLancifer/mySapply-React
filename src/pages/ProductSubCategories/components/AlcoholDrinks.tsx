@@ -27,8 +27,8 @@ function AlcoholDrinks({alcoholDrink, productSubCategory}: Props) {
                 }}>
                     <Box sx={{
                         background: "red",
-                        width:"100px",
-                        height:"100px",
+                        width:"85px",
+                        height:"85px",
                         // borderRadius: "50%",
                         // color: "#ccc",
                         // display: "flex",

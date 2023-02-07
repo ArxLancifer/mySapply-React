@@ -6,7 +6,9 @@ import {Container, Grid, Typography} from "@mui/material";
 import AlcoholDrinks from "./components/AlcoholDrinks";
 import Filters from "./components/Filters";
 import "../../index.css";
+import { shadows } from '@mui/system';
 import { Box, flexbox } from "@mui/system";
+import FilterProducts from "../../components/admin/Products/components/FilterProducts";
 
 function ProductSubCategories() {
     const baseUrl = `products/sub-categories`;
@@ -49,7 +51,7 @@ function ProductSubCategories() {
     }, []);
 
     return (
-        <Container>
+        <Container maxWidth="xl">
             <Typography sx={{mt: 3, mb: 1, fontSize: "2rem"}} variant="h3">
                 {productSubCategory.title}
             </Typography>
@@ -59,11 +61,11 @@ function ProductSubCategories() {
                     {alcoholDrinks?.countOfDrinks} Προϊόντα
                 </Typography>
             }
-            <Grid container>
-            <Grid item xs={3}>
-            <h1>Filters</h1>
-            </Grid>
-            <Grid item container justifyContent="center" xs={9} sx={{mt: 3}} gap={2}>
+            <Box sx={{display:"flex"}}>
+            <Box sx={{width:"24%", boxShadow: "0px 0px 10px -1px rgba(219,219,219,0.6)", mr:2, p:2}}>
+            <FilterProducts />
+            </Box>
+            <Box sx={{width:"76%", display:"grid", gridTemplateColumns:"repeat(3, 1fr)", gridAutoRows:"10vh", gap:3}}>
                 {alcoholDrinks.drinks?.length ?
                     alcoholDrinks.drinks.map((drink, index) => (
                         <AlcoholDrinks key={index} productSubCategory={(productSubCategory as IProductSubCategory)} alcoholDrink={drink}/>
@@ -72,8 +74,8 @@ function ProductSubCategories() {
                         Δεν υπάρχουν προϊόντα
                     </Typography>
                 }
-            </Grid>
-            </Grid>
+            </Box>
+            </Box>
             <Filters/>
         </Container>
     )
