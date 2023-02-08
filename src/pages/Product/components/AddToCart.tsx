@@ -66,11 +66,11 @@ function AddToCart({product}: Props) {
             display: {sm: "block"},
             backgroundColor: "white",
             boxShadow: 3,
-            position: "absolute",
+            position: "sticky",
             bottom: 0,
+            // top:0,
             width: "100%",
             py: 2,
-            borderRadius: "15px 15px 0 0"
         }}>
             <Container sx={{display: "flex", justifyContent: "space-between", alignItems: "center"}}>
                 <Typography variant="body1">

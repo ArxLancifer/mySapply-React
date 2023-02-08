@@ -1,10 +1,11 @@
-import {Container, Typography} from "@mui/material";
+import {Container, Divider, Typography} from "@mui/material";
 import {Fragment, useEffect, useState} from "react";
 import axios from "axios";
 import {useParams} from "react-router-dom";
 import {IProduct} from "../../interfaces/IAlcoholDrink";
 import AddToCart from "./components/AddToCart";
 import SearchProduct from "./components/SearchProduct";
+import { Box } from "@mui/system";
 
 function Product() {
     const {slug} = useParams<{ slug: string }>();
@@ -21,8 +22,24 @@ function Product() {
 
     return (
         <Fragment>
+        <Container>
             <SearchProduct changeProduct={setProduct} />
-            <Container>
+            <Box sx={{display:"flex", flexDirection:{xs:"column", lg:"row"}, alignItems:"center",  justifyContent:{xs:"center", lg:"space-around"}, pt:10}}>
+                <Box sx={{ width:"50%"}}>
+                    <img style={{width:"100%"}} src="https://www.thecocktaildb.com/images/ingredients/gin.png" alt="" />
+                </Box>
+                <Box sx={{ width:"40%"}}>
+                    <Typography variant="h3" component={"h3"}>{product.brandName}</Typography>
+                    <Typography variant="h5" >{product.title}</Typography>
+                    <Divider />
+                    <Box sx={{mt:5}}>
+                        <Typography variant="subtitle1"><strong>Description:</strong> Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam velit dolorum nulla cupiditate dolore aperiam odit quos quae placeat alias!</Typography>
+                        <Typography mt={5} variant="h6">Price:{ product.price } €</Typography>
+                        {/* <Typography variant="overline">{product.subCategory}</Typography> */}
+                    </Box>
+                </Box>
+            </Box>
+            {/* <Container>
                 <Typography variant="h5">
                     {product?.brandName}
                 </Typography>
@@ -32,8 +49,9 @@ function Product() {
                 <Typography variant="body1">
                     {product?.price}
                 </Typography>
-            </Container>
-            <AddToCart product={product} />
+            </Container> */}
+        </Container>
+        <AddToCart product={product} />
         </Fragment>
     )
 }
