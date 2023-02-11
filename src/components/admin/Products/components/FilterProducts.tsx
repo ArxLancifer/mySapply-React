@@ -1,6 +1,7 @@
 import {
     Box,
     Checkbox,
+    debounce,
     Divider,
     FormControlLabel,
     FormGroup,
@@ -27,31 +28,46 @@ function FilterProducts() {
 
     const [values, setValues] = React.useState<number[]>([minProductPrice, maxProductPrice]);
 
-    const [filterOptions, setFilterOptions] = useState({});
+    const [filterOptions, setFilterOptions] = useState<{[key: string]: boolean}>({});
 
     const fetchCategories = async () => {
         const response = await axios.get(`http://localhost:5500/filters/categories/${categoryUrl}`);
         setCategory(response.data);
     };
 
-    function checkBoxHandler(event: ChangeEvent<HTMLInputElement>) {
+    async function checkBoxHandler(event: ChangeEvent<HTMLInputElement>) {
+        // const optionsFiltered:{[key:string]:boolean}[] = [];
         setFilterOptions((prevOptions) => {
             return {
                 ...prevOptions,
                 [event.target.id]: event.target.checked
             }
         })
+
     }
 
-    console.log(filterOptions, "WTF");
+    async function filteredOptions(){
+        const productsToSearch: string[] = Object.keys(filterOptions).filter(option => filterOptions[option] === true);
+        console.log(productsToSearch)
+        const filteredFetch = await axios.post("http://localhost:5500/filters/sub-categories", productsToSearch);
+
+    }
+
+    // console.log(filterOptions, "WTF");
     function handleSliderChange(event:any):[] | void{
         if(Math.abs(event.target.value[0]-event.target.value[1]) <= minDistance){
             return;
         }
         setValues(event.target.value)
+
+        // debounce(()=>setValues(event.target.value), 300, {leading:false, trailing:true})
     }
 
-    useEffect(() => {fetchCategories()}, []);
+
+    useEffect(() => {
+        fetchCategories()
+        filteredOptions()
+    }, [filterOptions]);
 
     return (
         <div>
@@ -88,11 +104,13 @@ function FilterProducts() {
                     }}
                     value={values[1]}
                 />
+                
                 <Slider
                     sx={{mt: 2}}
                     size='small'
                     value={values}
                     onChange={handleSliderChange}
+                    onMouseUp={handleSliderChange}
                     valueLabelDisplay="auto"
                     disableSwap
                 />

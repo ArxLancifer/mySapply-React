@@ -13,8 +13,10 @@ const filtersSlice = createSlice({
     name: 'filters',
     initialState,
     reducers: {
-        getSubCategorySlugs: (state, action) => {
+    getSubCategorySlugs:  (state, action) => {
+            // const selectedProduct = await 
         },
+
     },
 });
 
