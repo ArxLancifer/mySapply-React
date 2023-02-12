@@ -9,7 +9,6 @@ type Props = {
     productSubCategory: IProductSubCategory
 }
 
-
 function AlcoholDrinks({alcoholDrink, productSubCategory}: Props) {
 
     return (
@@ -28,8 +27,6 @@ function AlcoholDrinks({alcoholDrink, productSubCategory}: Props) {
                 height: "100%",
                 width: "100%",
             }}>
-
-                {/* <Box sx={{width:{xs:"50px", lg:"100px"} , mx:"auto", my:2}}> */}
                 <Box sx={{width: "160px", mx: "auto", my: 2}}>
                     <img style={{width: "100%"}} src="https://www.thecocktaildb.com/images/ingredients/vodka.png"
                          alt=""/>
@@ -37,7 +34,7 @@ function AlcoholDrinks({alcoholDrink, productSubCategory}: Props) {
                 <Box sx={{width: "100%", flexGrow: 1}}>
                     <Box sx={{textAlign: {xs: "start", lg: "center"}}}>
                         <Typography variant="h5" component="h5">{alcoholDrink.brandName}</Typography>
-                        <Typography variant="h6" component="h6">{alcoholDrink.title}</Typography>
+                        <Typography sx={{ height: "30px", overflow: "hidden", textOverflow: "ellipsis"}} variant="h6" component="h6">{alcoholDrink.title}</Typography>
                     </Box>
                     <Typography sx={{mt: 2, ml: 2}} variant="subtitle2">Βάρος: {alcoholDrink.weightML} mL</Typography>
                     <Typography sx={{ml: 2}} variant="subtitle2">Vol : {alcoholDrink.alcoholVol} %</Typography>

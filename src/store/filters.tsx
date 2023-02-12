@@ -1,22 +1,22 @@
-import { createSlice } from '@reduxjs/toolkit';
+import {createSlice, PayloadAction} from '@reduxjs/toolkit';
+import {IProduct} from "../interfaces/IAlcoholDrink";
 
-interface filterState {
-    subCategoriesSlugs: string[];
+export interface filterState {
+    products: IProduct[];
 }
 
 // Define the initial state using that type
 const initialState: filterState = {
-    subCategoriesSlugs: [],
+    products: []
 }
 
 const filtersSlice = createSlice({
     name: 'filters',
     initialState,
     reducers: {
-    getSubCategorySlugs:  (state, action) => {
-            // const selectedProduct = await 
-        },
-
+        getSubCategorySlugs: (state, action) => {
+            state.products = action.payload.filteredItems;
+        }
     },
 });
 

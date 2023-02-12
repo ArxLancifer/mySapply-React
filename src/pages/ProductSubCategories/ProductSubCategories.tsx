@@ -8,6 +8,9 @@ import Filters from "./components/Filters";
 import "../../index.css";
 import { Box } from "@mui/system";
 import FilterProducts from "../../components/admin/Products/components/FilterProducts";
+import {useSelector} from "react-redux";
+import {filterState} from "../../store/filters";
+import axios from "axios";
 
 const productLayout = { width: "76%", display: { xs: "grid" }, gridTemplateColumns: { md: "repeat(1, 1fr)", lg: "repeat(4, 1fr)" }, gridAutoRows: {xs:"20vh", lg:"40vh"}, gap: 3 }
 
@@ -15,41 +18,22 @@ function ProductSubCategories() {
     const baseUrl = `products/sub-categories`;
     const subCategorySlug = useParams<{ slug: string }>();
     const [productSubCategory, setProductSubCategory] = useState<Partial<IProductSubCategory>>({});
-    const [alcoholDrinks, setAlcoholDrinks] = useState<{ drinks: IAlcoholDrink[], countOfDrinks: number }>({
-        drinks: [],
-        countOfDrinks: 0
-    });
+    const filteredProducts = useSelector<{filters: filterState}>(state => state.filters.products) as IAlcoholDrink[];
+
     const getProductSubCategoryBySlug = async () => {
         try {
-            const requestOptions = {
-                method: 'GET',
-                headers: { 'Content-Type': 'application/json' },
-            };
-            const data = await fetch(`http://localhost:5500/${baseUrl}/${subCategorySlug.slug}`, requestOptions);
-            const productSubCategory: IProductSubCategory = await data.json();
-            setProductSubCategory(productSubCategory);
-        } catch (e) {
-            console.log(e);
-        }
-    };
-    const getAlcoholDrinksBySubCategory = async () => {
-        try {
-            const requestOptions = {
-                method: 'GET',
-                headers: { 'Content-Type': 'application/json' },
-            };
-            const data = await fetch(`http://localhost:5500/products/${subCategorySlug?.slug}/alcohol-drinks`, requestOptions);
-            const alcoholDrinks: { drinks: IAlcoholDrink[], countOfDrinks: number } = await data.json();
-            setAlcoholDrinks(alcoholDrinks);
+            const productSubCategoryData = await axios.get(`http://localhost:5500/${baseUrl}/${subCategorySlug.slug}`);
+            setProductSubCategory(productSubCategoryData.data);
         } catch (e) {
             console.log(e);
         }
     };
 
     useEffect(() => {
-        getProductSubCategoryBySlug();
-        getAlcoholDrinksBySubCategory();
-    }, []);
+        if (!filteredProducts?.length) {
+            getProductSubCategoryBySlug();
+        }
+    }, [filteredProducts]);
 
     return (
         <Container maxWidth="xl" sx={{ p: 2 }}>
@@ -57,9 +41,9 @@ function ProductSubCategories() {
                 {productSubCategory.title}
             </Typography>
             {
-                alcoholDrinks.countOfDrinks > 0 &&
+                filteredProducts?.length > 0 &&
                 <Typography sx={{ color: "#363636" }} variant="body2">
-                    {alcoholDrinks?.countOfDrinks} Προϊόντα
+                    {filteredProducts?.length} Προϊόντα
                 </Typography>
             }
             <Box sx={{ display: "flex", mt: 4 }}>
@@ -67,8 +51,8 @@ function ProductSubCategories() {
                     <FilterProducts />
                 </Box>
                 <Box sx={productLayout}>
-                    {alcoholDrinks.drinks?.length ?
-                        alcoholDrinks.drinks.map((drink, index) => (
+                    {filteredProducts?.length ?
+                        filteredProducts.map((drink, index) => (
                             <AlcoholDrinks key={index} productSubCategory={(productSubCategory as IProductSubCategory)} alcoholDrink={drink} />
                         )) :
                         <Typography>

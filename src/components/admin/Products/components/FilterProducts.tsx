@@ -13,22 +13,28 @@ import {
 import EuroSymbolIcon from '@mui/icons-material/EuroSymbol';
 import React, {ChangeEvent, useEffect, useState} from 'react'
 import {useLocation, useParams} from "react-router-dom";
-import axios from "axios";
+import axios, {AxiosResponse} from "axios";
 import {IProductCategory, IProductSubCategory} from "../../../../interfaces/ICategory";
+import {IAlcoholDrink, IProduct} from "../../../../interfaces/IAlcoholDrink";
+import {useDispatch, useSelector} from "react-redux";
+import {filtersActions, filterState} from "../../../../store/filters";
 
 
 const minDistance = 10;
 
 function FilterProducts() {
+    const params = useParams<{slug: string}>();
     const [empty, productUrl, categoryUrl, subCategoryUrl] = useLocation().pathname.split("/");
-    const [category, setCategory] = useState<Partial<IProductCategory>>({});
 
     const minProductPrice = 15;
     const maxProductPrice = 150;
 
+    const [category, setCategory] = useState<Partial<IProductCategory>>({});
     const [values, setValues] = React.useState<number[]>([minProductPrice, maxProductPrice]);
+    const [filterOptions, setFilterOptions] = useState<{ [key: string]: boolean }>({});
 
-    const [filterOptions, setFilterOptions] = useState<{[key: string]: boolean}>({});
+    const dispatch = useDispatch();
+    const filteredProducts = useSelector<{filters: filterState}>(state => state.filters.products) as IAlcoholDrink[];
 
     const fetchCategories = async () => {
         const response = await axios.get(`http://localhost:5500/filters/categories/${categoryUrl}`);
@@ -36,33 +42,28 @@ function FilterProducts() {
     };
 
     async function checkBoxHandler(event: ChangeEvent<HTMLInputElement>) {
-        // const optionsFiltered:{[key:string]:boolean}[] = [];
         setFilterOptions((prevOptions) => {
             return {
                 ...prevOptions,
                 [event.target.id]: event.target.checked
             }
-        })
-
+        });
     }
 
-    async function filteredOptions(){
-        const productsToSearch: string[] = Object.keys(filterOptions).filter(option => filterOptions[option] === true);
-        console.log(productsToSearch)
-        const filteredFetch = await axios.post("http://localhost:5500/filters/sub-categories", productsToSearch);
-
+    async function filteredOptions() {
+        const productsToSearch: string[] = Object.keys(filterOptions).filter(option => filterOptions[option]);
+        const filteredFetch: AxiosResponse<IProduct[]> = await axios.post(
+            "http://localhost:5500/filters/sub-categories", {productsToSearch, slug: params?.slug}
+        );
+        dispatch(filtersActions.getSubCategorySlugs(filteredFetch.data));
     }
 
-    // console.log(filterOptions, "WTF");
-    function handleSliderChange(event:any):[] | void{
-        if(Math.abs(event.target.value[0]-event.target.value[1]) <= minDistance){
+    function handleSliderChange(event: any): [] | void {
+        if (Math.abs(event.target.value[0] - event.target.value[1]) <= minDistance) {
             return;
         }
-        setValues(event.target.value)
-
-        // debounce(()=>setValues(event.target.value), 300, {leading:false, trailing:true})
+        setValues(event.target.value);
     }
-
 
     useEffect(() => {
         fetchCategories()
@@ -104,7 +105,7 @@ function FilterProducts() {
                     }}
                     value={values[1]}
                 />
-                
+
                 <Slider
                     sx={{mt: 2}}
                     size='small'
@@ -120,7 +121,8 @@ function FilterProducts() {
                     {category?.subCategories?.map((subCategory: IProductSubCategory) => (
                         <FormControlLabel
                             key={subCategory._id}
-                            control={<Checkbox id={subCategory.slug} onChange={checkBoxHandler} size='small'/>} label={subCategory.title}
+                            control={<Checkbox id={subCategory.slug} onChange={checkBoxHandler} size='small'/>}
+                            label={subCategory.title}
                         />
                     ))}
                 </FormGroup>
@@ -128,12 +130,14 @@ function FilterProducts() {
                 <Typography variant='subtitle1'>Brands</Typography>
                 {/* Fetch and map all branch from database */}
                 <FormGroup>
-                    <FormControlLabel control={<Checkbox id='absolute' onChange={checkBoxHandler} size='small'/>}
-                                      label="Absolute"/>
-                    <FormControlLabel control={<Checkbox id='belveder' onChange={checkBoxHandler} size='small'/>}
-                                      label="Belveder"/>
-                    <FormControlLabel control={<Checkbox id='smirnoff' onChange={checkBoxHandler} size='small'/>}
-                                      label="Smirnoff"/>
+                    {filteredProducts?.length > 0 &&
+                        filteredProducts.map((brand, index) => (
+                            <FormControlLabel
+                                key={index}
+                                control={<Checkbox id={brand.slug} onChange={checkBoxHandler} size='small'/>}
+                                label={brand.brandName}/>
+                        ))
+                    }
                 </FormGroup>
             </Box>
         </div>
