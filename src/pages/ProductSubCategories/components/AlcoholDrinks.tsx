@@ -34,11 +34,14 @@ function AlcoholDrinks({alcoholDrink, productSubCategory}: Props) {
                 <Box sx={{width: "100%", flexGrow: 1}}>
                     <Box sx={{textAlign: {xs: "start", lg: "center"}}}>
                         <Typography variant="h5" component="h5">{alcoholDrink.brandName}</Typography>
-                        <Typography sx={{ height: "30px", overflow: "hidden", textOverflow: "ellipsis"}} variant="h6" component="h6">{alcoholDrink.title}</Typography>
+                        <Typography sx={{height: "30px", overflow: "hidden", textOverflow: "ellipsis"}} variant="h6"
+                                    component="h6">{alcoholDrink.title}</Typography>
                     </Box>
-                    <Typography sx={{mt: 2, ml: 2}} variant="subtitle2">Βάρος: {alcoholDrink.weightML} mL</Typography>
-                    <Typography sx={{ml: 2}} variant="subtitle2">Vol : {alcoholDrink.alcoholVol} %</Typography>
-                    <Typography sx={{ml: 2}} variant="subtitle2">Τιμή: {alcoholDrink.price} €</Typography>
+                    <Typography sx={{ml: 2, mt: 2, color: "#707070"}} variant="subtitle2">Βάρος: {alcoholDrink.weightML || 0} mL</Typography>
+                    <Typography sx={{ml: 2, color: "#707070"}} variant="subtitle2">Vol : {alcoholDrink.alcoholVol || 0} %</Typography>
+                </Box>
+                <Box>
+                    <Typography sx={{mb: 2, ml: 2, fontWeight: "bold"}} variant="h6">{alcoholDrink.price || 0} €</Typography>
                 </Box>
             </Box>
         </Link>
