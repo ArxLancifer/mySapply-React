@@ -1,29 +1,26 @@
-import React, {FormEvent, useState} from "react";
+import React, {FormEvent, useContext, useState} from "react";
 import {Box, Button, Modal} from "@mui/material";
 import styles from "../../components/modal.module.css";
 import FormInputField from "../../../UI/FormInputField";
 import {IProduct} from "../../../../interfaces/IAlcoholDrink";
-import axios from "axios";
 import {IProductCategory, IProductSubCategory} from "../../../../interfaces/ICategory";
+import {useDispatch, useSelector} from "react-redux";
+import {adminProductsActions, AdminProductState} from "../../../../store/admin/AdminProducts";
+import {createNewProduct} from "../../../../store/admin/adminProducts-actions";
+import HomeContext from "../../../store/home-context";
 
-function CreateProductModal(props: {
-    value: boolean,
-    setModal: (boolean: boolean) => void,
-    categories: IProductCategory[],
-    subCategory: Partial<IProductSubCategory>
-}) {
+function CreateProductModal() {
+    const categoriesCtx = useContext(HomeContext);
+    const dispatch = useDispatch();
+
     const [formValue, setFormValue] = useState<Partial<IProduct>>({});
-    const baseUrl = "http://localhost:5500/admin/products";
+
+    const subCategory = useSelector<{adminProducts: AdminProductState}>(state => state.adminProducts.subCategory) as IProductSubCategory;
+    const isOpen = useSelector<{adminProducts: AdminProductState}>(state => state.adminProducts.isShow) as boolean;
+
     const createProduct = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        try {
-           const response = await axios.post(`${baseUrl}`, formValue);
-           if(response.status === 200) {
-            handleClose();
-           }
-        } catch (e) {
-            console.log(e);
-        }
+        dispatch(createNewProduct(event, formValue) as any);
     }
 
     const onInputChangeHandler = (value: { [key: string]: string }) => {
@@ -35,11 +32,13 @@ function CreateProductModal(props: {
         });
     }
 
-    const handleClose = () => props.setModal(false);
+    const handleClose = () => {
+        dispatch(adminProductsActions.handleClose(false));
+    };
 
     return (
         <Modal
-            open={props.value}
+            open={isOpen}
             onClose={handleClose}
             aria-labelledby="modal-modal-title"
             aria-describedby="modal-modal-description"
@@ -54,7 +53,7 @@ function CreateProductModal(props: {
                             type: "text",
                             notSelect: false
                         }}
-                        categories={props.categories}
+                        categories={categoriesCtx as IProductCategory[]}
                         getValuesFromInputs={onInputChangeHandler}
                     />
                     <FormInputField
@@ -65,7 +64,7 @@ function CreateProductModal(props: {
                             type: "text",
                             notSelect: false
                         }}
-                        categories={(props.subCategory?.category as IProductCategory)?.subCategories}
+                        categories={(subCategory?.category as IProductCategory)?.subCategories}
                         getValuesFromInputs={onInputChangeHandler}
                     />
                     <FormInputField

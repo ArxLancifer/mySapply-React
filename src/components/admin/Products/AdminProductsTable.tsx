@@ -1,50 +1,35 @@
-import React, {Fragment, useContext, useState} from 'react';
-import {Box, Button, CircularProgress, Container} from "@mui/material";
+import React, {Fragment} from 'react';
+import {Box, Button, Container} from "@mui/material";
 import {DataGrid, GridColDef, GridRenderCellParams, GridToolbar} from "@mui/x-data-grid";
-import {IProductCategory, IProductSubCategory} from "../../../interfaces/ICategory";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import {IProduct} from "../../../interfaces/IAlcoholDrink";
 import axios from "axios";
-import CreateProductModal from "./components/CreateProductModal";
-import HomeContext from "../../store/home-context";
 import SearchToFindSubCategory from "./components/SearchToFindSubCategory";
+import {useDispatch, useSelector} from "react-redux";
+import {adminProductsActions, AdminProductState} from "../../../store/admin/AdminProducts";
+import CreateProductModal from "./components/CreateProductModal";
 
 function AdminProductsTable() {
-    const categoriesCtx = useContext(HomeContext) as IProductCategory[];
-    const [products, setProducts] = useState<IProduct[]>([]);
-    const [product, setProduct] = useState<Partial<IProduct>>({});
-    const [openUpdateModal, setOpenUpdateModal] = useState<boolean>(false);
-    const [openCreateModal, setOpenCreateModal] = useState<boolean>(false);
-    const [subCategory, setSubCategory] = useState<Partial<IProductSubCategory>>({});
-    const [loading, setLoading] = useState<boolean>(false);
+    const dispatch = useDispatch();
     const baseUrl = "http://localhost:5500/admin/products";
+
+    const products = useSelector<{adminProducts: AdminProductState}>(state => state.adminProducts.products) as IProduct[];
+    const isOpen = useSelector<{adminProducts: AdminProductState}>(state => state.adminProducts.isShow) as boolean;
 
     const deleteColumn = async (product: IProduct) => {
         await axios.delete(`${baseUrl}/${product?._id}`);
     };
 
     const updateColumn = (product: IProduct) => {
-        setOpenUpdateModal(true);
-        setProduct(product);
+        // setOpenUpdateModal(true);
     };
 
-    const createColumn = () => {
-        setOpenCreateModal(true);
+    const openModalForCreation = () => {
+        dispatch(adminProductsActions.handleClose(true));
     };
 
-    const rows = products?.map(product => {
-        return {
-            _id: product._id,
-            subCategory: (product?.subCategory as IProductSubCategory)?.title,
-            brandName: product?.brandName,
-            alcoholVol: product?.alcoholVol,
-            weightML: product?.weightML,
-            price: product?.price,
-            slug: product?.slug,
-            collectionType: product?.collectionType,
-        }
-    });
+    const rows = products;
 
     const columns: GridColDef[] = [
         // { field: 'userCustomer', headerName: 'User Customer', width: 150 },
@@ -70,29 +55,30 @@ function AdminProductsTable() {
 
     return (
         <Fragment>
-            {loading &&
-                <Box sx={{
-                    display: 'flex',
-                    justifyContent: "center",
-                    alignItems: "center",
-                    width: "100%",
-                    height: "100vh",
-                }}>
-                    <CircularProgress/>
-                </Box>
-            }
-            <SearchToFindSubCategory<IProduct> getProductsFromSubCategory={setProducts} loading={setLoading}
-                                               getSubCategory={setSubCategory}/>
+            {/*{loading &&*/}
+            {/*    <Box sx={{*/}
+            {/*        display: 'flex',*/}
+            {/*        justifyContent: "center",*/}
+            {/*        alignItems: "center",*/}
+            {/*        width: "100%",*/}
+            {/*        height: "100vh",*/}
+            {/*    }}>*/}
+            {/*        <CircularProgress/>*/}
+            {/*    </Box>*/}
+            {/*}*/}
+            <SearchToFindSubCategory />
             <Container>
-                <Box>
-                    <Button
-                        variant="contained"
-                        color="success"
-                        onClick={createColumn}
-                    >
-                        Δημιουργία προϊόντος
-                    </Button>
-                </Box>
+                {products.length > 0 &&
+                    <Box>
+                        <Button
+                            variant="contained"
+                            color="success"
+                            onClick={openModalForCreation}
+                        >
+                            Δημιουργία προϊόντος
+                        </Button>
+                    </Box>
+                }
                 {products.length > 0 &&
                     <>
                         <Box sx={{height: 665, width: '100%', mt: 3}}>
@@ -107,9 +93,7 @@ function AdminProductsTable() {
                         {/*<UpdateModal value={openUpdateModal} subCategory={subCategory} setModal={setOpenUpdateModal}  />*/}
                     </>
                 }
-                {openCreateModal &&
-                    <CreateProductModal value={openCreateModal} setModal={setOpenCreateModal} categories={categoriesCtx}
-                                        subCategory={subCategory}/>}
+                {isOpen && <CreateProductModal />}
             </Container>
         </Fragment>
     )
