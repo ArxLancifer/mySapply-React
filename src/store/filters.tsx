@@ -1,4 +1,4 @@
-import {createSlice, PayloadAction} from '@reduxjs/toolkit';
+import {createSlice} from '@reduxjs/toolkit';
 import {IProduct} from "../interfaces/IAlcoholDrink";
 
 export interface filterState {
@@ -14,11 +14,11 @@ const filtersSlice = createSlice({
     name: 'filters',
     initialState,
     reducers: {
-        getSubCategorySlugs: (state, action) => {
-            state.products = action.payload.filteredItems;
+        getSubCategoryProducts: (state, action) => {
+            state.products = action.payload;
         }
     },
 });
 
-export const filtersActions = filtersSlice.actions;
+export const {getSubCategoryProducts} = filtersSlice.actions;
 export default filtersSlice.reducer;
