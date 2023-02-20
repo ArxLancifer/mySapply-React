@@ -1,4 +1,4 @@
-import React, { useEffect,} from "react";
+import React, {useCallback, useEffect, useMemo,} from "react";
 import { useLocation} from "react-router-dom";
 import { IProductSubCategory } from "../../interfaces/ICategory";
 import { IAlcoholDrink } from "../../interfaces/IAlcoholDrink";
@@ -9,8 +9,8 @@ import "../../index.css";
 import { Box } from "@mui/system";
 import FilterProducts from "../../components/admin/Products/components/FilterProducts";
 import { useSelector, useDispatch } from "react-redux";
-import { filterState, getSubCategoryProducts } from "../../store/filters";
-import axios from "axios";
+import {filterState, getProductPrices, getSubCategoryProducts} from "../../store/filters";
+import axios, {AxiosResponse} from "axios";
 
 const productLayout = {
     width: "76%",
@@ -24,16 +24,22 @@ function ProductSubCategories() {
     const dispatch = useDispatch();
     const location = useLocation();
 
-    const filteredProducts = useSelector<{ filters: filterState }>(
-        (state) => state.filters.products
-    ) as IAlcoholDrink[];
+    const filteredProducts = useSelector<{ filters: filterState }>((state) => state.filters.products) as IAlcoholDrink[];
+    const {filters, filterChanged} = useSelector<{ filters: filterState }>((state) => state?.filters) as filterState;
+
+    console.log(filters);
+    const callback = useCallback(() => {
+        return filters;
+    }, []);
 
     const getProductSubCategoryBySlug = async () => {
         try {
-            const productSubCategoryData = await axios.get(
-                `http://localhost:5500${location.pathname}`
+            const productSubCategoryData: AxiosResponse<{allProducts: IAlcoholDrink[], prices: number[]}> = await axios.post(
+                `http://localhost:5500${location.pathname}`,
+                {filters, filterChanged: filterChanged}
             );
-            dispatch(getSubCategoryProducts(productSubCategoryData.data));
+            dispatch(getSubCategoryProducts(productSubCategoryData.data.allProducts));
+            dispatch(getProductPrices(productSubCategoryData.data.prices));
         } catch (e) {
             console.log(e);
         }
@@ -41,7 +47,7 @@ function ProductSubCategories() {
 
     useEffect(() => {
         getProductSubCategoryBySlug();
-    }, []);
+    }, [callback]);
 
     return (
         <Container maxWidth="xl" sx={{ p: 2 }}>
