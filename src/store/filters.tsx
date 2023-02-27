@@ -20,7 +20,7 @@ const initialState: filterState = {
     maxPrice: 0,
     filterChanged: false,
     filters: {
-        priceRange: [0, 0]
+        priceRange: [0, 500]
     }
 }
 

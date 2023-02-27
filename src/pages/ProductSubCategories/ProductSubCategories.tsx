@@ -27,11 +27,7 @@ function ProductSubCategories() {
     const filteredProducts = useSelector<{ filters: filterState }>((state) => state.filters.products) as IAlcoholDrink[];
     const {filters, filterChanged} = useSelector<{ filters: filterState }>((state) => state?.filters) as filterState;
 
-    console.log(filters);
-    const callback = useCallback(() => {
-        return filters;
-    }, []);
-
+    
     const getProductSubCategoryBySlug = async () => {
         try {
             const productSubCategoryData: AxiosResponse<{allProducts: IAlcoholDrink[], prices: number[]}> = await axios.post(
@@ -47,7 +43,7 @@ function ProductSubCategories() {
 
     useEffect(() => {
         getProductSubCategoryBySlug();
-    }, [callback]);
+    }, [filters.priceRange[0], filters.priceRange[1]]);
 
     return (
         <Container maxWidth="xl" sx={{ p: 2 }}>
@@ -68,7 +64,7 @@ function ProductSubCategories() {
                         p: 2,
                     }}
                 >
-                    <FilterProducts />
+                    <FilterProducts props={filters} />
                 </Box>
                 <Box sx={productLayout}>
                     {filteredProducts?.length ? (
