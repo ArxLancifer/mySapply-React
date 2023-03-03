@@ -44,6 +44,9 @@ const adminProductsSlice = createSlice({
         },
         handleClose: (state, action) => {
             state.isShow = action.payload;
+        },
+        concatNewProductToProducts: (state, action: PayloadAction<IProduct>) => {
+            state.products.push(action.payload);
         }
     },
 });

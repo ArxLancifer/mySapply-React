@@ -21,6 +21,7 @@ function CreateProductModal() {
     const createProduct = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         dispatch(createNewProduct(event, formValue) as any);
+        dispatch(adminProductsActions.handleClose(false));
     }
 
     const onInputChangeHandler = (value: { [key: string]: string }) => {
@@ -80,7 +81,7 @@ function CreateProductModal() {
                     <FormInputField
                         form={{
                             id: "alcoholVol",
-                            label: "AlcoholVol",
+                            label: "AlcoholVol %",
                             variant: "filled",
                             type: "text",
                             notSelect: true

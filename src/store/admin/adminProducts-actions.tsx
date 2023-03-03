@@ -36,7 +36,7 @@ export const handleSearchData = (event: SyntheticEvent, value: AutocompleteValue
         };
 
         try {
-            const productsData: AxiosResponse<{allProducts: IProduct[]; subCategory: IProductSubCategory}> = await fetchData();
+            const productsData: AxiosResponse<{ allProducts: IProduct[]; subCategory: IProductSubCategory }> = await fetchData();
             dispatch(adminProductsActions.getProducts({
                 allProducts: productsData.data.allProducts,
                 subCategory: productsData.data.subCategory
@@ -52,9 +52,9 @@ export const createNewProduct = (event: FormEvent<HTMLFormElement>, value: Autoc
     return async (dispatch: any) => {
         const create = async () => {
             try {
-                const response = await axios.post(`${baseUrl}`, value);
-                if(response.status === 200) {
-                    // handleClose();
+                const response: AxiosResponse<IProduct> = await axios.post(`${baseUrl}`, value);
+                if (response.status === 200) {
+                    dispatch(adminProductsActions.concatNewProductToProducts(response.data));
                 }
             } catch (e) {
                 console.log(e);

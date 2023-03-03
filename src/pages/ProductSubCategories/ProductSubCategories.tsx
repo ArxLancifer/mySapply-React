@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useMemo,} from "react";
+import React, {useCallback, useEffect, useMemo, useState,} from "react";
 import { useLocation} from "react-router-dom";
 import { IProductSubCategory } from "../../interfaces/ICategory";
 import { IAlcoholDrink } from "../../interfaces/IAlcoholDrink";
@@ -24,18 +24,25 @@ function ProductSubCategories() {
     const dispatch = useDispatch();
     const location = useLocation();
 
-    const filteredProducts = useSelector<{ filters: filterState }>((state) => state.filters.products) as IAlcoholDrink[];
-    const {filters, filterChanged} = useSelector<{ filters: filterState }>((state) => state?.filters) as filterState;
+    const [minRange, maxRange] = useSelector<{filters: filterState}>(state => state.filters.filters.priceRange) as number[];
+    const {products} = useSelector<{filters: filterState}>(state => state.filters) as filterState;
 
-    
+    const [subCategory, setSubCategory] = useState<Partial<IProductSubCategory>>({});
+
     const getProductSubCategoryBySlug = async () => {
         try {
-            const productSubCategoryData: AxiosResponse<{allProducts: IAlcoholDrink[], prices: number[]}> = await axios.post(
+            const filters = {
+                minRange,
+                maxRange
+            }
+            const productSubCategoryData: AxiosResponse<{allProducts: IAlcoholDrink[], prices: number[], subCategory: IProductSubCategory}> = await axios.post(
                 `http://localhost:5500${location.pathname}`,
-                {filters, filterChanged: filterChanged}
+                {filters}
             );
             dispatch(getSubCategoryProducts(productSubCategoryData.data.allProducts));
             dispatch(getProductPrices(productSubCategoryData.data.prices));
+            setSubCategory(productSubCategoryData.data.subCategory);
+
         } catch (e) {
             console.log(e);
         }
@@ -43,18 +50,16 @@ function ProductSubCategories() {
 
     useEffect(() => {
         getProductSubCategoryBySlug();
-    }, [filters.priceRange[0], filters.priceRange[1]]);
+    }, [minRange, maxRange]);
 
     return (
         <Container maxWidth="xl" sx={{ p: 2 }}>
             <Typography sx={{ mt: 3, mb: 1, fontSize: "2rem" }} variant="h3">
-                {(filteredProducts[0]?.subCategory as IProductSubCategory)?.title}
+                {subCategory.title}
             </Typography>
-            {filteredProducts?.length > 0 && (
-                <Typography sx={{ color: "#363636" }} variant="body2">
-                    {filteredProducts?.length} Προϊόντα
-                </Typography>
-            )}
+            <Typography sx={{ color: "#363636" }} variant="body2">
+                {products.length} Προϊόντα
+            </Typography>
             <Box sx={{ display: "flex", mt: 4 }}>
                 <Box
                     sx={{
@@ -64,11 +69,11 @@ function ProductSubCategories() {
                         p: 2,
                     }}
                 >
-                    <FilterProducts props={filters} />
+                    <FilterProducts />
                 </Box>
                 <Box sx={productLayout}>
-                    {filteredProducts?.length ? (
-                        filteredProducts.map((drink, index) => (
+                    {products?.length ? (
+                        products.map((drink, index) => (
                             <AlcoholDrinks
                                 key={index}
                                 productSubCategory={drink.subCategory as IProductSubCategory}
