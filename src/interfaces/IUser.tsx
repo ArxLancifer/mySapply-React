@@ -1,5 +1,6 @@
 import { IModel } from "./IModel";
 import {IOrderItem} from "./IOrder";
+import {IProduct} from "./IAlcoholDrink";
 
 export interface IUserPost {
     username: string;
@@ -14,4 +15,5 @@ export interface IUser extends IModel {
     address: string;
     postalCode: string;
     orders: IOrderItem[];
+    favorites: IProduct[];
 }

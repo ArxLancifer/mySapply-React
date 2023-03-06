@@ -1,10 +1,11 @@
-import React, {useContext} from "react";
-import {IAlcoholDrink} from "../../../interfaces/IAlcoholDrink";
+import React, {useContext, useState} from "react";
+import {IAlcoholDrink, IProduct} from "../../../interfaces/IAlcoholDrink";
 import {Box, Container, Typography} from "@mui/material";
 import {IProductCategory, IProductSubCategory} from "../../../interfaces/ICategory";
 import {Link, useNavigate} from "react-router-dom";
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import axios from "axios";
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import axios, {AxiosResponse} from "axios";
 import AuthContext from "../../../components/store/auth/AuthContext";
 
 type Props = {
@@ -14,10 +15,14 @@ type Props = {
 
 function AlcoholDrinks({alcoholDrink, productSubCategory}: Props) {
     const {user} = useContext(AuthContext);
-    const navigate = useNavigate();
+    const [productId, setProductId] = useState<string>("");
 
     const onFavoriteIcon = async () => {
-        await axios.post(`http://localhost:5500/favorites`, {product: alcoholDrink, userId: user._id});
+        const response: AxiosResponse<string> = await axios.post(`http://localhost:5500/favorites`, {product: alcoholDrink, userId: user._id});
+        setProductId(response.data);
+        if (!response.data) {
+            user.favorites?.filter(f => f._id !== alcoholDrink._id);
+        }
     };
 
     return (
@@ -35,7 +40,10 @@ function AlcoholDrinks({alcoholDrink, productSubCategory}: Props) {
         }}>
             <Container>
                 <Box sx={{display: "flex", justifyContent: "end"}}>
-                    <FavoriteBorderIcon sx={{color: "#707070", cursor: "pointer"}} onClick={onFavoriteIcon}/>
+                    {productId === alcoholDrink._id || user.favorites?.some(f  => f._id === alcoholDrink._id)
+                        ? <FavoriteIcon sx={{color: "#DC3545", cursor: "pointer"}} onClick={onFavoriteIcon}/>
+                        : <FavoriteBorderIcon sx={{color: "#707070", cursor: "pointer"}} onClick={onFavoriteIcon}/>
+                    }
                 </Box>
                 <Link
                     className="link-style"
