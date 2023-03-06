@@ -10,7 +10,7 @@ import {
     Typography
 } from '@mui/material'
 import EuroSymbolIcon from '@mui/icons-material/EuroSymbol';
-import React, { ChangeEvent, useEffect, useState } from 'react';
+import React, {ChangeEvent, Fragment, useEffect, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {filterState, getProductsByPriceRange, getSubCategoryProducts} from "../../../../store/filters";
 import { useLocation } from 'react-router-dom';
@@ -37,11 +37,10 @@ function FilterProducts() {
     }, []);
 
     return (
-        <div>
+        <Fragment>
             <Typography variant='h5'>Φίλτρα</Typography>
-            <FormControlLabel control={<Checkbox id='offers' size='small' onChange={checkBoxHandler} />}
-                label="Προσφορές" />
-            <Box sx={{ mt: 4 }}>
+            <FormControlLabel control={<Checkbox id='offers' size='small' onChange={checkBoxHandler} />} label="Προσφορές" />
+            <Box sx={{ mt: 1 }}>
                 <Typography variant='subtitle1'>Εύρος τιμών</Typography>
                 <TextField
                     sx={{ width: { xs: "80%", lg: "40%" }, display: { xs: "block", lg: "inline-block", }, m: 1 }}
@@ -84,9 +83,8 @@ function FilterProducts() {
                     disableSwap
                 />
                 <Divider sx={{ my: 4 }} />
-                <Typography variant='subtitle1'>Brands</Typography>
             </Box>
-        </div>
+        </Fragment>
     )
 }
 

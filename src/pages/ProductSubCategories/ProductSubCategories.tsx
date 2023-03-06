@@ -16,7 +16,7 @@ const productLayout = {
     width: "76%",
     display: { xs: "grid" },
     gridTemplateColumns: { md: "repeat(1, 1fr)", lg: "repeat(4, 1fr)" },
-    gridAutoRows: { xs: "20vh", lg: "40vh" },
+    // gridAutoRows: { xs: "20vh", lg: "40vh" },
     gap: 3,
 };
 
@@ -64,9 +64,7 @@ function ProductSubCategories() {
                 <Box
                     sx={{
                         width: "24%",
-                        boxShadow: "0px 0px 10px -1px rgba(219,219,219,0.6)",
                         mr: 2,
-                        p: 2,
                     }}
                 >
                     <FilterProducts />

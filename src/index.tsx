@@ -6,6 +6,7 @@ import reportWebVitals from './reportWebVitals';
 import {BrowserRouter} from 'react-router-dom';
 import store from "./store/index";
 import {Provider} from "react-redux";
+import {Box} from "@mui/material";
 
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
@@ -15,7 +16,9 @@ root.render(
     <React.StrictMode>
         <BrowserRouter>
             <Provider store={store}>
-                <App/>
+                <Box sx={{backgroundColor: "#f1f1f1d1", py: 3}}>
+                    <App />
+                </Box>
             </Provider>
         </BrowserRouter>
     </React.StrictMode>
